@@ -27,9 +27,10 @@ Model.null <- brm(Q_overall ~ 1 + (1 | rater_id)+(1 | item_id),
                               warmup = 1000,
                               iter   = 2000,
                               chains = 4,
-                              inits  = "random",
+                              init  = "random",
                               cores  = 2,
-                              seed = 123)
+                              seed = 123,
+                              )
 
 
   
@@ -100,32 +101,33 @@ Model.Intersectional.QSGE<-brm(Q_overall ~ rater_race*(rater_gender+rater_age+de
 
 ########################Metrics and Transformation#####################
 
-Model.nullTransformed<-ggs(Model.null)
-Model.linear.ADTransformed<-ggs(Model.linear.AD)
-Model.linear.QSTransformed<-ggs(Model.linear.QS)
-Model.linear.QSGETransformed<-ggs(Model.linear.QS)
+# WAIC,ELPD, LOOIC,COnditional R2,Marginal R2
+# Model.nullTransformed<-ggs(Model.null)
+# Model.linear.ADTransformed<-ggs(Model.linear.AD)
+# Model.linear.QSTransformed<-ggs(Model.linear.QS)
+# Model.linear.QSGETransformed<-ggs(Model.linear.QS)
 
 Model.null.loo<-loo(Model.null)
 Model.null.r2<-performance::r2(Model.null)
 Model.linear.AD.loo<-loo(Model.linear.AD)
-Model.linear.AD.r2<-r2(Model.linear.AD)
+Model.linear.AD.r2<-performance::r2(Model.linear.AD)
 Model.linear.QS.loo<-loo(Model.linear.QS)
-Model.linear.QS.r2<-r2(Model.linear.QS)
+Model.linear.QS.r2<-performance::r2(Model.linear.QS)
 Model.linear.QSGE.loo<-loo(Model.linear.QSGE)
-Model.linear.QSGE.r2<-r2(Model.linear.QSGE)
+Model.linear.QSGE.r2<-performance::r2(Model.linear.QSGE)
 
 
-Model.null.fixed_effects <- fixef(Model.null)
-Model.null.random_effects <- ranef(Model.null)
-
-Model.linear.AD.fixed_effects <- fixef(Model.linear.AD)
-Model.linear.AD.random_effects <- ranef(Model.linear.AD)
-
-Model.linear.QS.fixed_effects <- fixef(Model.linear.QS)
-Model.linear.QS.random_effects <- ranef(Model.linear.QS)
-
-Model.linear.QSGE.fixed_effects <- fixef(Model.linear.QSGE)
-Model.linear.QSGE.random_effects <- ranef(Model.linear.QSGE)
+# Model.null.fixed_effects <- fixef(Model.null)
+# Model.null.random_effects <- ranef(Model.null)
+# 
+# Model.linear.AD.fixed_effects <- fixef(Model.linear.AD)
+# Model.linear.AD.random_effects <- ranef(Model.linear.AD)
+# 
+# Model.linear.QS.fixed_effects <- fixef(Model.linear.QS)
+# Model.linear.QS.random_effects <- ranef(Model.linear.QS)
+# 
+# Model.linear.QSGE.fixed_effects <- fixef(Model.linear.QSGE)
+# Model.linear.QSGE.random_effects <- ranef(Model.linear.QSGE)
 
 
 Model.Intersectional.ADTransformed<-ggs(Model.Intersectional.AD)
@@ -155,7 +157,122 @@ Model.linear.QSGE.waic<-waic(Model.linear.QSGE)
 Model.Intersectional.AD.waic<-waic(Model.Intersectional.AD)
 Model.Intersectional.QS.waic<-waic(Model.Intersectional.QS)
 Model.Intersectional.QSGE.waic<-waic(Model.Intersectional.QSGE)
- 
+
+
+
+
+
+# Coefficient table Table 6
+coefficients_table<-data.frame(col1="",col2="",col3="",col4="")
+# Null table
+model_summary.null <- summary(Model.null)
+fix=model_summary.null$fixed
+rand=model_summary.null$random
+fixrow=rownames(fix)
+
+for(name in fixrow){
+  insert_row<-fix[name,]
+  coefficients_table<-data.frame(col1=name,col2=insert_row$Estimate,col3=insert_row$`l-95% CI`,col4=insert_row$`u-95% CI`)
+}
+
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_item_id_intercept",col2=rand$item_id$Estimate,col3=rand$item_id$`l-95% CI`,col4=rand$item_id$`u-95% CI`))
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_conversation_id_intercept",col2=rand$rater_id$Estimate,col3=rand$rater_id$`l-95% CI`,col4=rand$rater_id$`u-95% CI`))
+
+
+# Linear AD
+model_summary.linear.AD<- summary(Model.linear.AD)
+fix=model_summary.linear.AD$fixed
+rand=model_summary.linear.AD$random
+fixrow=rownames(fix)
+for(name in fixrow){
+  insert_row<-fix[name,]
+  coefficients_table<-rbind(coefficients_table, data.frame(col1=name,col2=insert_row$Estimate,col3=insert_row$`l-95% CI`,col4=insert_row$`u-95% CI`))
+}
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_item_id_intercept",col2=rand$item_id$Estimate,col3=rand$item_id$`l-95% CI`,col4=rand$item_id$`u-95% CI`))
+                          coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_conversation_id_intercept",col2=rand$rater_id$Estimate,col3=rand$rater_id$`l-95% CI`,col4=rand$rater_id$`u-95% CI`))
+
+
+# Intersectional AD
+model_summary.Intersectional.AD<- summary(Model.Intersectional.AD)
+fix=model_summary.Intersectional.AD$fixed
+rand=model_summary.Intersectional.AD$random
+fixrow=rownames(fix)
+for(name in fixrow){
+  insert_row<-fix[name,]
+  coefficients_table<-rbind(coefficients_table, data.frame(col1=name,col2=insert_row$Estimate,col3=insert_row$`l-95% CI`,col4=insert_row$`u-95% CI`))
+}
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_item_id_intercept",col2=rand$item_id$Estimate,col3=rand$item_id$`l-95% CI`,col4=rand$item_id$`u-95% CI`))
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_conversation_id_intercept",col2=rand$rater_id$Estimate,col3=rand$rater_id$`l-95% CI`,col4=rand$rater_id$`u-95% CI`))
+
+write_csv(coefficients_table,"Table_6:AD_coeffecient.csv")
+
+
+
+
+
+# Coefficient table Table 5
+coefficients_table<-data.frame(col1="",col2="",col3="",col4="")
+
+# Linear QS
+model_summary.linear.QS<- summary(Model.linear.QS)
+fix=model_summary.linear.QS$fixed
+rand=model_summary.linear.QS$random
+fixrow=rownames(fix)
+for(name in fixrow){
+  insert_row<-fix[name,]
+  coefficients_table<-rbind(coefficients_table, data.frame(col1=name,col2=insert_row$Estimate,col3=insert_row$`l-95% CI`,col4=insert_row$`u-95% CI`))
+}
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_item_id_intercept",col2=rand$item_id$Estimate,col3=rand$item_id$`l-95% CI`,col4=rand$item_id$`u-95% CI`))
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_conversation_id_intercept",col2=rand$rater_id$Estimate,col3=rand$rater_id$`l-95% CI`,col4=rand$rater_id$`u-95% CI`))
+
+
+# Linear QSGE
+model_summary.linear.QSGE<- summary(Model.linear.QSGE)
+fix=model_summary.linear.QSGE$fixed
+rand=model_summary.linear.QSGE$random
+fixrow=rownames(fix)
+for(name in fixrow){
+  insert_row<-fix[name,]
+  coefficients_table<-rbind(coefficients_table, data.frame(col1=name,col2=insert_row$Estimate,col3=insert_row$`l-95% CI`,col4=insert_row$`u-95% CI`))
+}
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_item_id_intercept",col2=rand$item_id$Estimate,col3=rand$item_id$`l-95% CI`,col4=rand$item_id$`u-95% CI`))
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_conversation_id_intercept",col2=rand$rater_id$Estimate,col3=rand$rater_id$`l-95% CI`,col4=rand$rater_id$`u-95% CI`))
+
+# Intersectional QS
+model_summary.Intersectional.QS<- summary(Model.Intersectional.QS)
+fix=model_summary.Intersectional.QS$fixed
+rand=model_summary.Intersectional.QS$random
+fixrow=rownames(fix)
+for(name in fixrow){ 
+  insert_row<-fix[name,]
+  coefficients_table<-rbind(coefficients_table, data.frame(col1=name,col2=insert_row$Estimate,col3=insert_row$`l-95% CI`,col4=insert_row$`u-95% CI`))
+}
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_item_id_intercept",col2=rand$item_id$Estimate,col3=rand$item_id$`l-95% CI`,col4=rand$item_id$`u-95% CI`))
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_conversation_id_intercept",col2=rand$rater_id$Estimate,col3=rand$rater_id$`l-95% CI`,col4=rand$rater_id$`u-95% CI`))
+
+
+# Intersectional QSGE
+model_summary.Intersectional.QSGE<- summary(Model.Intersectional.QSGE)
+fix=model_summary.Intersectional.QSGE$fixed
+rand=model_summary.Intersectional.QSGE$random
+fixrow=rownames(fix)
+for(name in fixrow){
+  insert_row<-fix[name,]
+  coefficients_table<-rbind(coefficients_table, data.frame(col1=name,col2=insert_row$Estimate,col3=insert_row$`l-95% CI`,col4=insert_row$`u-95% CI`))
+}
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_item_id_intercept",col2=rand$item_id$Estimate,col3=rand$item_id$`l-95% CI`,col4=rand$item_id$`u-95% CI`))
+coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_conversation_id_intercept",col2=rand$rater_id$Estimate,col3=rand$rater_id$`l-95% CI`,col4=rand$rater_id$`u-95% CI`))
+
+write_csv(coefficients_table,"Table_5:QS_coeffecient.csv")
+
+
+
+
+
+
+example<-performance(Model.null)
+
+
 # ############Charts and Graphs##################
 
 # Define reference levels for gender and phase
