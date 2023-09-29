@@ -17,6 +17,32 @@ dices[m]<-as.numeric(as.character(dices[[m]]))
 }
 
 
+dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
+
+
+formula <- Q_overall~ rater_race * (rater_gender + rater_age) +
+  (1 | rater_id) + (1 | item_id)
+
+# Get prior specifications for the model
+priors <- get_prior(formula, data = dices, family = cumulative("probit"))
+
+
+
+
+
+Model.Intersectional.AD.Extra <- brm(
+  Q_overall ~ rater_race * (rater_gender + rater_age) +
+    (1 | rater_id) + (1 | item_id), 
+  data = dices,
+  family = cumulative("probit"),
+  prior = priors,           # Apply the specified priors
+  warmup = 1000,
+  iter = 4000,
+  chains = 4,
+  seed = 42,
+  backend='rstan',
+  cores = 4
+)
 ###################Models###########################
 # 
 # backend=cmdstanr
@@ -266,13 +292,55 @@ coefficients_table<-rbind(coefficients_table, data.frame(col1="sd_conversation_i
 write_csv(coefficients_table,"Table_5:QS_coeffecient.csv")
 
 
+posterior_samples_Model_Intersectional_AD <- posterior_samples(Model.Intersectional.AD)
 
 
 
+# Create a data frame with parameter names, medians, and credible intervals
+selected_columns <- select(posterior_samples,
+                           starts_with("b_"))
 
-example<-performance(Model.null)
+standardized_columns <- mutate(selected_columns, 
+                               across(everything(), .fns = ~ . / sd(.)))
+
+reshaped_data <- pivot_longer(standardized_columns,
+                              cols = everything(),
+                              names_to = "Parameter",
+                              values_to = "Value")
+
+parameter_summary_Model_Intersectionl_AD<- reshaped_data %>%
+  group_by(Parameter) %>%
+  reframe(
+    Median = median(Value),
+    CI = quantile(Value, c(0.025, 0.975)),
+    Direction = ifelse(Median > 0, "Positive", "Negative"),
+    Significance = ifelse(abs(Median) > 1.96, "Yes", "No"),  # Using a threshold for significance
+    Large = ifelse(abs(Median) > 0.5, "Yes", "No")  # Using a threshold for practical significance
+  )
+
+posterior_samples_Model.Intersectional.QSGE <- posterior_samples(Model.Intersectional.QSGE)
 
 
+selected_columns <- select(posterior_samples,
+                           starts_with("b_"))
+
+standardized_columns <- mutate(selected_columns, 
+                               across(everything(), .fns = ~ . / sd(.)))
+
+reshaped_data <- pivot_longer(standardized_columns,
+                              cols = everything(),
+                              names_to = "Parameter",
+                              values_to = "Value")
+
+parameter_summary_Model_Intersectionl_QSGE<- reshaped_data %>%
+  group_by(Parameter) %>%
+  reframe(
+    Median = median(Value),
+    CI = quantile(Value, c(0.025, 0.975)),
+    Direction = ifelse(Median > 0, "Positive", "Negative"),
+    Significance = ifelse(abs(Median) > 1.96, "Yes", "No"),  # Using a threshold for significance
+    Large = ifelse(abs(Median) > 0.5, "Yes", "No")  # Using a threshold for practical significance
+  )
 # ############Charts and Graphs##################
 
 # Define reference levels for gender and phase
