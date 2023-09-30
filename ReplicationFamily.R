@@ -98,7 +98,7 @@ Model.Intersectional.AD <- brm(
   family = cumulative("probit"),
   prior = priors4,
   warmup = 1000,
-  iter = 400,
+  iter = 4000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
