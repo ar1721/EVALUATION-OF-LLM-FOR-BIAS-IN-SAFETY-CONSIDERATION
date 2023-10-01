@@ -16,37 +16,11 @@ for(j in k){
 dices[m]<-as.numeric(as.character(dices[[m]]))
 }
 
-
-dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
-
-
-formula <- Q_overall~ rater_race * (rater_gender + rater_age) +
-  (1 | rater_id) + (1 | item_id)
-
-# Get prior specifications for the model
-priors <- get_prior(formula, data = dices, family = cumulative("probit"))
-
-
-
-
-
-Model.Intersectional.AD.Extra <- brm(
-  Q_overall ~ rater_race * (rater_gender + rater_age) +
-    (1 | rater_id) + (1 | item_id), 
-  data = dices,
-  family = cumulative("probit"),
-  prior = priors,           # Apply the specified priors
-  warmup = 1000,
-  iter = 4000,
-  chains = 4,
-  seed = 42,
-  backend='rstan',
-  cores = 4
-)
 ###################Models###########################
 # 
 # backend=cmdstanr
 # family=cumulative(probi)
+
 
 Model.null <- brm(Q_overall ~ 1 + (1 | rater_id)+(1 | item_id),
                               data   = dices,
