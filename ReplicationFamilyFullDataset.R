@@ -1,5 +1,5 @@
 # #########################Reading dices dataset#######################
-dices1=read.csv("https://github.com/google-research-datasets/dices-dataset/blob/35edd4d9369466114fd5830098f4693c52527128/350/diverse_safety_adversarial_dialog_350.csv?raw=true")
+dices1=read.csv("https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/350/diverse_safety_adversarial_dialog_350.csv")
 dices=dices1
 
 
@@ -13,17 +13,17 @@ dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), or
 # Create formula objects
 formula1 <- Q_overall ~ 1 + (1 | rater_id) + (1 | item_id)
 
-formula2 <- Q_overall ~ rater_race + rater_gender + rater_age + (1 | rater_id) + (1 | item_id)
+formula2 <- Q_overall ~ rater_raw_race + rater_gender + rater_age+ rater_education+ phase+ (1 | rater_id) + (1 | item_id)
 
-formula3 <- Q_overall ~ rater_race + rater_gender + rater_age + degree_of_harm + (1 | rater_id) + (1 | item_id)
+formula3 <- Q_overall ~ rater_raw_race + rater_gender + rater_age+ rater_education+ phase + degree_of_harm + (1 | rater_id) + (1 | item_id)
 
-formula4 <- Q_overall ~ rater_race * (rater_gender + rater_age) + (1 | rater_id) + (1 | item_id)
+formula4 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education+ phase) + (1 | rater_id) + (1 | item_id)
 
-formula5 <- Q_overall ~ rater_race * (rater_gender + rater_age + degree_of_harm) + (1 | rater_id) + (1 | item_id)
+formula5 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education+ phase + degree_of_harm) + (1 | rater_id) + (1 | item_id)
 
-formula6 <- Q_overall ~ rater_race * (rater_gender + rater_age + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
+formula6 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education+ phase + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
 
-formula7 <- Q_overall ~ rater_race +rater_gender + rater_age + degree_of_harm + (degree_of_harm | rater_id) + (1 | item_id)
+formula7 <- Q_overall ~ rater_raw_race +rater_gender + rater_age+ rater_education+ phase + degree_of_harm + (degree_of_harm | rater_id) + (1 | item_id)
 
 # Get prior specifications for the models
 priors1 <- get_prior(formula1, data = dices, family = cumulative("probit"))
@@ -193,12 +193,12 @@ Model.Intersectional.QSGE.fixed_effects <- fixef(Model.Intersectional.QSGE)
 Model.Intersectional.QSGE.random_effects <- ranef(Model.Intersectional.QSGE)
 
 elpd<-list(loo_results$Null_Model$elpd_loo,
-loo_results$Linear_AD$elpd_loo,
-loo_results$Intersectional_AD$elpd_loo,
-loo_results$Linear_QS$elpd_loo,
-loo_results$Linear_QSGE$elpd_loo,
-loo_results$Intersectional_QS$elpd_loo,
-loo_results$Intersectional_QSGE$elpd_loo)
+           loo_results$Linear_AD$elpd_loo,
+           loo_results$Intersectional_AD$elpd_loo,
+           loo_results$Linear_QS$elpd_loo,
+           loo_results$Linear_QSGE$elpd_loo,
+           loo_results$Intersectional_QS$elpd_loo,
+           loo_results$Intersectional_QSGE$elpd_loo)
 
 
 looic<-list(loo_results$Null_Model$looic,
@@ -210,7 +210,7 @@ looic<-list(loo_results$Null_Model$looic,
             loo_results$Intersectional_QSGE$looic)
 
 waic<-list(waic_results$Null_Model$waic,
-            waic_results$Linear_AD$waic,
+           waic_results$Linear_AD$waic,
            waic_results$Intersectional_AD$waic,
            waic_results$Linear_QS$waic,
            waic_results$Linear_QSGE$waic,
@@ -274,3 +274,16 @@ b7<-random_Model_Intersectional_QSGE$rater_id
 
 
 ##########GRAPHS##############
+posterior_predict_samples <- posterior_predict(Model.null, draws = 1000)
+
+# The 'draws' argument specifies the number of posterior predictive samples you want to generate.
+
+# You can then use these samples to make predictions or create predictive plots.
+
+# For example, to plot the posterior predictive distribution of a variable, you can use ggplot2:
+library(ggplot2)
+
+# Assuming 'my_variable' is the variable you want to visualize
+ggplot(data.frame(x = posterior_predict_samples$my_variable)) +
+  geom_density(aes(x = x), fill = "blue", alpha = 0.5) +
+  labs(title = "Posterior Predictive Distribution", x = "my_variable")
