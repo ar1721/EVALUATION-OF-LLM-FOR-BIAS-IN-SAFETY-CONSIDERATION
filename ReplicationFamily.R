@@ -31,6 +31,13 @@ formula6 <- Q_overall ~ rater_race * (rater_gender + rater_age + degree_of_harm)
 
 formula7 <- Q_overall ~ rater_race +rater_gender + rater_age + degree_of_harm + (degree_of_harm | rater_id) + (1 | item_id)
 
+
+formula8<- Q_overall ~ rater_gender * (rater_race + rater_age) + (1 | rater_id) + (1 | item_id)
+
+formula9<-Q_overall ~ rater_gender * (rater_race + rater_age + degree_of_harm) + (1 | rater_id) + (1 | item_id)
+
+formula10 <- Q_overall ~ rater_gender *(rater_race + rater_age + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
+
 # Get prior specifications for the models
 priors1 <- get_prior(formula1, data = dices, family = cumulative("probit"))
 priors2 <- get_prior(formula2, data = dices, family = cumulative("probit"))
@@ -134,143 +141,39 @@ Model.Intersectional.QSGE <- brm(
 
 
 
-###################Models###########################
-formula1<-Q_overall  ~ 1 + (1 | rater_id)+(1 | item_id)
-
-# Get prior specifications for the model
-priors <- get_prior(formula1, data = dices, family = cumulative("probit"))
-
-Model.null <- brm(
-  formula = formula1, 
-  data = dices,
-  family = cumulative("probit"),
-  prior = priors,           # Apply the specified priors
-  warmup = 1000,
-  iter = 4000,
-  chains = 4,
-  seed = 42,
-  backend='rstan',
-  cores = 4
+########################Metrics and Transformation#####################
+loo_results <- list(
+  Null_Model = loo(Model.null),
+  Linear_AD = loo(Model.linear.AD),
+  Linear_QS = loo(Model.linear.QS),
+  Linear_QSGE = loo(Model.linear.QSGE),
+  Intersectional_AD = loo(Model.Intersectional.AD),
+  Intersectional_QS = loo(Model.Intersectional.QS),
+  Intersectional_QSGE = loo(Model.Intersectional.QSGE)
 )
 
 
 
-
-
-
-
-
-Model.linear.AD<- brm(Q_overall ~ rater_race+rater_gender+rater_age +
-                        (1 | rater_id)+(1 | item_id), 
-                      data   = dices, 
-                      warmup = 1000, 
-                      iter   = 4000, 
-                      chains = 4, 
-                      init  = "random",
-                      
-                      cores  = 4,
-                      seed=42) 
-
-
-
-Model.linear.QS<-brm(Q_overall ~ rater_race+rater_gender+rater_age+degree_of_harm+
-                       (1 | rater_id)+(1 | item_id), 
-                     data  = dices, warmup = 1000,
-                     iter  = 4000, chains = 4, 
-                     seed  = 42, control = list(adapt_delta = 0.97),
-                     cores = 2)
-
-
-
-
-Model.linear.QSGE<-brm(Q_overall ~ rater_race+rater_gender+rater_age+degree_of_harm+
-                         (degree_of_harm | rater_id)+(1 | item_id), 
-                       data  = dices, warmup = 1000,
-                       iter  = 4000, chains = 4, 
-                       seed  = 42, control = list(adapt_delta = 0.97),
-                       cores = 2)
-
-
-
-
-Model.Intersectional.AD<-brm(Q_overall ~ rater_race*(rater_gender+rater_age)+
-                               (1 | rater_id)+(1 | item_id), 
-                             data  = dices, warmup = 1000,
-                             iter  = 4000, chains = 4, 
-                             seed  = 42, control = list(adapt_delta = 0.97),
-                             cores = 2)
-
-
-
-
-
-Model.Intersectional.QS<-brm(Q_overall ~ rater_race*(rater_gender+rater_age+degree_of_harm)+
-                               (1 | rater_id)+(1 | item_id), 
-                             data  = dices, warmup = 1000,
-                             iter  = 4000, chains = 4, 
-                             seed  = 42, control = list(adapt_delta = 0.97),
-                             cores = 2)
-
-
-
-
-Model.Intersectional.QSGE<-brm(Q_overall ~ rater_race*(rater_gender+rater_age+degree_of_harm)+
-                                 (degree_of_harm| rater_id)+(1 | item_id), 
-                               data  = dices, warmup = 1000,
-                               iter  = 4000, chains = 4, 
-                               seed  = 42, control = list(adapt_delta = 0.97),
-                               cores = 2)
-
-########################Metrics and Transformation#####################
-
-# WAIC,ELPD, LOOIC,COnditional R2,Marginal R2
-# Model.nullTransformed<-ggs(Model.null)
-# Model.linear.ADTransformed<-ggs(Model.linear.AD)
-# Model.linear.QSTransformed<-ggs(Model.linear.QS)
-# Model.linear.QSGETransformed<-ggs(Model.linear.QS)
-
 Model.null.loo<-loo(Model.null)
 Model.null.r2<-performance::r2(Model.null)
+
 Model.linear.AD.loo<-loo(Model.linear.AD)
 Model.linear.AD.r2<-performance::r2(Model.linear.AD)
+
 Model.linear.QS.loo<-loo(Model.linear.QS)
 Model.linear.QS.r2<-performance::r2(Model.linear.QS)
+
 Model.linear.QSGE.loo<-loo(Model.linear.QSGE)
 Model.linear.QSGE.r2<-performance::r2(Model.linear.QSGE)
 
-
-# Model.null.fixed_effects <- fixef(Model.null)
-# Model.null.random_effects <- ranef(Model.null)
-# 
-# Model.linear.AD.fixed_effects <- fixef(Model.linear.AD)
-# Model.linear.AD.random_effects <- ranef(Model.linear.AD)
-# 
-# Model.linear.QS.fixed_effects <- fixef(Model.linear.QS)
-# Model.linear.QS.random_effects <- ranef(Model.linear.QS)
-# 
-# Model.linear.QSGE.fixed_effects <- fixef(Model.linear.QSGE)
-# Model.linear.QSGE.random_effects <- ranef(Model.linear.QSGE)
-
-
-Model.Intersectional.ADTransformed<-ggs(Model.Intersectional.AD)
 Model.Intersectional.AD.loo<-loo(Model.Intersectional.AD)
 Model.Intersectional.AD.r2<-performance::r2(Model.Intersectional.AD)
-Model.Intersectional.AD.fixed_effects <- fixef(Model.Intersectional.AD)
-Model.Intersectional.AD.random_effects <- ranef(Model.Intersectional.AD)
 
-
-Model.Intersectional.QSTransformed<-ggs(Model.Intersectional.QS)
 Model.Intersectional.QS.loo<-loo(Model.Intersectional.QS)
 Model.Intersectional.QS.r2<-performance::r2(Model.Intersectional.QS)
-Model.Intersectional.QS.fixed_effects <- fixef(Model.Intersectional.QS)
-Model.Intersectional.QS.random_effects <- ranef(Model.Intersectional.QS)
 
-
-Model.Intersectional.QSGETransformed<-ggs(Model.Intersectional.QSGE)
 Model.Intersectional.QSGE.loo<-loo(Model.Intersectional.QSGE)
 Model.Intersectional.QSGE.r2<-performance::r2(Model.Intersectional.QSGE)
-Model.Intersectional.QSGE.fixed_effects <- fixef(Model.Intersectional.QSGE)
-Model.Intersectional.QSGE.random_effects <- ranef(Model.Intersectional.QSGE)
 
 Model.null.waic<-waic(Model.null)
 Model.linear.AD.waic<-waic(Model.linear.AD)
