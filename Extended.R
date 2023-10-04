@@ -21,7 +21,7 @@ priors9 <- get_prior(formula9, data = dices, family = cumulative("probit"))
 priors10 <- get_prior(formula10, data = dices, family = cumulative("probit"))
 
 
-Model.linear.AD <- brm(
+Model.intersectional.QS <- brm(
   formula = formula2,
   data = dices,
   family = cumulative("probit"),
@@ -33,7 +33,7 @@ Model.linear.AD <- brm(
   backend = 'rstan',
   cores = 4
 )
-Model.linear.AD <- brm(
+Model.intersectional.QS <- brm(
   formula = formula2,
   data = dices,
   family = cumulative("probit"),
@@ -45,7 +45,7 @@ Model.linear.AD <- brm(
   backend = 'rstan',
   cores = 4
 )
-Model.linear.AD <- brm(
+Model.intersectional.QS <- brm(
   formula = formula2,
   data = dices,
   family = cumulative("probit"),
@@ -66,12 +66,12 @@ formula12<-Q_overall ~ rater_age * (rater_raw_race + rater_gender + degree_of_ha
 
 formula13 <- Q_overall ~ rater_age *(rater_raw_race + rater_gender + degree_of_harm+rater_education+phase) + (degree_of_harm | rater_id) + (1 | item_id)
 
-priors8 <- get_prior(formula8, data = dices, family = cumulative("probit"))
-priors9 <- get_prior(formula9, data = dices, family = cumulative("probit"))
-priors10 <- get_prior(formula10, data = dices, family = cumulative("probit"))
+priors11 <- get_prior(formula8, data = dices, family = cumulative("probit"))
+priors12 <- get_prior(formula9, data = dices, family = cumulative("probit"))
+priors13 <- get_prior(formula10, data = dices, family = cumulative("probit"))
 
 
-Model.linear.AD <- brm(
+Model.intersectional.QS <- brm(
   formula = formula2,
   data = dices,
   family = cumulative("probit"),
@@ -83,7 +83,7 @@ Model.linear.AD <- brm(
   backend = 'rstan',
   cores = 4
 )
-Model.linear.AD <- brm(
+Model.intersectional.QS <- brm(
   formula = formula2,
   data = dices,
   family = cumulative("probit"),
@@ -95,7 +95,7 @@ Model.linear.AD <- brm(
   backend = 'rstan',
   cores = 4
 )
-Model.linear.AD <- brm(
+Model.intersectional.QS <- brm(
   formula = formula2,
   data = dices,
   family = cumulative("probit"),
@@ -110,18 +110,18 @@ Model.linear.AD <- brm(
 
 
 # Education
-formula11<- Q_overall ~ rater_education * (rater_raw_race +rater_gender +rater_age+phase) + (1 | rater_id) + (1 | item_id)
+formula14<- Q_overall ~ rater_education * (rater_raw_race +rater_gender +rater_age+phase) + (1 | rater_id) + (1 | item_id)
 
-formula12<-Q_overall ~ rater_education * (rater_raw_race + rater_gender + degree_of_harm+rater_age+phase) + (1 | rater_id) + (1 | item_id)
+formula15<-Q_overall ~ rater_education * (rater_raw_race + rater_gender + degree_of_harm+rater_age+phase) + (1 | rater_id) + (1 | item_id)
 
-formula13 <- Q_overall ~ rater_education *(rater_raw_race + rater_gender + degree_of_harm+rater_age+phase) + (degree_of_harm | rater_id) + (1 | item_id)
+formula16 <- Q_overall ~ rater_education *(rater_raw_race + rater_gender + degree_of_harm+rater_age+phase) + (degree_of_harm | rater_id) + (1 | item_id)
 
-priors8 <- get_prior(formula8, data = dices, family = cumulative("probit"))
-priors9 <- get_prior(formula9, data = dices, family = cumulative("probit"))
-priors10 <- get_prior(formula10, data = dices, family = cumulative("probit"))
+priors14 <- get_prior(formula8, data = dices, family = cumulative("probit"))
+priors15 <- get_prior(formula9, data = dices, family = cumulative("probit"))
+priors16 <- get_prior(formula10, data = dices, family = cumulative("probit"))
 
 
-Model.linear.AD <- brm(
+Model.intersectional.QS <- brm(
   formula = formula2,
   data = dices,
   family = cumulative("probit"),
@@ -133,7 +133,7 @@ Model.linear.AD <- brm(
   backend = 'rstan',
   cores = 4
 )
-Model.linear.AD <- brm(
+Model.intersectional.QS <- brm(
   formula = formula2,
   data = dices,
   family = cumulative("probit"),
@@ -145,7 +145,7 @@ Model.linear.AD <- brm(
   backend = 'rstan',
   cores = 4
 )
-Model.linear.AD <- brm(
+Model.intersectional.QS <- brm(
   formula = formula2,
   data = dices,
   family = cumulative("probit"),

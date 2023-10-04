@@ -5,10 +5,13 @@
 # install.packages("lmerTest", type="binary")
 # install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
 # install.packages("ellipsis" ,type="binary")
+install.packages("tidybayes")
 
 
 
 
+
+library(tidybayes)
 
 library(brms) # for the analysis
 library(haven) # to load the SPSS .sav file
@@ -293,18 +296,89 @@ b5<-random_Model_Intersectional_AD$rater_id
 b6<-random_Model_Intersectional_QS$rater_id
 b7<-random_Model_Intersectional_QSGE$rater_id
 
+# Define the parameter of interest (e.g., rater_age)
+parameter_df<-data_frame(Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+
+# Extract posterior samples for the parameter
+parameter_samples <- posterior_samples(Model.Intersectional.AD)
+colPosteriorall<-colnames(parameter_samples)
+colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
+
+for (i in colPosterior){
+print(i)
+# Calculate the median of the posterior distribution
+median_estimate <- median(parameter_samples[[i]])
+
+# Calculate the 95% Bayesian credible interval
+credible_interval <- quantile(parameter_samples[[i]], c(0.025, 0.975))
+
+# Calculate the probability of direction (96% chance of being positive)
+probability_direction <- mean(parameter_samples[[i]] > 0)
+
+# Calculate the probability of practical significance (95% chance of being > 0.05)
+probability_practical_significance <- mean(parameter_samples[[i]] > 0.05)
+
+# Calculate the probability of having a large effect (89% chance of being > 0.30)
+probability_large_effect <- mean(parameter_samples[[i]] > 0.30)
+
+parameter_df<-rbind(parameter_df,c(median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+
+}
+parameter_df<-parameter_df[-1,]
+# Print the results
 
 ##########GRAPHS##############
-posterior_predict_samples <- posterior_predict(Model.null, draws = 1000)
 
-# The 'draws' argument specifies the number of posterior predictive samples you want to generate.
+# Load the bayesplot package
+library(bayesplot)
 
-# You can then use these samples to make predictions or create predictive plots.
+# Assuming 'Model.Intersectional.AD' is your Bayesian model
+model <- Model.Intersectional.AD
 
-# For example, to plot the posterior predictive distribution of a variable, you can use ggplot2:
+# Define control variables
+control_variables <- data.frame(
+  gender = "Man",     # Set to the reference level
+  age = "millenial"         # Set to the average level
+)
+
+# Define race/ethnicity categories you want to analyze
+race_categories <- unique(dices$rater_race)
+
+# Initialize a data frame to store predictions
+predictions_df <- data.frame()
+
+# Loop through each race/ethnicity category
+for (race in race_categories) {
+  # Add the race/ethnicity category to the control variables
+  control_variables$rater_race <- race
+  
+  # Generate predictions for this combination of variables
+  predictions <- posterior_samples(model, newdata = control_variables, draws = 1000)
+  
+  # Calculate mean and credible interval for each prediction
+  mean_prediction <- apply(predictions, 2, mean)
+  ci_prediction <- apply(predictions, 2, PI, prob = 0.95)
+  
+  # Create a row for this race/ethnicity category
+  race_row <- data.frame(
+    Race_Ethnicity = race,
+    Mean_Likelihood = mean_prediction,
+    Lower_CI = ci_prediction[1, ],
+    Upper_CI = ci_prediction[2, ]
+  )
+  
+  # Append the row to the predictions data frame
+  predictions_df <- rbind(predictions_df, race_row)
+}
+
+# Create a plot
 library(ggplot2)
-
-# Assuming 'my_variable' is the variable you want to visualize
-ggplot(data.frame(x = posterior_predict_samples$my_variable)) +
-  geom_density(aes(x = x), fill = "blue", alpha = 0.5) +
-  labs(title = "Posterior Predictive Distribution", x = "my_variable")
+ggplot(predictions_df, aes(x = Race_Ethnicity, y = Mean_Likelihood)) +
+  geom_errorbar(aes(ymin = Lower_CI, ymax = Upper_CI), width = 0.2) +
+  geom_point(size = 3) +
+  labs(
+    title = "Likelihood of Rating a Conversation as 'Unsafe' by Race/Ethnicity",
+    x = "Race/Ethnicity",
+    y = "Estimated Likelihood (with 95% CI)"
+  ) +
+  theme_minimal()
