@@ -356,58 +356,8 @@ for (i in colPosterior){
   
 }
 parameter_dfQS<-parameter_df[-1,]
+
+
+
 ##########GRAPHS##############
-
-# Load the bayesplot package
-library(bayesplot)
-
-# Assuming 'Model.Intersectional.AD' is your Bayesian model
-model <- Model.Intersectional.AD
-
-# Define control variables
-control_variables <- data.frame(
-  gender = "Man",     # Set to the reference level
-  age = "millenial"         # Set to the average level
-)
-
-# Define race/ethnicity categories you want to analyze
-race_categories <- unique(dices$rater_race)
-
-# Initialize a data frame to store predictions
-predictions_df <- data.frame()
-
-# Loop through each race/ethnicity category
-for (race in race_categories) {
-  # Add the race/ethnicity category to the control variables
-  control_variables$rater_race <- race
-  
-  # Generate predictions for this combination of variables
-  predictions <- posterior_samples(model, newdata = control_variables, draws = 1000)
-  
-  # Calculate mean and credible interval for each prediction
-  mean_prediction <- apply(predictions, 2, mean)
-  ci_prediction <- apply(predictions, 2, PI, prob = 0.95)
-  
-  # Create a row for this race/ethnicity category
-  race_row <- data.frame(
-    Race_Ethnicity = race,
-    Mean_Likelihood = mean_prediction,
-    Lower_CI = ci_prediction[1, ],
-    Upper_CI = ci_prediction[2, ]
-  )
-  
-  # Append the row to the predictions data frame
-  predictions_df <- rbind(predictions_df, race_row)
-}
-
-# Create a plot
-library(ggplot2)
-ggplot(predictions_df, aes(x = Race_Ethnicity, y = Mean_Likelihood)) +
-  geom_errorbar(aes(ymin = Lower_CI, ymax = Upper_CI), width = 0.2) +
-  geom_point(size = 3) +
-  labs(
-    title = "Likelihood of Rating a Conversation as 'Unsafe' by Race/Ethnicity",
-    x = "Race/Ethnicity",
-    y = "Estimated Likelihood (with 95% CI)"
-  ) +
-  theme_minimal()
+conditional_QS_Intersectional<-conditional_effects(Model.Intersectional.QS,categorical=TRUE)
