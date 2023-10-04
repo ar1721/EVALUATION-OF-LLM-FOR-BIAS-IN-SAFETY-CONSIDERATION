@@ -327,6 +327,35 @@ parameter_df<-rbind(parameter_df,c(median_estimate,credible_interval,probability
 parameter_df<-parameter_df[-1,]
 # Print the results
 
+
+parameter_dfQS<-data_frame(Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+
+# Extract posterior samples for the parameter
+parameter_samples <- posterior_samples(Model.Intersectional.QSGE)
+colPosteriorall<-colnames(parameter_samples)
+colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
+
+for (i in colPosterior){
+  print(i)
+  # Calculate the median of the posterior distribution
+  median_estimate <- median(parameter_samples[[i]])
+  
+  # Calculate the 95% Bayesian credible interval
+  credible_interval <- quantile(parameter_samples[[i]], c(0.025, 0.975))
+  
+  # Calculate the probability of direction (96% chance of being positive)
+  probability_direction <- mean(parameter_samples[[i]] > 0)
+  
+  # Calculate the probability of practical significance (95% chance of being > 0.05)
+  probability_practical_significance <- mean(parameter_samples[[i]] > 0.05)
+  
+  # Calculate the probability of having a large effect (89% chance of being > 0.30)
+  probability_large_effect <- mean(parameter_samples[[i]] > 0.30)
+  
+  parameter_dfQS<-rbind(parameter_df,c(median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  
+}
+parameter_dfQS<-parameter_df[-1,]
 ##########GRAPHS##############
 
 # Load the bayesplot package
