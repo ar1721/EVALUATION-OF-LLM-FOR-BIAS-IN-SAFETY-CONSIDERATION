@@ -1,3 +1,24 @@
+# install.packages("haven")
+# install.packages("tidyverse")
+# install.packages("brms", type="binary")
+# install.packages("lme4", type="binary")
+# install.packages("lmerTest", type="binary")
+# install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+# install.packages("ellipsis" ,type="binary")
+
+
+
+
+
+library(brms) # for the analysis
+library(haven) # to load the SPSS .sav file
+library(tidyverse) # needed for data manipulation.
+library(RColorBrewer) # needed for some extra colours in one of the graphs
+library(ggmcmc)
+library(ggthemes)
+library(ggridges)
+library(loo)
+
 # #########################Reading dices dataset#######################
 dices1=read.csv("https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/350/diverse_safety_adversarial_dialog_350.csv")
 dices=dices1
@@ -13,17 +34,17 @@ dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), or
 # Create formula objects
 formula1 <- Q_overall ~ 1 + (1 | rater_id) + (1 | item_id)
 
-formula2 <- Q_overall ~ rater_raw_race + rater_gender + rater_age+ rater_education+ phase+ (1 | rater_id) + (1 | item_id)
+formula2 <- Q_overall ~ rater_raw_race + rater_gender + rater_age+ rater_education+ (1 | rater_id) + (1 | item_id)
 
-formula3 <- Q_overall ~ rater_raw_race + rater_gender + rater_age+ rater_education+ phase + degree_of_harm + (1 | rater_id) + (1 | item_id)
+formula3 <- Q_overall ~ rater_raw_race + rater_gender + rater_age+ rater_education + degree_of_harm + (1 | rater_id) + (1 | item_id)
 
-formula4 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education+ phase) + (1 | rater_id) + (1 | item_id)
+formula4 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula5 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education+ phase + degree_of_harm) + (1 | rater_id) + (1 | item_id)
+formula5 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education + degree_of_harm) + (1 | rater_id) + (1 | item_id)
 
-formula6 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education+ phase + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
+formula6 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
 
-formula7 <- Q_overall ~ rater_raw_race +rater_gender + rater_age+ rater_education+ phase + degree_of_harm + (degree_of_harm | rater_id) + (1 | item_id)
+formula7 <- Q_overall ~ rater_raw_race +rater_gender + rater_age+ rater_education + degree_of_harm + (degree_of_harm | rater_id) + (1 | item_id)
 
 # Get prior specifications for the models
 priors1 <- get_prior(formula1, data = dices, family = cumulative("probit"))
