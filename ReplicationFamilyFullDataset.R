@@ -1,15 +1,14 @@
-# install.packages("haven")
-# install.packages("tidyverse")
-# install.packages("brms", type="binary")
-# install.packages("lme4", type="binary")
-# install.packages("lmerTest", type="binary")
-# install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
-# install.packages("ellipsis" ,type="binary")
+install.packages("haven")
+install.packages("tidyverse")
+install.packages("brms", type="binary")
+install.packages("lme4", type="binary")
+install.packages("lmerTest", type="binary")
+install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+install.packages("ellipsis" ,type="binary")
 install.packages("tidybayes")
+install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
 
-
-
-
+library(cmdstanr)
 
 library(tidybayes)
 
@@ -68,8 +67,10 @@ Model.null <- brm(
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 4
+  threads = threading(8),
+  cores = 6
 )
+save(Model.null,file="Modelnull.RData")
 
 Model.linear.AD <- brm(
   formula = formula2,
@@ -81,8 +82,10 @@ Model.linear.AD <- brm(
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 4
+  threads = threading(8),
+  cores = 6
 )
+save(Model.linear.AD,file="ModellinearAD.RData")
 
 Model.linear.QS <- brm(
   formula = formula3,
@@ -93,9 +96,12 @@ Model.linear.QS <- brm(
   iter = 4000,
   chains = 4,
   seed = 42,
+  threads = threading(8),
   backend = 'rstan',
-  cores = 4
+  cores = 6
 )
+save(Model.linear.QS,file="ModellinearQS.RData")
+
 
 Model.linear.QSGE <- brm(
   formula = formula7,
@@ -106,9 +112,11 @@ Model.linear.QSGE <- brm(
   iter = 4000,
   chains = 4,
   seed = 42,
+  threads = threading(8),
   backend = 'rstan',
-  cores = 4
+  cores = 6
 )
+save(Model.linear.QSGE,file="ModellinearQSGE.RData")
 
 Model.Intersectional.AD <- brm(
   formula = formula4,
@@ -120,12 +128,14 @@ Model.Intersectional.AD <- brm(
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 4
+  threads = threading(8),
+  cores = 6
 )
 
 Model.Intersectional.QS <- brm(
   formula = formula5,
   data = dices,
+ 
   family = cumulative("probit"),
   prior = priors5,
   warmup = 1000,
@@ -305,24 +315,24 @@ colPosteriorall<-colnames(parameter_samples)
 colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
 
 for (i in colPosterior){
-print(i)
-# Calculate the median of the posterior distribution
-median_estimate <- median(parameter_samples[[i]])
-
-# Calculate the 95% Bayesian credible interval
-credible_interval <- quantile(parameter_samples[[i]], c(0.025, 0.975))
-
-# Calculate the probability of direction (96% chance of being positive)
-probability_direction <- mean(parameter_samples[[i]] > 0)
-
-# Calculate the probability of practical significance (95% chance of being > 0.05)
-probability_practical_significance <- mean(parameter_samples[[i]] > 0.05)
-
-# Calculate the probability of having a large effect (89% chance of being > 0.30)
-probability_large_effect <- mean(parameter_samples[[i]] > 0.30)
-
-parameter_df<-rbind(parameter_df,c(median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
-
+  print(i)
+  # Calculate the median of the posterior distribution
+  median_estimate <- median(parameter_samples[[i]])
+  
+  # Calculate the 95% Bayesian credible interval
+  credible_interval <- quantile(parameter_samples[[i]], c(0.025, 0.975))
+  
+  # Calculate the probability of direction (96% chance of being positive)
+  probability_direction <- mean(parameter_samples[[i]] > 0)
+  
+  # Calculate the probability of practical significance (95% chance of being > 0.05)
+  probability_practical_significance <- mean(parameter_samples[[i]] > 0.05)
+  
+  # Calculate the probability of having a large effect (89% chance of being > 0.30)
+  probability_large_effect <- mean(parameter_samples[[i]] > 0.30)
+  
+  parameter_df<-rbind(parameter_df,c(median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  
 }
 parameter_df<-parameter_df[-1,]
 # Print the results
