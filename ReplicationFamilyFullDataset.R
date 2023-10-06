@@ -131,6 +131,8 @@ Model.Intersectional.AD <- brm(
   threads = threading(8),
   cores = 6
 )
+save(Model.Intersectional.AD,file="ModelIntersectionalAD.RData")
+
 
 Model.Intersectional.QS <- brm(
   formula = formula5,
@@ -143,8 +145,11 @@ Model.Intersectional.QS <- brm(
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 4
+  threads = threading(8),
+  cores = 6
 )
+save(Model.Intersectional.QS,file="ModelIntersectionalQS.RData")
+
 
 Model.Intersectional.QSGE <- brm(
   formula = formula6,
@@ -156,8 +161,10 @@ Model.Intersectional.QSGE <- brm(
   chains = 4,
   seed = 42,
   backend = 'rstan',
+  threads = threading(8),
   cores = 4
 )
+save(Model.Intersectional.QSGE,file="ModelIntersectionalQSGE.RData")
 
 
 ########################Metrics and Transformation#####################
