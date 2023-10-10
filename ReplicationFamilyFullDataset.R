@@ -36,17 +36,17 @@ dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), or
 # Create formula objects
 formula1 <- Q_overall ~ 1 + (1 | rater_id) + (1 | item_id)
 
-formula2 <- Q_overall ~ rater_raw_race + rater_gender + rater_age+ rater_education+ (1 | rater_id) + (1 | item_id)
+formula2 <- Q_overall ~ rater_race + rater_gender + rater_age+ rater_education+ (1 | rater_id) + (1 | item_id)
 
-formula3 <- Q_overall ~ rater_raw_race + rater_gender + rater_age+ rater_education + degree_of_harm + (1 | rater_id) + (1 | item_id)
+formula3 <- Q_overall ~ rater_race + rater_gender + rater_age+ rater_education + degree_of_harm + (1 | rater_id) + (1 | item_id)
 
-formula4 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education) + (1 | rater_id) + (1 | item_id)
+formula4 <- Q_overall ~ rater_race * (rater_gender + rater_age+ rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula5 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education + degree_of_harm) + (1 | rater_id) + (1 | item_id)
+formula5 <- Q_overall ~ rater_race * (rater_gender + rater_age+ rater_education + degree_of_harm) + (1 | rater_id) + (1 | item_id)
 
-formula6 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+ rater_education + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
+formula6 <- Q_overall ~ rater_race * (rater_gender + rater_age+ rater_education + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
 
-formula7 <- Q_overall ~ rater_raw_race +rater_gender + rater_age+ rater_education + degree_of_harm + (degree_of_harm | rater_id) + (1 | item_id)
+formula7 <- Q_overall ~ rater_race +rater_gender + rater_age+ rater_education + degree_of_harm + (degree_of_harm | rater_id) + (1 | item_id)
 
 # Get prior specifications for the models
 priors1 <- get_prior(formula1, data = dices, family = cumulative("probit"))
@@ -56,6 +56,12 @@ priors4 <- get_prior(formula4, data = dices, family = cumulative("probit"))
 priors5 <- get_prior(formula5, data = dices, family = cumulative("probit"))
 priors6 <- get_prior(formula6, data = dices, family = cumulative("probit"))
 priors7 <- get_prior(formula7, data = dices, family = cumulative("probit"))
+
+prior_thresholds <- c(
+  prior(normal(.440,0.5), class=Intercept, coef=1),
+  prior(normal(.583,0.5), class=Intercept, coef=2),
+  prior(student_t(3,0,1), class="b")
+)
 # Create brm models
 Model.null <- brm(
   formula = formula1,
@@ -122,15 +128,12 @@ Model.Intersectional.AD <- brm(
   formula = formula4,
   data = dices,
   family = cumulative("probit"),
-  prior = priors4,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  init=0,
-  control=list(adapt_delta=0.97),
-  sample_prior = "yes",
   cores = 6
 )
 save(Model.Intersectional.AD,file="ModelIntersectionalAD.RData")
@@ -139,17 +142,17 @@ save(Model.Intersectional.AD,file="ModelIntersectionalAD.RData")
 Model.Intersectional.QS <- brm(
   formula = formula5,
   data = dices,
- 
   family = cumulative("probit"),
   prior = priors5,
-  warmup = 1000,
-  iter = 4000,
+  warmup = 400,
+  iter = 1000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
   init=0,
   control=list(adapt_delta=0.97),
-  sample_prior = "yes",
+  sample_prior = TRUE,
+  threads = threading(10),
   cores = 6
 )
 save(Model.Intersectional.QS,file="ModelIntersectionalQS.RData")
