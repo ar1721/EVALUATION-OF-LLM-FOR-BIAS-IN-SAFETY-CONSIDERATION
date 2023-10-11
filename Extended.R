@@ -22,7 +22,6 @@ prior_thresholds <- c(
   prior(student_t(3,0,1), class="b")
 )
 
-prior8<-set_prior("normal()")
 Model.intersectional.AD.Gender <- brm(
   formula = formula8,
   data = dices,

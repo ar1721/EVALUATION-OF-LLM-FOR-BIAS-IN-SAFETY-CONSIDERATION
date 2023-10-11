@@ -52,14 +52,17 @@ formula7 <- Q_overall ~ rater_race +rater_gender + rater_age+ rater_education + 
 prior_thresholds <- c(
   prior(normal(.440,0.5), class=Intercept, coef=1),
   prior(normal(.583,0.5), class=Intercept, coef=2),
-  prior(student_t(3,0,1), class="b")
+  prior(student_t(3,0,2.5), class="b")
 )
+
+priors1 <- get_prior(formula1, data = dices, family = cumulative("probit"))
+
 # Create brm models
 Model.null <- brm(
   formula = formula1,
   data = dices,
   family = cumulative("probit"),
-  prior = prior_thresholds,
+  prior = priors1,
   warmup = 1000,
   iter = 2000,
   chains = 4,
