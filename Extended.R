@@ -26,7 +26,7 @@ Model.intersectional.AD.Gender <- brm(
   formula = formula8,
   data = dices,
   family = cumulative("probit"),
-  prior = priors8,
+  prior = prior_thresholds,
   warmup = 1000,
   iter = 2000,
   chains = 4,
@@ -41,7 +41,7 @@ Model.intersectional.QS.Gender <- brm(
   formula = formula9,
   data = dices,
   family = cumulative("probit"),
-  prior = priors9,
+  prior = prior_thresholds,
   warmup = 1000,
   iter = 2000,
   chains = 4,
@@ -56,7 +56,7 @@ Model.intersectional.QSGE.Gender <- brm(
   formula = formula10,
   data = dices,
   family = cumulative("probit"),
-  prior = priors10,
+  prior = prior_thresholds,
   warmup = 1000,
   iter = 2000,
   chains = 4,
@@ -75,46 +75,42 @@ formula12<-Q_overall ~ rater_age * (rater_raw_race + rater_gender + degree_of_ha
 
 formula13 <- Q_overall ~ rater_age *(rater_raw_race + rater_gender + degree_of_harm+rater_education+phase) + (degree_of_harm | rater_id) + (1 | item_id)
 
-priors11 <- get_prior(formula8, data = dices, family = cumulative("probit"))
-priors12 <- get_prior(formula9, data = dices, family = cumulative("probit"))
-priors13 <- get_prior(formula10, data = dices, family = cumulative("probit"))
-
 
 Model.intersectional.QS <- brm(
-  formula = formula2,
+  formula = formula11,
   data = dices,
   family = cumulative("probit"),
-  prior = priors2,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 4
+  cores = 8
 )
 Model.intersectional.QS <- brm(
-  formula = formula2,
+  formula = formula12,
   data = dices,
   family = cumulative("probit"),
-  prior = priors2,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 4
+  cores = 8
 )
 Model.intersectional.QS <- brm(
-  formula = formula2,
+  formula = formula13,
   data = dices,
   family = cumulative("probit"),
-  prior = priors2,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 4
+  cores = 8
 )
 
 
@@ -125,46 +121,41 @@ formula15<-Q_overall ~ rater_education * (rater_raw_race + rater_gender + degree
 
 formula16 <- Q_overall ~ rater_education *(rater_raw_race + rater_gender + degree_of_harm+rater_age+phase) + (degree_of_harm | rater_id) + (1 | item_id)
 
-priors14 <- get_prior(formula8, data = dices, family = cumulative("probit"))
-priors15 <- get_prior(formula9, data = dices, family = cumulative("probit"))
-priors16 <- get_prior(formula10, data = dices, family = cumulative("probit"))
-
-
 Model.intersectional.QS <- brm(
-  formula = formula2,
+  formula = formula14,
   data = dices,
   family = cumulative("probit"),
-  prior = priors2,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 4
+  cores = 8
 )
 Model.intersectional.QS <- brm(
-  formula = formula2,
+  formula = formula15,
   data = dices,
   family = cumulative("probit"),
-  prior = priors2,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 4
+  cores = 8
 )
 Model.intersectional.QS <- brm(
-  formula = formula2,
+  formula = formula16,
   data = dices,
   family = cumulative("probit"),
-  prior = priors2,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 4
+  cores = 8
 )
 
 #####################Reference Level Complement######################
