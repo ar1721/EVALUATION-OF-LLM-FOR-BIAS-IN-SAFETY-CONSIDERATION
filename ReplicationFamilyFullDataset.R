@@ -49,14 +49,6 @@ formula6 <- Q_overall ~ rater_race * (rater_gender + rater_age+ rater_education 
 formula7 <- Q_overall ~ rater_race +rater_gender + rater_age+ rater_education + degree_of_harm + (degree_of_harm | rater_id) + (1 | item_id)
 
 # Get prior specifications for the models
-priors1 <- get_prior(formula1, data = dices, family = cumulative("probit"))
-priors2 <- get_prior(formula2, data = dices, family = cumulative("probit"))
-priors3 <- get_prior(formula3, data = dices, family = cumulative("probit"))
-priors4 <- get_prior(formula4, data = dices, family = cumulative("probit"))
-priors5 <- get_prior(formula5, data = dices, family = cumulative("probit"))
-priors6 <- get_prior(formula6, data = dices, family = cumulative("probit"))
-priors7 <- get_prior(formula7, data = dices, family = cumulative("probit"))
-
 prior_thresholds <- c(
   prior(normal(.440,0.5), class=Intercept, coef=1),
   prior(normal(.583,0.5), class=Intercept, coef=2),
@@ -67,14 +59,13 @@ Model.null <- brm(
   formula = formula1,
   data = dices,
   family = cumulative("probit"),
-  prior = priors1,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  threads = threading(8),
-  cores = 6
+  cores = 8
 )
 save(Model.null,file="Modelnull.RData")
 
@@ -82,14 +73,14 @@ Model.linear.AD <- brm(
   formula = formula2,
   data = dices,
   family = cumulative("probit"),
-  prior = priors2,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
   threads = threading(8),
-  cores = 6
+  cores = 8
 )
 save(Model.linear.AD,file="ModellinearAD.RData")
 
@@ -97,14 +88,13 @@ Model.linear.QS <- brm(
   formula = formula3,
   data = dices,
   family = cumulative("probit"),
-  prior = priors3,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
-  threads = threading(8),
   backend = 'rstan',
-  cores = 6
+  cores = 8
 )
 save(Model.linear.QS,file="ModellinearQS.RData")
 
@@ -113,14 +103,13 @@ Model.linear.QSGE <- brm(
   formula = formula7,
   data = dices,
   family = cumulative("probit"),
-  prior = priors7,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
-  threads = threading(8),
   backend = 'rstan',
-  cores = 6
+  cores = 8
 )
 save(Model.linear.QSGE,file="ModellinearQSGE.RData")
 
@@ -134,7 +123,7 @@ Model.Intersectional.AD <- brm(
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 6
+  cores = 8
 )
 save(Model.Intersectional.AD,file="ModelIntersectionalAD.RData")
 
@@ -143,17 +132,13 @@ Model.Intersectional.QS <- brm(
   formula = formula5,
   data = dices,
   family = cumulative("probit"),
-  prior = priors5,
-  warmup = 400,
-  iter = 1000,
+  prior = prior_thresholds,
+  warmup = 1000,
+  iter = 2000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  init=0,
-  control=list(adapt_delta=0.97),
-  sample_prior = TRUE,
-  threads = threading(10),
-  cores = 6
+  cores = 8
 )
 save(Model.Intersectional.QS,file="ModelIntersectionalQS.RData")
 
@@ -162,17 +147,13 @@ Model.Intersectional.QSGE <- brm(
   formula = formula6,
   data = dices,
   family = cumulative("probit"),
-  prior = priors6,
+  prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 2000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  threads = threading(8),
-  init=0,
-  control=list(adapt_delta=0.97),
-  sample_prior = "yes",
-  cores = 4
+  cores = 8
 )
 save(Model.Intersectional.QSGE,file="ModelIntersectionalQSGE.RData")
 
