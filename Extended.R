@@ -16,9 +16,11 @@ formula9<-Q_overall ~ rater_gender * (rater_raw_race + rater_age + degree_of_har
 
 formula10 <- Q_overall ~ rater_gender *(rater_raw_race + rater_age + degree_of_harm+rater_education) + (degree_of_harm | rater_id) + (1 | item_id)
 
-priors8 <- get_prior(formula8, data = dices, family = cumulative("probit"))
-priors9 <- get_prior(formula9, data = dices, family = cumulative("probit"))
-priors10 <- get_prior(formula10, data = dices, family = cumulative("probit"))
+prior_thresholds <- c(
+  prior(normal(.440,0.5), class=Intercept, coef=1),
+  prior(normal(.583,0.5), class=Intercept, coef=2),
+  prior(student_t(3,0,1), class="b")
+)
 
 prior8<-set_prior("normal()")
 Model.intersectional.AD.Gender <- brm(
