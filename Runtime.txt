@@ -30,3 +30,5 @@ Model.intersec.AD.Gender->
 Model.intersec.QS.Gender->
 
 Model.intersec.QSGE.Gender->
+2000
+ Elapsed Time: 6570.18 seconds (Warm-up)Chain 3:                2524.97 seconds (Sampling)Chain 3:                9095.15 seconds (Total)Chain 3: Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)Chain 4: Chain 4:  Elapsed Time: 6622.68 seconds (Warm-up)Chain 4:                2521.12 seconds (Sampling)Chain 4:                9143.79 seconds (Total)Chain 4: Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)Chain 2: Chain 2:  Elapsed Time: 6846.8 seconds (Warm-up)Chain 2:                2445.57 seconds (Sampling)Chain 2:                9292.37 seconds (Total)Chain 2: Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)Chain 1: Chain 1:  Elapsed Time: 6565.24 seconds (Warm-up)Chain 1:                2764.88 seconds (Sampling)Chain 1:                9330.12 seconds (Total)

@@ -152,7 +152,7 @@ Model.Intersectional.QSGE <- brm(
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
@@ -397,6 +397,7 @@ effects=names(b)
 k=1
 for(n in b){
   effect_name=effects[k]
+  effect_name<-gsub(':','',effect_name)
   plot_filename <- paste0(output_dir, effect_name, "_plot2.png")  # Adjust the file format if needed
   ggsave(filename = plot_filename, plot = n, width = 8, height = 6)  # Adjust width and height as needed
   k=k+1
@@ -406,6 +407,7 @@ effects=names(c)
 k=1
 for(o in c){
   effect_name=effects[k]
+  effect_name<-gsub(':','',effect_name)
   plot_filename <- paste0(output_dir, effect_name, "_plot3.png")  # Adjust the file format if needed
   ggsave(filename = plot_filename, plot = o, width = 8, height = 6)  # Adjust width and height as needed
   k=k+1
