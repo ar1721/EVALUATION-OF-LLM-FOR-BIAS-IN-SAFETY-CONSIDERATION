@@ -60,10 +60,9 @@ Model.intersectional.QSGE.Gender <- brm(
   warmup = 1000,
   iter = 2000,
   chains = 4,
-  seed = 42,
+  seed = 123,
   backend = 'rstan',
-  threads = threading(8),
-  cores = 6
+  cores = 8
 )
 
 save(Model.intersectional.QSGE.Gender,file="ModelIntersectionalQSGEGender.RData")

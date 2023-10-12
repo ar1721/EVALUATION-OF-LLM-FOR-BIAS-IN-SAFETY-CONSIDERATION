@@ -1,3 +1,8 @@
+Model.null->
+Chain 1: Chain 1:  Elapsed Time: 318.275 seconds (Warm-up)Chain 1:                3929.46 seconds (Sampling)Chain 1:                4247.73 seconds (Total)Chain 1: Chain 2: Iteration: 4000 / 4000 [100%]  (Sampling)Chain 3: Iteration: 4000 / 4000 [100%]  (Sampling)Chain 2: Chain 2:  Elapsed Time: 345.801 seconds (Warm-up)Chain 2:                3920.7 seconds (Sampling)Chain 2:                4266.5 seconds (Total)Chain 2: Chain 3: Chain 3:  Elapsed Time: 340.284 seconds (Warm-up)Chain 3:                3925.69 seconds (Sampling)Chain 3:                4265.97 seconds (Total)Chain 3: Chain 4: Iteration: 3800 / 4000 [ 95%]  (Sampling)Chain 4: Iteration: 4000 / 4000 [100%]  (Sampling)Chain 4: Chain 4:  Elapsed Time: 469.005 seconds (Warm-up)Chain 4:                3865.39 seconds (Sampling)Chain 4:                4334.39 seconds (Total)Chain 4: 
+
+
+
 Model.linear.ad->
 Chain 4: Chain 4:  Elapsed Time: 625.14 seconds (Warm-up)Chain 4:                797.338 seconds (Sampling)Chain 4:                1422.48 seconds (Total)Chain 4: Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)Chain 2: Chain 2:  Elapsed Time: 577.792 seconds (Warm-up)Chain 2:                851.698 seconds (Sampling)Chain 2:                1429.49 seconds (Total)Chain 2: Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)Chain 3: Chain 3:  Elapsed Time: 625.213 seconds (Warm-up)Chain 3:                805.01 seconds (Sampling)Chain 3:                1430.22 seconds (Total)Chain 3: Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)Chain 1: Chain 1:  Elapsed Time: 677.396 seconds (Warm-up)Chain 1:                767.525 seconds (Sampling)Chain 1:                1444.92 seconds (Total)Chain 1: 
 
@@ -17,3 +22,11 @@ Chain 3: Chain 3:  Elapsed Time: 5315.71 seconds (Warm-up)Chain 3:            
 
 Model.inter.qsge->
 Chain 3: Chain 3:  Elapsed Time: 9749 seconds (Warm-up)Chain 3:                60677.1 seconds (Sampling)Chain 3:                70426.1 seconds (Total)Chain 3: Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)Chain 1: Chain 1:  Elapsed Time: 9785.02 seconds (Warm-up)Chain 1:                60656.5 seconds (Sampling)Chain 1:                70441.5 seconds (Total)Chain 1: Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)Chain 2: Chain 2:  Elapsed Time: 10382.1 seconds (Warm-up)Chain 2:                60106.9 seconds (Sampling)Chain 2:                70489 seconds (Total)Chain 2: Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)Chain 4: Chain 4:  Elapsed Time: 10345.6 seconds (Warm-up)Chain 4:                60174.9 seconds (Sampling)Chain 4:                70520.4 seconds (Total)Chain 4: 
+
+
+Model.intersec.AD.Gender->
+
+
+Model.intersec.QS.Gender->
+
+Model.intersec.QSGE.Gender->

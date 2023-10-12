@@ -64,7 +64,7 @@ Model.null <- brm(
   family = cumulative("probit"),
   prior = priors1,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
@@ -380,7 +380,7 @@ a=plot(conditional_QS_Intersectional)
 b=plot(conditional_AD_Intersectional)
 c=plot(conditional_QSGE_Intersectional)
 
-output_dir="/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/"
+output_dir="/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/Plots_fulldataset/"
 
 effects=names(a)
 k=1
