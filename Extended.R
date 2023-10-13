@@ -58,7 +58,7 @@ Model.intersectional.QSGE.Gender <- brm(
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 123,
   backend = 'rstan',
