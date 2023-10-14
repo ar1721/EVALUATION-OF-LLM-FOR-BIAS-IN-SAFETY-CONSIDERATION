@@ -380,7 +380,7 @@ a=plot(conditional_QS_Intersectional)
 b=plot(conditional_AD_Intersectional)
 c=plot(conditional_QSGE_Intersectional)
 
-output_dir="/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/Plots_fulldataset/"
+output_dir="/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/Plots_raw/"
 
 effects=names(a)
 k=1
