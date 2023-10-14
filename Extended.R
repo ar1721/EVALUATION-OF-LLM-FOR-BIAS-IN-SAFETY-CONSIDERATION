@@ -68,95 +68,102 @@ Model.intersectional.QSGE.Gender <- brm(
 save(Model.intersectional.QSGE.Gender,file="ModelIntersectionalQSGEGender.RData")
 
 # Age
-formula11<- Q_overall ~ rater_age * (rater_raw_race +rater_gender +rater_education+phase) + (1 | rater_id) + (1 | item_id)
+formula11<- Q_overall ~ rater_age * (rater_raw_race +rater_gender +rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula12<-Q_overall ~ rater_age * (rater_raw_race + rater_gender + degree_of_harm+rater_education+phase) + (1 | rater_id) + (1 | item_id)
+formula12<-Q_overall ~ rater_age * (rater_raw_race + rater_gender + degree_of_harm+rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula13 <- Q_overall ~ rater_age *(rater_raw_race + rater_gender + degree_of_harm+rater_education+phase) + (degree_of_harm | rater_id) + (1 | item_id)
+formula13 <- Q_overall ~ rater_age *(rater_raw_race + rater_gender + degree_of_harm+rater_education) + (degree_of_harm | rater_id) + (1 | item_id)
 
 
-Model.intersectional.QS <- brm(
+Model.intersectional.AD.Age <- brm(
   formula = formula11,
   data = dices,
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
   cores = 8
 )
-Model.intersectional.QS <- brm(
+Model.intersectional.QS.Age <- brm(
   formula = formula12,
   data = dices,
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
   cores = 8
 )
-Model.intersectional.QS <- brm(
+Model.intersectional.QSGE.Age <- brm(
   formula = formula13,
   data = dices,
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
   cores = 8
 )
-
+save(Model.intersectional.AD.Age,file="ModelIntersectionalADAge.RData")
+save(Model.intersectional.QS.Age,file="ModelIntersectionalQSAge.RData")
+save(Model.intersectional.QSGE.Age,file="ModelIntersectionalQSGEAge.RData")
 
 # Education
-formula14<- Q_overall ~ rater_education * (rater_raw_race +rater_gender +rater_age+phase) + (1 | rater_id) + (1 | item_id)
+formula14<- Q_overall ~ rater_education * (rater_raw_race +rater_gender +rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula15<-Q_overall ~ rater_education * (rater_raw_race + rater_gender + degree_of_harm+rater_age+phase) + (1 | rater_id) + (1 | item_id)
+formula15<-Q_overall ~ rater_education * (rater_raw_race + rater_gender + degree_of_harm+rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula16 <- Q_overall ~ rater_education *(rater_raw_race + rater_gender + degree_of_harm+rater_age+phase) + (degree_of_harm | rater_id) + (1 | item_id)
+formula16 <- Q_overall ~ rater_education *(rater_raw_race + rater_gender + degree_of_harm+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
 
-Model.intersectional.QS <- brm(
+Model.intersectional.AD.Education <- brm(
   formula = formula14,
   data = dices,
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
   cores = 8
 )
-Model.intersectional.QS <- brm(
+Model.intersectional.QS.Education <- brm(
   formula = formula15,
   data = dices,
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
   cores = 8
 )
-Model.intersectional.QS <- brm(
+Model.intersectional.QSGE.Education <- brm(
   formula = formula16,
   data = dices,
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,
   backend = 'rstan',
   cores = 8
 )
+save(Model.intersectional.AD.Education,file="ModelIntersectionalADEducation.RData")
+save(Model.intersectional.QS.Education,file="ModelIntersectionalQSEducation.RData")
+save(Model.intersectional.QSGE.Education,file="ModelIntersectionalQSGEEducation.RData")
 
+
+##################################Plots##########################
 conditional_QS_Intersectional<-conditional_effects(Model.intersectional.AD.Gender)
 conditional_AD_Intersectional<-conditional_effects(Model.intersectional.QS.Gender)
 conditional_QSGE_Intersectional<-conditional_effects(Model.intersectional.QSGE.Gender)
