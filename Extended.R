@@ -162,7 +162,25 @@ save(Model.intersectional.AD.Education,file="ModelIntersectionalADEducation.RDat
 save(Model.intersectional.QS.Education,file="ModelIntersectionalQSEducation.RData")
 save(Model.intersectional.QSGE.Education,file="ModelIntersectionalQSGEEducation.RData")
 
+##################################Fitness########################
 
+loo_results <- list(
+  Intersectional_AD = loo(Model.intersectional.AD.Gender),
+  Intersectional_QS = loo(Model.intersectional.QS.Gender),
+  Intersectional_QSGE = loo(Model.intersectional.QSGE.Gender)
+)
+
+waic_results <- list( 
+                      Intersectional_AD = waic(Model.intersectional.AD.Gender),
+                      Intersectional_QS = waic(Model.intersectional.QS.Gender),
+                      Intersectional_QSGE = waic(Model.intersectional.QSGE.Gender) )
+
+
+
+r2_results<-list( 
+                  Modelraw_Intersectional_AD_r2=performance::r2(Model.intersectional.AD.Gender),
+                  Modelraw_Intersectional_QS_r2=performance::r2(Model.intersectional.QS.Gender),
+                  Modelraw_Intersectional_QSGE_r2=performance::r2(Model.intersectional.QSGE.Gender))
 ##################################Plots##########################
 conditional_QS_Intersectional<-conditional_effects(Model.intersectional.AD.Gender)
 conditional_AD_Intersectional<-conditional_effects(Model.intersectional.QS.Gender)
