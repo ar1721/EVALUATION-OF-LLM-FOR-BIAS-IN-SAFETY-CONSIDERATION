@@ -202,7 +202,7 @@ r2_results<-list( Modelraw_null_r2=performance::r2(Modelraw.null),
                   Modelraw_Intersectional_AD_r2=performance::r2(Modelraw.Intersectional.AD),
                   Modelraw_Intersectional_QS_r2=performance::r2(Modelraw.Intersectional.QS),
                   Modelraw_Intersectional_QSGE_r2=performance::r2(Modelraw.Intersectional.QSGE))
-ve(loo_results,file="LooModelReplication.RData")
+save(loo_results,file="LooModelReplication.RData")
 save(waic_results,file="WAICModelReplication.RData")
 save(r2_results,file="R2ModelReplication.RData")
 
