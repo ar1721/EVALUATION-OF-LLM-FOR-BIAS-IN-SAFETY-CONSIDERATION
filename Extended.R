@@ -182,7 +182,7 @@ r2_results<-list(
                   Modelraw_Intersectional_QS_r2=performance::r2(Model.intersectional.QS.Gender),
                   Modelraw_Intersectional_QSGE_r2=performance::r2(Model.intersectional.QSGE.Gender))
 
-ve(loo_results,file="LooModelReplication.RData")
+save(loo_results,file="LooModelReplication.RData")
 save(waic_results,file="WAICModelReplication.RData")
 save(r2_results,file="R2ModelReplication.RData")
 
