@@ -176,7 +176,6 @@ model_summaries$summary_Modelraw.Intersectional.QSGE <- summary(Modelraw.Interse
 
 
 loo_results <- list(
-  Null_Modelraw = loo(Modelraw.null),
   Linear_AD = loo(Modelraw.linear.AD),
   Linear_QS = loo(Modelraw.linear.QS),
   Linear_QSGE = loo(Modelraw.linear.QSGE),
@@ -185,7 +184,7 @@ loo_results <- list(
   Intersectional_QSGE = loo(Modelraw.Intersectional.QSGE)
 )
 
-waic_results <- list( Null_Modelraw = waic(Modelraw.null),
+waic_results <- list( 
                       Linear_AD = waic(Modelraw.linear.AD),
                       Linear_QS = waic(Modelraw.linear.QS),
                       Linear_QSGE = waic(Modelraw.linear.QSGE),
@@ -195,7 +194,7 @@ waic_results <- list( Null_Modelraw = waic(Modelraw.null),
 
 
 
-r2_results<-list( Modelraw_null_r2=performance::r2(Modelraw.null),
+r2_results<-list(
                   Modelraw_linear_AD_r2=performance::r2(Modelraw.linear.AD),
                   Modelraw_linear_QS_r2=performance::r2(Modelraw.linear.QS),
                   Modelraw_linear_QSGE_r2=performance::r2(Modelraw.linear.QSGE),

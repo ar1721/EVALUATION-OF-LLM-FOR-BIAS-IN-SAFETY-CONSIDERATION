@@ -67,6 +67,74 @@ Model.intersectional.QSGE.Gender <- brm(
 
 save(Model.intersectional.QSGE.Gender,file="ModelIntersectionalQSGEGender.RData")
 
+
+##################################Fitness########################
+
+loo_results <- list(
+  Intersectional_AD = loo(Model.intersectional.AD.Gender),
+  Intersectional_QS = loo(Model.intersectional.QS.Gender),
+  Intersectional_QSGE = loo(Model.intersectional.QSGE.Gender)
+)
+
+waic_results <- list( 
+                      Intersectional_AD = waic(Model.intersectional.AD.Gender),
+                      Intersectional_QS = waic(Model.intersectional.QS.Gender),
+                      Intersectional_QSGE = waic(Model.intersectional.QSGE.Gender) )
+
+
+
+r2_results<-list( 
+                  Modelraw_Intersectional_AD_r2=performance::r2(Model.intersectional.AD.Gender),
+                  Modelraw_Intersectional_QS_r2=performance::r2(Model.intersectional.QS.Gender),
+                  Modelraw_Intersectional_QSGE_r2=performance::r2(Model.intersectional.QSGE.Gender))
+
+save(loo_results,file="LooModelReplication.RData")
+save(waic_results,file="WAICModelReplication.RData")
+save(r2_results,file="R2ModelReplication.RData")
+
+##################################Plots##########################
+conditional_QS_Intersectional<-conditional_effects(Model.intersectional.AD.Gender)
+conditional_AD_Intersectional<-conditional_effects(Model.intersectional.QS.Gender)
+conditional_QSGE_Intersectional<-conditional_effects(Model.intersectional.QSGE.Gender)
+
+a1=plot(conditional_QS_Intersectional)
+b1=plot(conditional_AD_Intersectional)
+c1=plot(conditional_QSGE_Intersectional)
+
+output_dir="/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/Plots_extended/"
+
+effects=names(a1)
+k=1
+for(m in a1){
+  
+  effect_name=effects[k]
+  effect_name<-gsub(':','',effect_name)
+  plot_filename <- paste0(output_dir, effect_name, "_plot1.png")  # Adjust the file format if needed
+  ggsave(filename = plot_filename, plot = m, width = 8, height = 6)  # Adjust width and height as needed
+  k=k+1
+}
+
+effects=names(b1)
+k=1
+for(n in b1){
+  effect_name=effects[k]
+  effect_name<-gsub(':','',effect_name)
+  plot_filename <- paste0(output_dir, effect_name, "_plot2.png")  # Adjust the file format if needed
+  ggsave(filename = plot_filename, plot = n, width = 8, height = 6)  # Adjust width and height as needed
+  k=k+1
+}
+
+effects=names(c1)
+k=1
+for(o in c1){
+  effect_name=effects[k]
+  effect_name<-gsub(':','',effect_name)
+  plot_filename <- paste0(output_dir, effect_name, "_plot3.png")  # Adjust the file format if needed
+  ggsave(filename = plot_filename, plot = o, width = 8, height = 6)  # Adjust width and height as needed
+  k=k+1
+}
+#####################Reference Level Complement######################
+
 # Age
 formula11<- Q_overall ~ rater_age * (rater_raw_race +rater_gender +rater_education) + (1 | rater_id) + (1 | item_id)
 
@@ -162,70 +230,38 @@ save(Model.intersectional.AD.Education,file="ModelIntersectionalADEducation.RDat
 save(Model.intersectional.QS.Education,file="ModelIntersectionalQSEducation.RData")
 save(Model.intersectional.QSGE.Education,file="ModelIntersectionalQSGEEducation.RData")
 
-##################################Fitness########################
+# Degree of harm
 
-loo_results <- list(
-  Intersectional_AD = loo(Model.intersectional.AD.Gender),
-  Intersectional_QS = loo(Model.intersectional.QS.Gender),
-  Intersectional_QSGE = loo(Model.intersectional.QSGE.Gender)
+formula17<-Q_overall ~ degree_of_harm * (rater_raw_race + rater_gender + rater_education+rater_age) + (1 | rater_id) + (1 | item_id)
+
+formula18 <- Q_overall ~ degree_of_harm *(rater_raw_race + rater_gender + rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
+
+
+Model.intersectional.QS.DegreeOfHarm <- brm(
+  formula = formula17,
+  data = dices,
+  family = cumulative("probit"),
+  prior = prior_thresholds,
+  warmup = 1000,
+  iter = 4000,
+  chains = 4,
+  seed = 42,
+  backend = 'rstan',
+  cores = 8
+)
+Model.intersectional.QSGE.DegreeOfHarm <- brm(
+  formula = formula18,
+  data = dices,
+  family = cumulative("probit"),
+  prior = prior_thresholds,
+  warmup = 1000,
+  iter = 4000,
+  chains = 4,
+  seed = 42,
+  backend = 'rstan',
+  cores = 8
 )
 
-waic_results <- list( 
-                      Intersectional_AD = waic(Model.intersectional.AD.Gender),
-                      Intersectional_QS = waic(Model.intersectional.QS.Gender),
-                      Intersectional_QSGE = waic(Model.intersectional.QSGE.Gender) )
-
-
-
-r2_results<-list( 
-                  Modelraw_Intersectional_AD_r2=performance::r2(Model.intersectional.AD.Gender),
-                  Modelraw_Intersectional_QS_r2=performance::r2(Model.intersectional.QS.Gender),
-                  Modelraw_Intersectional_QSGE_r2=performance::r2(Model.intersectional.QSGE.Gender))
-
-save(loo_results,file="LooModelReplication.RData")
-save(waic_results,file="WAICModelReplication.RData")
-save(r2_results,file="R2ModelReplication.RData")
-
-##################################Plots##########################
-conditional_QS_Intersectional<-conditional_effects(Model.intersectional.AD.Gender,categorical = TRUE)
-conditional_AD_Intersectional<-conditional_effects(Model.intersectional.QS.Gender,categorical = TRUE)
-conditional_QSGE_Intersectional<-conditional_effects(Model.intersectional.QSGE.Gender,categorical = TRUE)
-
-a1=plot(conditional_QS_Intersectional$`rater_gender:cats__`)
-b1=plot(conditional_AD_Intersectional)
-c1=plot(conditional_QSGE_Intersectional)
-
-output_dir="/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/Plots_extended/"
-
-effects=names(a1)
-k=1
-for(m in a1){
-  
-  effect_name=effects[k]
-  effect_name<-gsub(':','',effect_name)
-  plot_filename <- paste0(output_dir, effect_name, "_plot1.png")  # Adjust the file format if needed
-  ggsave(filename = plot_filename, plot = m, width = 8, height = 6)  # Adjust width and height as needed
-  k=k+1
-}
-
-effects=names(b1)
-k=1
-for(n in b1){
-  effect_name=effects[k]
-  effect_name<-gsub(':','',effect_name)
-  plot_filename <- paste0(output_dir, effect_name, "_plot2.png")  # Adjust the file format if needed
-  ggsave(filename = plot_filename, plot = n, width = 8, height = 6)  # Adjust width and height as needed
-  k=k+1
-}
-
-effects=names(c1)
-k=1
-for(o in c1){
-  effect_name=effects[k]
-  effect_name<-gsub(':','',effect_name)
-  plot_filename <- paste0(output_dir, effect_name, "_plot3.png")  # Adjust the file format if needed
-  ggsave(filename = plot_filename, plot = o, width = 8, height = 6)  # Adjust width and height as needed
-  k=k+1
-}
-#####################Reference Level Complement######################
+save(Model.intersectional.QS.DegreeOfHarm,file="ModelIntersectionalQSDegreeOfHarm.RData")
+save(Model.intersectional.QSGE.DegreeOfHarm,file="ModelIntersectionalQSGEDegreeOfHarm.RData")
 
