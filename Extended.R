@@ -181,13 +181,17 @@ r2_results<-list(
                   Modelraw_Intersectional_AD_r2=performance::r2(Model.intersectional.AD.Gender),
                   Modelraw_Intersectional_QS_r2=performance::r2(Model.intersectional.QS.Gender),
                   Modelraw_Intersectional_QSGE_r2=performance::r2(Model.intersectional.QSGE.Gender))
+
+ve(loo_results,file="LooModelReplication.RData")
+save(waic_results,file="WAICModelReplication.RData")
+save(r2_results,file="R2ModelReplication.RData")
+
 ##################################Plots##########################
-conditional_QS_Intersectional<-conditional_effects(Model.intersectional.AD.Gender)
-conditional_AD_Intersectional<-conditional_effects(Model.intersectional.QS.Gender)
-conditional_QSGE_Intersectional<-conditional_effects(Model.intersectional.QSGE.Gender)
+conditional_QS_Intersectional<-conditional_effects(Model.intersectional.AD.Gender,categorical = TRUE)
+conditional_AD_Intersectional<-conditional_effects(Model.intersectional.QS.Gender,categorical = TRUE)
+conditional_QSGE_Intersectional<-conditional_effects(Model.intersectional.QSGE.Gender,categorical = TRUE)
 
-
-a1=plot(conditional_QS_Intersectional)
+a1=plot(conditional_QS_Intersectional$`rater_gender:cats__`)
 b1=plot(conditional_AD_Intersectional)
 c1=plot(conditional_QSGE_Intersectional)
 
