@@ -1,7 +1,13 @@
-dices1=read.csv('https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/350/diverse_safety_adversarial_dialog_350.csv')
-dices=dices1
-raters=unique(dices$rater_id)
+dices1=read.csv("https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/350/diverse_safety_adversarial_dialog_350.csv")
+dices2=read.csv("https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/990/diverse_safety_adversarial_dialog_990.csv")
+colnm<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q_overall")
+colnm2<-c("rater_id","rater_gender","rater_race","rater_race_raw","rater_age","phase","rater_education","item_id","degree_of_harm","Q_overall")
+colnm3<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q_overall")
 
+dices1<-dices1[colnm]
+dices3<-dices2[colnm2]
+colnames(dices3)<-colnm3
+dices=rbind(dices1,dices3)
 
 # ###################Turning Q_Overall rating to numeric from character################
 dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
@@ -9,11 +15,11 @@ dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), or
 sumdices<-summary(dices)
 ###################Models###########################
 # Gender
-formula8<- Q_overall ~ rater_gender * (rater_raw_race + rater_age+rater_education) + (1 | rater_id) + (1 | item_id)
+formula8<- Q_overall ~ rater_gender * (rater_raw_race +phase+ rater_age+rater_education+phase) + (1 | rater_id) + (1 | item_id)
 
-formula9<-Q_overall ~ rater_gender * (rater_raw_race + rater_age + degree_of_harm+rater_education) + (1 | rater_id) + (1 | item_id)
+formula9<-Q_overall ~ rater_gender * (rater_raw_race +phase+ rater_age + degree_of_harm+rater_education+phase) + (1 | rater_id) + (1 | item_id)
 
-formula10 <- Q_overall ~ rater_gender *(rater_raw_race + rater_age + degree_of_harm+rater_education) + (degree_of_harm | rater_id) + (1 | item_id)
+formula10 <- Q_overall ~ rater_gender *(rater_raw_race +phase+ rater_age + degree_of_harm+rater_education+phase) + (degree_of_harm | rater_id) + (1 | item_id)
 
 prior_thresholds <- c(
   prior(normal(.440,0.5), class=Intercept, coef=1),

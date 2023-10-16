@@ -10,11 +10,11 @@ sumdices<-summary(dices)
 ###################Models###########################
 
 # Age
-formula11<- Q_overall ~ rater_age * (rater_raw_race +rater_gender +rater_education) + (1 | rater_id) + (1 | item_id)
+formula11<- Q_overall ~ rater_age * (rater_raw_race +phase+rater_gender +rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula12<-Q_overall ~ rater_age * (rater_raw_race + rater_gender + degree_of_harm+rater_education) + (1 | rater_id) + (1 | item_id)
+formula12<-Q_overall ~ rater_age * (rater_raw_race +phase+ rater_gender + degree_of_harm+rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula13 <- Q_overall ~ rater_age *(rater_raw_race + rater_gender + degree_of_harm+rater_education) + (degree_of_harm | rater_id) + (1 | item_id)
+formula13 <- Q_overall ~ rater_age *(rater_raw_race +phase+ rater_gender + degree_of_harm+rater_education) + (degree_of_harm | rater_id) + (1 | item_id)
 
 
 Model.intersectional.AD.Age <- brm(

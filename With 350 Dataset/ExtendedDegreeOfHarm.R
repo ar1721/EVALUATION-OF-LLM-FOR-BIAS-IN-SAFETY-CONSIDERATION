@@ -11,9 +11,9 @@ sumdices<-summary(dices)
 
 # Degree of harm
 
-formula17<-Q_overall ~ degree_of_harm * (rater_raw_race + rater_gender + rater_education+rater_age) + (1 | rater_id) + (1 | item_id)
+formula17<-Q_overall ~ degree_of_harm * (rater_raw_race + rater_gender +phase+ rater_education+rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula18 <- Q_overall ~ degree_of_harm *(rater_raw_race + rater_gender + rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
+formula18 <- Q_overall ~ degree_of_harm *(rater_raw_race + rater_gender +phase+ rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
 
 
 Model.intersectional.QS.DegreeOfHarm <- brm(
