@@ -1,5 +1,30 @@
-dices1=read.csv("https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/350/diverse_safety_adversarial_dialog_350.csv")
-dices2=read.csv("https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/990/diverse_safety_adversarial_dialog_990.csv")
+setwd("/home/al3170/Bayesian_Multilevel")
+# setwd("/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/With 990 and 350 Dataset")
+dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
+install.packages("haven",type="binary")
+install.packages("tidyverse",type="binary")
+install.packages("brms", type="binary")
+install.packages("lme4", type="binary")
+install.packages("lmerTest", type="binary")
+install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+install.packages("ellipsis" ,type="binary")
+install.packages("tidybayes")
+install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+
+
+library(tidybayes)
+library(brms) # for the analysis
+library(haven) # to load the SPSS .sav file
+library(tidyverse) # needed for data manipulation.
+library(RColorBrewer) # needed for some extra colours in one of the graphs
+library(ggmcmc)
+library(ggthemes)
+library(ggridges)
+library(loo)
+
+# #########################Reading dices dataset#######################dices1=read.csv("https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/350/diverse_safety_adversarial_dialog_350.csv")
+dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
+dices2=read.csv("diverse_safety_adversarial_dialog_990.csv")
 colnm<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q_overall")
 colnm2<-c("rater_id","rater_gender","rater_race","rater_race_raw","rater_age","phase","rater_education","item_id","degree_of_harm","Q_overall")
 colnm3<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q_overall")
@@ -37,7 +62,7 @@ Model.intersectional.AD.Gender <- brm(
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 6
+  cores = 8
 )
 
 save(Model.intersectional.AD.Gender,file="ModelIntersectionalADGender.RData")
@@ -52,7 +77,7 @@ Model.intersectional.QS.Gender <- brm(
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 6
+  cores = 8
 )
 
 save(Model.intersectional.QS.Gender,file="ModelIntersectionalQSGender.RData")

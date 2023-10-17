@@ -285,13 +285,6 @@ estimate_random<-list(random_Modelraw_null <- model_summaries$summary_Modelraw.n
                       random_Modelraw_Intersectional_QS <- model_summaries$summary_Modelraw.Intersectional.QS$random,
                       random_Modelraw_Intersectional_QSGE <- model_summaries$summary_Modelraw.Intersectional.QSGE$random)
 
-fixed_Modelraw_null
-fixed_Modelraw_linear_AD
-fixed_Modelraw_linear_QS
-fixed_Modelraw_linear_QSGE
-fixed_Modelraw_Intersectional_AD
-fixed_Modelraw_Intersectional_QS
-fixed_Modelraw_Intersectional_QSGE
 
 a1<-random_Modelraw_null$item_id
 a2<-random_Modelraw_linear_AD$item_id
