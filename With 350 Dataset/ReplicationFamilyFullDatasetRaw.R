@@ -166,7 +166,7 @@ save(Modelraw.Intersectional.QSGE,file="ModelrawIntersectionalQSGE.RData")
 model_summaries <- list()
 
 # Store the summary of each model with "summary" added to the variable name
-model_summaries$summary_Modelraw.null <- summary(Modelraw.null)
+model_summaries$summary_Modelraw.null <- summary(Model.null)
 model_summaries$summary_Modelraw.linear.AD <- summary(Modelraw.linear.AD)
 model_summaries$summary_Modelraw.linear.QS <- summary(Modelraw.linear.QS)
 model_summaries$summary_Modelraw.linear.QSGE <- summary(Modelraw.linear.QSGE)

@@ -96,6 +96,7 @@ conditional_QS_Intersectional<-conditional_effects(Model.intersectional.AD.Gende
 conditional_AD_Intersectional<-conditional_effects(Model.intersectional.QS.Gender)
 conditional_QSGE_Intersectional<-conditional_effects(Model.intersectional.QSGE.Gender)
 
+predict
 a1=plot(conditional_QS_Intersectional)
 b1=plot(conditional_AD_Intersectional)
 c1=plot(conditional_QSGE_Intersectional)

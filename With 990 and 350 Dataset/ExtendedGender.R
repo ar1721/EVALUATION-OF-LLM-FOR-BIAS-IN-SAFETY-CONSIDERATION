@@ -1,22 +1,25 @@
 setwd("/home/al3170/Bayesian_Multilevel")
 # setwd("/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/With 990 and 350 Dataset")
 dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
-install.packages("haven",type="binary")
-install.packages("tidyverse",type="binary")
-install.packages("brms", type="binary")
-install.packages("lme4", type="binary")
-install.packages("lmerTest", type="binary")
-install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
-install.packages("ellipsis" ,type="binary")
-install.packages("tidybayes")
-install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+# install.packages("haven" ,repos = "http://cran.us.r-project.org")
+install.packages("rstan", repos = "https://mc-stan.org/r-packages/")
 
-
-library(tidybayes)
-library(brms) # for the analysis
+install.packages("lme4",repos = "http://cran.us.r-project.org")
+install.packages("lmerTest",repos = "http://cran.us.r-project.org")
+install.packages("ellipsis" ,repos = "http://cran.us.r-project.org")
+install.packages("brms",repos = "http://cran.us.r-project.org")
 library(haven) # to load the SPSS .sav file
+library(brms) # for the analysis
+install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+install.packages("tidyverse", repos = "http://cran.us.r-project.org")
+install.packages("ggmcmc",repos = "http://cran.us.r-project.org")
+install.packages("ggthemes",repos = "http://cran.us.r-project.org")
+install.packages("ggridges",repos = "http://cran.us.r-project.org")
+
+
+
 library(tidyverse) # needed for data manipulation.
-library(RColorBrewer) # needed for some extra colours in one of the graphs
+# library(RColorBrewer) # needed for some extra colours in one of the graphs
 library(ggmcmc)
 library(ggthemes)
 library(ggridges)
@@ -117,6 +120,7 @@ r2_results<-list(
   Modelraw_Intersectional_AD_r2=performance::r2(Model.intersectional.AD.Gender),
   Modelraw_Intersectional_QS_r2=performance::r2(Model.intersectional.QS.Gender),
   Modelraw_Intersectional_QSGE_r2=performance::r2(Model.intersectional.QSGE.Gender))
+
 
 save(loo_results,file="LooModelReplication.RData")
 save(waic_results,file="WAICModelReplication.RData")
