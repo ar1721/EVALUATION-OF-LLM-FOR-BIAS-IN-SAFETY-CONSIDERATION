@@ -2,7 +2,8 @@ dices1=read.csv('https://raw.githubusercontent.com/google-research-datasets/dice
 dices=dices1
 raters=unique(dices$rater_id)
 
-
+install.packages("bayestestR")
+library(bayestestR)
 # ###################Turning Q_Overall rating to numeric from character################
 dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
 
@@ -91,44 +92,131 @@ save(loo_results,file="LooModelReplication.RData")
 save(waic_results,file="WAICModelReplication.RData")
 save(r2_results,file="R2ModelReplication.RData")
 
+
+loo_results_estimate <- list(
+  Intersectional_AD_estimate = loo_results$Intersectional_AD$estimates,
+  Intersectional_QS_estimate = loo_results$Intersectional_QS$estimates,
+  Intersectional_QSGE_estimate = loo_results$Intersectional_QSGE$estimates
+)
+
+waic_results_estimate <- list( 
+  Intersectional_AD_estimate = waic_results$Intersectional_AD$estimates,
+  Intersectional_QS_estimate = waic_results$Intersectional_QS$estimates,
+  Intersectional_QSGE_estimate = waic_results$Intersectional_QSGE$estimates)
+
+
+sum=summary(Model.intersectional.AD.Gender)
+
 ##################################Plots##########################
-conditional_QS_Intersectional<-conditional_effects(Model.intersectional.AD.Gender)
-conditional_AD_Intersectional<-conditional_effects(Model.intersectional.QS.Gender)
-conditional_QSGE_Intersectional<-conditional_effects(Model.intersectional.QSGE.Gender)
+# plot(mod_plot, plot = FALSE)[[1]] +facet_wrap("rater_raw_race")
 
-a1=plot(conditional_QS_Intersectional)
-b1=plot(conditional_AD_Intersectional)
-c1=plot(conditional_QSGE_Intersectional)
 
-output_dir="/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/Plots_extended/"
+######################################Model.Intersection.AD################
+# rater_gender
+conditions <- expand.grid(rater_education = "College degree or higher",rater_age="gen x+", rater_gender =unique(dices$rater_gender),rater_raw_race="White")
+mod_plot <- conditional_effects(Model.intersectional.AD.Gender,categorical = TRUE, effect ="rater_gender",conditions = conditions)
 
-effects=names(a1)
-k=1
-for(m in a1){
-  
-  effect_name=effects[k]
-  effect_name<-gsub(':','',effect_name)
-  plot_filename <- paste0(output_dir, effect_name, "_plot1.png")  # Adjust the file format if needed
-  ggsave(filename = plot_filename, plot = m, width = 8, height = 6)  # Adjust width and height as needed
-  k=k+1
-}
+m=plot(mod_plot)[[1]]+facet_wrap("rater_gender")
+ggsave(filename = "rater_gender.jpeg", plot = m, width = 24, height = 16) 
 
-effects=names(b1)
-k=1
-for(n in b1){
-  effect_name=effects[k]
-  effect_name<-gsub(':','',effect_name)
-  plot_filename <- paste0(output_dir, effect_name, "_plot2.png")  # Adjust the file format if needed
-  ggsave(filename = plot_filename, plot = n, width = 8, height = 6)  # Adjust width and height as needed
-  k=k+1
-}
 
-effects=names(c1)
-k=1
-for(o in c1){
-  effect_name=effects[k]
-  effect_name<-gsub(':','',effect_name)
-  plot_filename <- paste0(output_dir, effect_name, "_plot3.png")  # Adjust the file format if needed
-  ggsave(filename = plot_filename, plot = o, width = 8, height = 6)  # Adjust width and height as needed
-  k=k+1
-}
+# rater-gender,rater-race
+conditions <- expand.grid(rater_education = "College degree or higher",rater_age="gen x+", rater_gender =unique(dices$rater_gender),rater_raw_race=unique(dices$rater_raw_race))
+
+mod_plot <- conditional_effects(Model.intersectional.AD.Gender,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
+
+m=plot(mod_plot)[[1]] +facet_wrap("rater_raw_race")
+ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = m, width = 24, height = 16) 
+
+
+
+
+# rater_gender,rater-education
+conditions <- expand.grid(rater_raw_race="White",rater_age="gen x+", rater_gender =unique(dices$rater_gender),rater_education =unique(dices$rater_education))
+
+mod_plot <- conditional_effects(Model.intersectional.AD.Gender,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
+str(mod_plot)
+
+
+m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
+ggsave(filename = "rater_gender_and_rater_education.jpeg", plot = m, width = 24, height = 16) 
+
+
+# rater_gender,rater-age
+conditions <- expand.grid(rater_education = "College degree or higher",rater_age=unique(dices$rater_age), rater_gender =unique(dices$rater_gender),rater_raw_race="White")
+
+mod_plot <- conditional_effects(Model.intersectional.AD.Gender,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
+str(mod_plot)
+
+m=plot(mod_plot)[[1]] + facet_wrap("cats__")+facet_wrap("rater_raw_race")
+ggsave(filename = "rater_gender_and_rater_age.jpeg", plot = m, width = 24, height = 16) 
+
+
+
+
+
+
+######################################Model.Intersection.QS################
+# rater_gender,degree of harm
+conditions <- data.frame(rater_education = "College degree or higher",rater_age="gen x+", degree_of_harm=unique(dices$degree_of_harm),rater_gender =unique(dices$rater_gender),rater_raw_race=unique(dices$rater_raw_race))
+
+mod_plot <- conditional_effects(k,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
+str(mod_plot)
+
+plot(mod_plot)[[1]] + facet_wrap("cats__")+facet_wrap("degree_of_harm")
+ggsave(filename = "rater_gender_and_degree_of_harm.jpeg", plot = m, width = 24, height = 16) 
+######################################Model.Intersection.QSGE################
+# rater_gender,degree of harm
+conditions <- data.frame(rater_education = "College degree or higher",rater_age="gen x+", degree_of_harm=unique(dices$degree_of_harm),rater_gender =unique(dices$rater_gender),rater_raw_race=unique(dices$rater_raw_race))
+
+mod_plot <- conditional_effects(k,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
+str(mod_plot)
+
+plot(mod_plot)[[1]] + facet_wrap("cats__")+facet_wrap("degree_of_harm")
+ggsave(filename = "rater_gender_and_degree_of_harm.jpeg", plot = m, width = 24, height = 16) 
+
+
+# 
+# 
+# 
+# 
+# conditional_AD_Intersectional<-conditional_effects(Model.intersectional.AD.Gender)
+# conditional_QS_Intersectional<-conditional_effects(Model.intersectional.QS.Gender)
+# conditional_QSGE_Intersectional<-conditional_effects(Model.intersectional.QSGE.Gender)
+# 
+# a1=plot(conditional_QS_Intersectional)
+# b1=plot(conditional_AD_Intersectional)
+# c1=plot(conditional_QSGE_Intersectional)
+# 
+# output_dir="/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/Plots_extended/"
+# 
+# effects=names(a1)
+# k=1
+# for(m in a1){
+#   
+#   effect_name=effects[k]
+#   effect_name<-gsub(':','',effect_name)
+#   plot_filename <- paste0(output_dir, effect_name, "_plot1.png")  # Adjust the file format if needed
+#   ggsave(filename = plot_filename, plot = m, width = 8, height = 6)  # Adjust width and height as needed
+#   k=k+1
+# }
+# 
+# effects=names(b1)
+# k=1
+# for(n in b1){
+#   effect_name=effects[k]
+#   effect_name<-gsub(':','',effect_name)
+#   plot_filename <- paste0(output_dir, effect_name, "_plot2.png")  # Adjust the file format if needed
+#   ggsave(filename = plot_filename, plot = n, width = 8, height = 6)  # Adjust width and height as needed
+#   k=k+1
+# }
+# 
+# effects=names(c1)
+# k=1
+# for(o in c1){
+#   effect_name=effects[k]
+#   effect_name<-gsub(':','',effect_name)
+#   plot_filename <- paste0(output_dir, effect_name, "_plot3.png")  # Adjust the file format if needed
+#   ggsave(filename = plot_filename, plot = o, width = 8, height = 6)  # Adjust width and height as needed
+#   k=k+1
+# }

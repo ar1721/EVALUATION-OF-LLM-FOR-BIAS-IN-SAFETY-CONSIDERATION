@@ -58,7 +58,7 @@ prior_thresholds <- c(
 priors1 <- get_prior(formula1, data = dices, family = cumulative("probit"))
 
 # Create brm models
-Modelraw.null <- brm(
+Model.null <- brm(
   formula = formula1,
   data = dices,
   family = cumulative("probit"),
@@ -70,7 +70,7 @@ Modelraw.null <- brm(
   backend = 'rstan',
   cores = 8
 )
-save(Modelraw.null,file="Modelrawnull.RData")
+save(Model.null,file="Modelrawnull.RData")
 
 Modelraw.linear.AD <- brm(
   formula = formula2,
@@ -166,7 +166,7 @@ save(Modelraw.Intersectional.QSGE,file="ModelrawIntersectionalQSGE.RData")
 model_summaries <- list()
 
 # Store the summary of each model with "summary" added to the variable name
-model_summaries$summary_Modelraw.null <- summary(Modelraw.null)
+model_summaries$summary_Model.null <- summary(Model.null)
 model_summaries$summary_Modelraw.linear.AD <- summary(Modelraw.linear.AD)
 model_summaries$summary_Modelraw.linear.QS <- summary(Modelraw.linear.QS)
 model_summaries$summary_Modelraw.linear.QSGE <- summary(Modelraw.linear.QSGE)
@@ -206,9 +206,9 @@ save(waic_results,file="WAICModelReplication.RData")
 save(r2_results,file="R2ModelReplication.RData")
 
 
-Modelraw.nullTransformed<-ggs(Modelraw.null)
-Modelraw.null.fixed_effects <- fixef(Modelraw.null)
-Modelraw.null.random_effects <- ranef(Modelraw.null)
+Model.nullTransformed<-ggs(Model.null)
+Model.null.fixed_effects <- fixef(Model.null)
+Model.null.random_effects <- ranef(Model.null)
 
 Modelraw.Intersectional.ADTransformed<-ggs(Modelraw.Intersectional.AD)
 Modelraw.linear.AD.fixed_effects <- fixef(Modelraw.linear.AD)
@@ -270,14 +270,14 @@ marginal_r2<-list(r2_results$Modelraw_null_r2$R2_Bayes_marginal,
                   r2_results$Modelraw_Intersectional_QS_r2$R2_Bayes_marginal,
                   r2_results$Modelraw_Intersectional_QSGE_r2$R2_Bayes_marginal)
 
-estimate_fixed<-list(fixed_Modelraw_null <- model_summaries$summary_Modelraw.null$fixed,
+estimate_fixed<-list(fixed_Modelraw_null <- model_summaries$summary_Model.null$fixed,
                      fixed_Modelraw_linear_AD <- model_summaries$summary_Modelraw.linear.AD$fixed,
                      fixed_Modelraw_linear_QS <- model_summaries$summary_Modelraw.linear.QS$fixed,
                      fixed_Modelraw_linear_QSGE <- model_summaries$summary_Modelraw.linear.QSGE$fixed,
                      fixed_Modelraw_Intersectional_AD <- model_summaries$summary_Modelraw.Intersectional.AD$fixed,
                      fixed_Modelraw_Intersectional_QS <- model_summaries$summary_Modelraw.Intersectional.QS$fixed,
                      fixed_Modelraw_Intersectional_QSGE <- model_summaries$summary_Modelraw.Intersectional.QSGE$fixed)
-estimate_random<-list(random_Modelraw_null <- model_summaries$summary_Modelraw.null$random,
+estimate_random<-list(random_Modelraw_null <- model_summaries$summary_Model.null$random,
                       random_Modelraw_linear_AD <- model_summaries$summary_Modelraw.linear.AD$random,
                       random_Modelraw_linear_QS <- model_summaries$summary_Modelraw.linear.QS$random,
                       random_Modelraw_linear_QSGE <- model_summaries$summary_Modelraw.linear.QSGE$random,
@@ -364,12 +364,12 @@ for (i in colPosterior){
 parameter_dfQS<-parameter_df[-1,]
 
 
-
+# conditions=data.frame(Q_overall="No")
 ##########GRAPHS##############
 conditional_QS_Intersectional<-conditional_effects(Modelraw.Intersectional.QS)
 conditional_AD_Intersectional<-conditional_effects(Modelraw.Intersectional.AD)
 conditional_QSGE_Intersectional<-conditional_effects(Modelraw.Intersectional.QSGE)
-
+cond=conditional_QS_Intersectional$`rater_raw_race:rater_gender`
 
 a=plot(conditional_QS_Intersectional)
 b=plot(conditional_AD_Intersectional)
