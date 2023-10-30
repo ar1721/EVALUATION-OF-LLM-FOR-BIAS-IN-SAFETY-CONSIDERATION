@@ -206,6 +206,8 @@ str(mod_plot)
 
 plot(mod_plot)[[1]] +facet_wrap("degree_of_harm")
 ggsave(filename = "QS_rater_gender_and_degree_of_harm.jpeg", plot = m, width = 24, height = 16) 
+
+
 ######################################Model.Intersection.QSGE################
 
 # rater_gender
