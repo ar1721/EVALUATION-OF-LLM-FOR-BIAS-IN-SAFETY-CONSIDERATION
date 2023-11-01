@@ -144,7 +144,7 @@ mod_plot <- conditional_effects(Model.intersectional.AD.Gender,categorical = TRU
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_raw_race")
 plotb=plottingBar(m,"rater_raw_race")
-ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 6, height = 6) 
+ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
 
 
 
@@ -196,7 +196,7 @@ mod_plot <- conditional_effects(Model.intersectional.QS.Gender,categorical = TRU
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_raw_race")
 plotb=plottingBar(m,"rater_raw_race")
-ggsave(filename = "QS_rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "QS_rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
 
 
 
@@ -226,10 +226,10 @@ ggsave(filename = "QS_rater_gender_and_rater_age.jpeg", plot = plotb, width = 8,
 conditions <- expand.grid(rater_education = "College degree or higher",rater_age="gen x+", degree_of_harm=unique(dices$degree_of_harm),rater_gender =unique(dices$rater_gender),rater_raw_race="White")
 
 mod_plot <- conditional_effects(Model.intersectional.QS.Gender,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
-str(mod_plot)
 
-plot(mod_plot)[[1]] +facet_wrap("degree_of_harm")
+m=plot(mod_plot)[[1]] +facet_wrap("degree_of_harm")
 plotb=plottingBar(m,"degree_of_harm")
+
 
 ggsave(filename = "QS_rater_gender_and_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
 
@@ -253,7 +253,7 @@ mod_plot <- conditional_effects(Model.intersectional.QSGE.Gender,categorical = T
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_raw_race")
 plotb=plottingBar(m,"rater_raw_race")
-ggsave(filename = "QSGE_rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "QSGE_rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
 
 
 
@@ -266,7 +266,7 @@ str(mod_plot)
 
 
 m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
-plotb=plottingBar(m,"rater_age")
+plotb=plottingBar(m,"rater_education")
 ggsave(filename = "QSGE_rater_gender_and_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
 
 
