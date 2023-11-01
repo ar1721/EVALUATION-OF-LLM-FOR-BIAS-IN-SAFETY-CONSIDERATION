@@ -374,7 +374,7 @@ conditions <- expand.grid(rater_education = "College degree or higher",rater_age
 mod_plot <- conditional_effects(Modelraw.Intersectional.AD,categorical = TRUE, effect ="rater_raw_race",conditions = conditions)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_raw_race")
-ggsave(filename = "rater_race.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "rater_race.jpeg", plot = m, width = 8, height = 6) 
 
 
 # rater-gender,rater-race
@@ -384,7 +384,7 @@ mod_plot <- conditional_effects(Modelraw.Intersectional.AD,categorical = TRUE, e
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_gender")
 
-ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = m, width = 8, height = 8) 
 
 
 
@@ -397,7 +397,7 @@ str(mod_plot)
 
 
 m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
-ggsave(filename = "rater_race_and_rater_education.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "rater_race_and_rater_education.jpeg", plot = m, width = 8, height = 6) 
 
 
 # rater_race,rater-age
@@ -407,7 +407,7 @@ mod_plot <- conditional_effects(Modelraw.Intersectional.AD,categorical = TRUE, e
 str(mod_plot)
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_age")
-ggsave(filename = "rater_race_and_rater_age.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "rater_race_and_rater_age.jpeg", plot = m, width = 8, height = 6) 
 
 ######################################Model.Intersection.QS################
 
@@ -416,7 +416,7 @@ conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College d
 mod_plot <- conditional_effects(Modelraw.Intersectional.QS,categorical = TRUE, effect ="rater_raw_race",conditions = conditions)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_raw_race")
-ggsave(filename = "QS_rater_race.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "QS_rater_race.jpeg", plot = m, width = 8, height = 6) 
 
 
 # rater-gender,rater-race
@@ -425,7 +425,7 @@ conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College d
 mod_plot <- conditional_effects(Modelraw.Intersectional.QS,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_gender")
-ggsave(filename = "QS_rater_gender_and_rater_raw_race.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "QS_rater_gender_and_rater_raw_race.jpeg", plot = m, width = 8, height = 6) 
 
 
 
@@ -438,7 +438,7 @@ str(mod_plot)
 
 
 m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
-ggsave(filename = "QS_rater_race_and_rater_education.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "QS_rater_race_and_rater_education.jpeg", plot = m, width = 8, height = 6) 
 
 
 # rater_gender,rater-age
@@ -448,7 +448,7 @@ mod_plot <- conditional_effects(Modelraw.Intersectional.QS,categorical = TRUE, e
 str(mod_plot)
 
 m=plot(mod_plot)[[1]] + facet_wrap("rater_age")
-ggsave(filename = "QS_rater_race_and_rater_age.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "QS_rater_race_and_rater_age.jpeg", plot = m, width = 8, height = 6) 
 
 
 # rater_gender,degree of harm
@@ -458,7 +458,7 @@ mod_plot <- conditional_effects(Modelraw.Intersectional.QS,categorical = TRUE, e
 str(mod_plot)
 
 plot(mod_plot)[[1]] +facet_wrap("degree_of_harm")
-ggsave(filename = "QS_rater_race_and_degree_of_harm.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "QS_rater_race_and_degree_of_harm.jpeg", plot = m, width = 8, height = 6) 
 
 ######################################Model.Intersection.QSGE################
 
@@ -467,7 +467,7 @@ conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College d
 mod_plot <- conditional_effects(Modelraw.Intersectional.QSGE,categorical = TRUE, effect ="rater_raw_race",conditions = conditions)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_raw_race")
-ggsave(filename = "QSGE_rater_gender.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "QSGE_rater_gender.jpeg", plot = m, width = 8, height = 6) 
 
 
 # rater-gender,rater-race
@@ -476,7 +476,7 @@ conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College d
 mod_plot <- conditional_effects(Modelraw.Intersectional.QSGE,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_gender")
-ggsave(filename = "QSGE_rater_gender_and_rater_raw_race.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "QSGE_rater_gender_and_rater_raw_race.jpeg", plot = m, width = 8, height = 6) 
 
 
 
@@ -489,7 +489,7 @@ str(mod_plot)
 
 
 m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
-ggsave(filename = "QSGE_rater_race_and_rater_education.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "QSGE_rater_race_and_rater_education.jpeg", plot = m, width = 8, height = 6) 
 
 
 # rater_gender,rater-age
@@ -499,7 +499,7 @@ mod_plot <- conditional_effects(Modelraw.Intersectional.QSGE,categorical = TRUE,
 str(mod_plot)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_age")
-ggsave(filename = "QSGE_rater_race_and_rater_age.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "QSGE_rater_race_and_rater_age.jpeg", plot = m, width = 8, height = 6) 
 
 
 # rater_gender,degree of harm
@@ -508,7 +508,7 @@ conditions <- expand.grid(rater_education = "College degree or higher",rater_age
 mod_plot <- conditional_effects(Modelraw.Intersectional.QSGE,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("degree_of_harm")
-ggsave(filename = "QSGE_rater_race_and_degree_of_harm.jpeg", plot = m, width = 24, height = 16) 
+ggsave(filename = "QSGE_rater_race_and_degree_of_harm.jpeg", plot = m, width = 8, height = 6) 
 # 
 # 
 # 
