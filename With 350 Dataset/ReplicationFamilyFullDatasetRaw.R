@@ -7,11 +7,13 @@ install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption
 install.packages("ellipsis" ,type="binary")
 install.packages("tidybayes")
 install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
-
+install.packages("bayestestR")
 library(cmdstanr)
 
 library(tidybayes)
 
+library(bayestestR)
+library(dplyr)
 library(brms) # for the analysis
 library(haven) # to load the SPSS .sav file
 library(tidyverse) # needed for data manipulation.
