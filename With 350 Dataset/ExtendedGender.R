@@ -4,6 +4,7 @@ raters=unique(dices$rater_id)
 
 install.packages("bayestestR")
 library(bayestestR)
+library(dplyr)
 # ###################Turning Q_Overall rating to numeric from character################
 dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
 
@@ -110,13 +111,30 @@ sum=summary(Model.intersectional.AD.Gender)
 ##################################Plots##########################
 # plot(mod_plot, plot = FALSE)[[1]] +facet_wrap("rater_raw_race")
 
-
+plottingBar <- function(m,k) { # create a function with the name my_function
+  gr=m$data
+  gr1=gr[gr$effect2__=="No",]
+  nrc=length(unique(dices$rater_gender))*length(unique(dices[[k]]))
+  gr1=gr[1:nrc,]
+  m=ggplot(gr1, aes(x = rater_gender, y = estimate__*100, fill = get(k), colour = get(k))) +
+    geom_point(position = position_dodge(width = 0.3)) +
+    geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.3)) +
+    labs(
+      title = "Probability of No by Gender and Age",
+      x = "Rater Gender",
+      y = "Probability Of No rating"
+    )+scale_y_continuous(
+      limits =   c(0,100))+
+    theme_minimal()
+  return (m)
+}
 ######################################Model.Intersection.AD################
 # rater_gender
 conditions <- expand.grid(rater_education = "College degree or higher",rater_age="gen x+", rater_gender =unique(dices$rater_gender),rater_raw_race="White")
 mod_plot <- conditional_effects(Model.intersectional.AD.Gender,categorical = TRUE, effect ="rater_gender",conditions = conditions)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_gender")
+
 ggsave(filename = "rater_gender.jpeg", plot = m, width = 24, height = 16) 
 
 
@@ -126,7 +144,8 @@ conditions <- expand.grid(rater_education = "College degree or higher",rater_age
 mod_plot <- conditional_effects(Model.intersectional.AD.Gender,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_raw_race")
-ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = m, width = 24, height = 16) 
+plotb=plottingBar(m,"rater_raw_race")
+ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 6) 
 
 
 
@@ -190,12 +209,23 @@ ggsave(filename = "QS_rater_gender_and_rater_education.jpeg", plot = m, width = 
 
 # rater_gender,rater-age
 conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College degree or higher",rater_age=unique(dices$rater_age), rater_gender =unique(dices$rater_gender),rater_raw_race="White")
-
 mod_plot <- conditional_effects(Model.intersectional.QS.Gender,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
-str(mod_plot)
-
 m=plot(mod_plot)[[1]] + facet_wrap("rater_age")
-ggsave(filename = "QS_rater_gender_and_rater_age.jpeg", plot = m, width = 24, height = 16) 
+gr=m$data
+gr1=gr[gr$effect2__=="No",]
+nrc=length(unique(dices$rater_gender))*length(unique(dices$rater_age))
+gr1=gr[1:nrc,]
+m=ggplot(gr1, aes(x = rater_gender, y = estimate__*100, fill = rater_age, colour = rater_age)) +
+  geom_point(position = position_dodge(width = 0.3)) +
+  geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.3)) +
+  labs(
+    title = "Probability of No by Gender and Age",
+    x = "Rater Gender",
+    y = "Probability Of No rating"
+  )+scale_y_continuous(
+    limits =   c(0,100))+
+  theme_minimal()
+ggsave(filename = "QS_rater_gender_and_rater_age.jpeg", plot = m, width = 8, height = 6) 
 
 
 # rater_gender,degree of harm

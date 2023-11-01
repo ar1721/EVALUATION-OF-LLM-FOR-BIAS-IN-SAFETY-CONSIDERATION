@@ -381,6 +381,7 @@ conditions <- expand.grid(rater_education = "College degree or higher",rater_age
 mod_plot <- conditional_effects(Modelraw.Intersectional.AD,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_gender")
+
 ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = m, width = 24, height = 16) 
 
 
@@ -397,7 +398,7 @@ m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
 ggsave(filename = "rater_race_and_rater_education.jpeg", plot = m, width = 24, height = 16) 
 
 
-# rater_gender,rater-age
+# rater_race,rater-age
 conditions <- expand.grid(rater_education = "College degree or higher",rater_age=unique(dices$rater_age), rater_raw_race =unique(dices$rater_raw_race),rater_gender ="Man")
 
 mod_plot <- conditional_effects(Modelraw.Intersectional.AD,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
