@@ -23,8 +23,8 @@ library(ggridges)
 library(loo)
 
 # #########################Reading dices dataset#######################
-dices1=read.csv("350/diverse_safety_adversarial_dialog_350.csv")
-dices2=read.csv("990/diverse_safety_adversarial_dialog_990.csv")
+dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
+dices2=read.csv("diverse_safety_adversarial_dialog_990.csv")
 colnm<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q_overall")
 colnm2<-c("rater_id","rater_gender","rater_race","rater_race_raw","rater_age","phase","rater_education","item_id","degree_of_harm","Q_overall")
 colnm3<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q_overall")
@@ -34,11 +34,125 @@ dices3<-dices2[colnm2]
 colnames(dices3)<-colnm3
 dices=rbind(dices1,dices3)
 
+dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
+dices2=read.csv("diverse_safety_adversarial_dialog_990.csv")
+colnm<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q2_harmful_content_overall",
+         "Q3_bias_overall", "Q4_misinformation","Q_overall")
+colnm2<-c("rater_id","rater_gender","rater_race","rater_race_raw","rater_age","phase","rater_education","item_id","degree_of_harm","Q2_harmful_content_overall",
+          "Q3_unfair_bias_overall", "Q4_misinformation_overall","Q_overall")
+colnm3<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q2_harmful_content_overall",
+          "Q3_bias_overall", "Q4_misinformation","Q_overall")
+
+dices1<-dices1[colnm]
+dices3<-dices2[colnm2]
+colnames(dices3)<-colnm3
 
 
-# ###################Turning Q_Overall rating to numeric from character################
+dices3<-dices3[!(is.na(dices$degree_of_harm) | dices3$degree_of_harm==""), ]
+
+dices<-rbind(dices1,dices3) 
 dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
 
+# ###################Turning Q_Overall rating to numeric from character################
+# dices<-rbind(dices1,dices3)  %>%
+# mutate(rater_id = factor(rater_id)) %>%
+#   mutate(item_id = factor(item_id)) %>%
+#   
+#   mutate(DEMO_education = factor(rater_education)) %>%
+#   
+#   # convert age to ordinal
+#   mutate(
+#     DEMO_age = factor(
+#       rater_age,
+#       ordered = T,
+#       labels = c("gen z", "millenial", "gen x+"))) %>%
+#   
+#   mutate(across(c(Q_overall, Q2_harmful_content_overall,
+#                   Q3_bias_overall, Q4_misinformation),
+#                 as.ordered)) %>%
+#   
+#   
+#   mutate(
+#     degree_of_harm = factor(
+#       degree_of_harm,
+#       ordered = T,
+#       labels = c("Benign", "Debatable", "Moderate", "Extreme"))) %>%
+#   
+#   # convert phase, locale, gender to factor
+#   mutate(Phase = factor(phase)) %>%
+#   mutate(DEMO_gender = factor(rater_gender))
+
+dices<-dices %>% mutate(
+  
+  rater_ethinicity = case_when(
+    
+    
+    rater_raw_race %in% c("White") ~ "White",
+    
+    rater_raw_race %in% c(
+      
+      "Asian", "East or South-East Asian") ~ "Asian",
+    
+    rater_raw_race %in% c("Black or African American") ~ "Black",
+    
+    rater_raw_race %in% c(
+      
+      "Indian",
+      
+      "Indian subcontinent (including Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, and Sri Lanka)"
+      
+    ) ~ "Indian Subcontinent",
+    
+    rater_raw_race %in% c(
+      
+      "American Indian or Alaska Native",
+      
+      "LatinX, Latino, Hispanic or Spanish Origin, American Indian or Alaska Native",
+      
+      "LatinX, Latino, Hispanic or Spanish Origin, Mexican Indigenous",
+      
+      "Native Hawaiian or other Pacific Islander",
+      
+      "White, American Indian or Alaska Native"
+      
+    ) ~ "Indigenous",
+    
+    rater_raw_race %in% c(
+      
+      "Latino, Hispanic or Spanish Origin",
+      
+      "LatinX, Latino, Hispanic or Spanish Origin") ~ "Latin(x)e",
+    
+    rater_raw_race %in% c(
+      
+      "Black or African American, East or South-East Asian",
+      
+      "LatinX, Latino, Hispanic or Spanish Origin, East or South-East Asian",
+      
+      "White, East or South-East Asian",
+      
+      "White, LatinX, Latino, Hispanic or Spanish Origin",
+      
+      "Mixed") ~ "Multiracial",
+    
+    rater_raw_race %in% c(
+      
+      "Middle Eastern or North African",
+      
+      "Other",
+      
+      "Prefer not to answer",
+      
+      ""
+    ) ~ "Other"
+    
+  )
+  
+) %>%
+  
+  # make white people the reference group
+  
+  mutate(rater_ethinicity = relevel(factor(rater_ethinicity), "White"))
 
 ###################Modelraws###########################
 
