@@ -207,6 +207,7 @@ ModelQHarmfulContent.Intersectional.QSGE.Race <- brm(
   iter = 4000,
   chains = 4,
   seed = 42,
+  init=0,
   backend = 'rstan',
   cores = 8
 )

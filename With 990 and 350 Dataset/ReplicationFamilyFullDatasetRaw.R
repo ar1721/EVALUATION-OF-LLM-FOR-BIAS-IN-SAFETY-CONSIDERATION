@@ -1,5 +1,6 @@
 # setwd("/home/al3170/Bayesian_Multilevel")
-setwd("/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/With 990 and 350 Dataset")
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+
 dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
 # install.packages("haven")
 # install.packages("tidyverse")
