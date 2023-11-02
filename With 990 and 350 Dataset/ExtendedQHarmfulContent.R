@@ -176,9 +176,9 @@ ModelQHarmfulContent.Intersectional.AD.Race. <- brm(
   warmup = 1000,
   iter = 2000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 save(ModelQHarmfulContent.Intersectional.AD,file="ModelQHarmfulContentIntersectionalADRace.RData")
 
@@ -191,9 +191,9 @@ ModelQHarmfulContent.Intersectional.QS.Race <- brm(
   warmup = 1000,
   iter = 2000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 save(ModeQHarmfulContent.Intersectional.QS,file="ModelQHarmfulContentIntersectionalQSRace.RData")
 
@@ -206,10 +206,10 @@ ModelQHarmfulContent.Intersectional.QSGE.Race <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 save(ModelQHarmfulContent.Intersectional.QSGE,file="ModelQHarmfulContentIntersectionalQSGERace.RData")
 
@@ -224,9 +224,9 @@ ModelQHarmfulContent.Intersectional.AD.Age <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(ModelQHarmfulContent.Intersectional.AD.Age,file="ModelQHarmfulContentADAge.RData")
@@ -239,9 +239,9 @@ ModelQHarmfulContent.Intersectional.QS.Age <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(ModelQHarmfulContent.Intersectional.QS.Age,file="ModelQHarmfulContentQSAge.RData")
@@ -254,9 +254,9 @@ ModelQHarmfulContent.Intersectional.QSGE.Age <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(ModelQHarmfulContent.Intersectional.QSGE.Age,file="ModelQHarmfulContentQSGEAge.RData")
@@ -270,9 +270,9 @@ ModelQHarmfulContent.Intersectional.AD.Education <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(ModelQHarmfulContent.Intersectional.AD.Education,file="ModelQHarmfulContentADEducation.RData")
@@ -285,9 +285,9 @@ ModelQHarmfulContent.Intersectional.QS.Education <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(ModelQHarmfulContent.Intersectional.QS.Education,file="ModelQHarmfulContentQSEducation.RData")
@@ -300,9 +300,9 @@ ModelQHarmfulContent.Intersectional.QSGE.Education <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(ModelQHarmfulContent.Intersectional.QSGE.Education,file="ModelQHarmfulContentQSGEEducation.RData")
@@ -316,9 +316,9 @@ ModelQHarmfulContent.Intersectional.QS.DegreeOfHarm <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(ModelQHarmfulContent.Intersectional.QS.DegreeOfHarm,file="ModelQHarmfulContentQSDegreeOfHarm.RData")
@@ -331,9 +331,9 @@ ModelQHarmfulContent.Intersectional.QSGE.DegreeOfHarm <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(ModelQHarmfulContent.Intersectional.QSGE.DegreeOfHarm,file="ModelQHarmfulContentQSGEDegreeOfHarm.RData")
@@ -347,9 +347,9 @@ ModelQHarmfulContent.Intersectional.AD.Gender <- brm(
   warmup = 1000,
   iter = 2000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(ModelQHarmfulContent.Intersectional.AD.Gender,file="ModelQHarmfulContentADGender.RData")
@@ -362,9 +362,9 @@ ModelQHarmfulContent.Intersectional.QS.Gender <- brm(
   warmup = 1000,
   iter = 2000,
   chains = 4,
-  seed = 42,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(ModelQHarmfulContent.Intersectional.QS.Gender,file="ModelQHarmfulContentQSGender.RData")
@@ -377,9 +377,9 @@ ModelQHarmfulContent.Intersectional.QSGE.Gender <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 123,
+  seed= 42, init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(ModelQHarmfulContent.Intersectional.QSGE.Gender,file="ModelQHarmfulContentQSGEGender.RData")

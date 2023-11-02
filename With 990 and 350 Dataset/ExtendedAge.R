@@ -150,9 +150,9 @@ Model.intersectional.AD.Age <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(Model.intersectional.AD.Age,file="ModelIntersectionalADAge.RData")
@@ -165,9 +165,9 @@ Model.intersectional.QS.Age <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(Model.intersectional.QS.Age,file="ModelIntersectionalQSAge.RData")
@@ -178,11 +178,11 @@ Model.intersectional.QSGE.Age <- brm(
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 4000,
+  iter = 4000,init=0,
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(Model.intersectional.QSGE.Age,file="ModelIntersectionalQSGEAge.RData")

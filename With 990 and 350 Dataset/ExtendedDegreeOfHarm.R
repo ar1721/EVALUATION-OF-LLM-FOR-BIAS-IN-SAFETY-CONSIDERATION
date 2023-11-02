@@ -149,7 +149,7 @@ Model.intersectional.QS.DegreeOfHarm <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init =0,
   backend = 'rstan',
   cores = 8
 )
@@ -164,7 +164,7 @@ Model.intersectional.QSGE.DegreeOfHarm <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init =0,
   backend = 'rstan',
   cores = 8
 )

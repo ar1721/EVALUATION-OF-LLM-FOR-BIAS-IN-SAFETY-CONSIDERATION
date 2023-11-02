@@ -176,9 +176,9 @@ ModelQUnfairBias.Intersectional.AD.Race. <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 save(ModelQUnfairBias.Intersectional.AD,file="ModelQUnfairBiasIntersectionalADRace.RData")
 
@@ -191,9 +191,9 @@ ModelQUnfairBias.Intersectional.QS.Race <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 save(ModeQHarmfulContent.Intersectional.QS,file="ModelQUnfairBiasIntersectionalQSRace.RData")
 
@@ -206,9 +206,9 @@ ModelQUnfairBias.Intersectional.QSGE.Race <- brm(
   iter = 4000,
   chains = 4,
   init=0,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 save(ModelQUnfairBias.Intersectional.QSGE,file="ModelQUnfairBiasIntersectionalQSGERace.RData")
 
@@ -223,9 +223,9 @@ ModelQUnfairBias.Intersectional.AD.Age <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 
 save(ModelQUnfairBias.Intersectional.AD.Age,file="ModelQUnfairBiasADAge.RData")
@@ -238,9 +238,9 @@ ModelQUnfairBias.Intersectional.QS.Age <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 
 save(ModelQUnfairBias.Intersectional.QS.Age,file="ModelQUnfairBiasQSAge.RData")
@@ -253,9 +253,9 @@ ModelQUnfairBias.Intersectional.QSGE.Age <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 
 save(ModelQUnfairBias.Intersectional.QSGE.Age,file="ModelQUnfairBiasQSGEAge.RData")
@@ -269,9 +269,9 @@ ModelQUnfairBias.Intersectional.AD.Education <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 
 save(ModelQUnfairBias.Intersectional.AD.Education,file="ModelQUnfairBiasADEducation.RData")
@@ -284,9 +284,9 @@ ModelQUnfairBias.Intersectional.QS.Education <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 
 save(ModelQUnfairBias.Intersectional.QS.Education,file="ModelQUnfairBiasQSEducation.RData")
@@ -299,9 +299,9 @@ ModelQUnfairBias.Intersectional.QSGE.Education <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 
 save(ModelQUnfairBias.Intersectional.QSGE.Education,file="ModelQUnfairBiasQSGEEducation.RData")
@@ -315,9 +315,9 @@ ModelQUnfairBias.Intersectional.QS.DegreeOfHarm <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 
 save(ModelQUnfairBias.Intersectional.QS.DegreeOfHarm,file="ModelQUnfairBiasQSDegreeOfHarm.RData")
@@ -330,9 +330,9 @@ ModelQUnfairBias.Intersectional.QSGE.DegreeOfHarm <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 
 save(ModelQUnfairBias.Intersectional.QSGE.DegreeOfHarm,file="ModelQUnfairBiasQSGEDegreeOfHarm.RData")
@@ -346,9 +346,9 @@ ModelQUnfairBias.Intersectional.AD.Gender <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 
 save(ModelQUnfairBias.Intersectional.AD.Gender,file="ModelQUnfairBiasADGender.RData")
@@ -361,9 +361,9 @@ ModelQUnfairBias.Intersectional.QS.Gender <- brm(
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 
 save(ModelQUnfairBias.Intersectional.QS.Gender,file="ModelQUnfairBiasQSGender.RData")
@@ -378,7 +378,7 @@ ModelQUnfairBias.Intersectional.QSGE.Gender <- brm(
   chains = 4,
   seed = 123,
   backend = 'rstan',
-  cores = 8
+  cores =4
 )
 
 save(ModelQUnfairBias.Intersectional.QSGE.Gender,file="ModelQUnfairBiasQSGEGender.RData")
