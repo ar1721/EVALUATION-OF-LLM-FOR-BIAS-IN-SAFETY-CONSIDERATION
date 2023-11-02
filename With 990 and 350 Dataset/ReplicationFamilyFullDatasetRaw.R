@@ -1,15 +1,15 @@
 # setwd("/home/al3170/Bayesian_Multilevel")
 setwd("/Users/amanraj/Desktop/Master Project/EVALUATION-OF-LLM-FOR-BIAS-IN-SAFETY-CONSIDERATION/With 990 and 350 Dataset")
 dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
-install.packages("haven")
-install.packages("tidyverse")
-install.packages("brms", type="binary")
-install.packages("lme4", type="binary")
-install.packages("lmerTest", type="binary")
-install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
-install.packages("ellipsis" ,type="binary")
-install.packages("tidybayes")
-install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+# install.packages("haven")
+# install.packages("tidyverse")
+# install.packages("brms", type="binary")
+# install.packages("lme4", type="binary")
+# install.packages("lmerTest", type="binary")
+# install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+# install.packages("ellipsis" ,type="binary")
+# install.packages("tidybayes")
+# install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
 
 
 library(tidybayes)
@@ -51,36 +51,8 @@ colnames(dices3)<-colnm3
 dices3<-dices3[!(is.na(dices$degree_of_harm) | dices3$degree_of_harm==""), ]
 
 dices<-rbind(dices1,dices3) 
-dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
 
 # ###################Turning Q_Overall rating to numeric from character################
-# dices<-rbind(dices1,dices3)  %>%
-# mutate(rater_id = factor(rater_id)) %>%
-#   mutate(item_id = factor(item_id)) %>%
-#   
-#   mutate(DEMO_education = factor(rater_education)) %>%
-#   
-#   # convert age to ordinal
-#   mutate(
-#     DEMO_age = factor(
-#       rater_age,
-#       ordered = T,
-#       labels = c("gen z", "millenial", "gen x+"))) %>%
-#   
-#   mutate(across(c(Q_overall, Q2_harmful_content_overall,
-#                   Q3_bias_overall, Q4_misinformation),
-#                 as.ordered)) %>%
-#   
-#   
-#   mutate(
-#     degree_of_harm = factor(
-#       degree_of_harm,
-#       ordered = T,
-#       labels = c("Benign", "Debatable", "Moderate", "Extreme"))) %>%
-#   
-#   # convert phase, locale, gender to factor
-#   mutate(Phase = factor(phase)) %>%
-#   mutate(DEMO_gender = factor(rater_gender))
 
 dices<-dices %>% mutate(
   
@@ -153,6 +125,7 @@ dices<-dices %>% mutate(
   # make white people the reference group
   
   mutate(rater_ethinicity = relevel(factor(rater_ethinicity), "White"))
+dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
 
 ###################Modelraws###########################
 
