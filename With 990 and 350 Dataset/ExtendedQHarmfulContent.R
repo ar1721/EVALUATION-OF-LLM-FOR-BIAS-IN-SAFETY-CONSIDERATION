@@ -1,4 +1,30 @@
+# setwd("/home/al3170/Bayesian_Multilevel")
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
+# install.packages("haven")
+# install.packages("tidyverse")
+# install.packages("brms", type="binary")
+# install.packages("lme4", type="binary")
+# install.packages("lmerTest", type="binary")
+# install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+# install.packages("ellipsis" ,type="binary")
+# install.packages("tidybayes")
+# install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+
+
+library(tidybayes)
+library(brms) # for the analysis
+library(haven) # to load the SPSS .sav file
+# library(tidyverse) # needed for data manipulation.
+library(RColorBrewer) # needed for some extra colours in one of the graphs
+library(ggmcmc)
+library(ggthemes)
+library(ggridges)
+library(loo)
 # #########################Reading dices dataset#######################
+
+
+
 dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
 dices2=read.csv("diverse_safety_adversarial_dialog_990.csv")
 colnm<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q2_harmful_content_overall")
@@ -133,6 +159,14 @@ formula12<- Q2_harmful_content_overall ~ rater_gender * (rater_raw_race +phase+ 
 formula13<-Q2_harmful_content_overall ~ rater_gender * (rater_raw_race +phase+ rater_age + degree_of_harm+rater_education+phase) + (1 | rater_id) + (1 | item_id)
 
 formula14<- Q2_harmful_content_overall ~ rater_gender *(rater_raw_race +phase+ rater_age + degree_of_harm+rater_education+phase) + (degree_of_harm | rater_id) + (1 | item_id)
+
+
+prior_thresholds <- c(
+  prior(normal(.440,0.5), class=Intercept, coef=1),
+  prior(normal(.583,0.5), class=Intercept, coef=2),
+  prior(student_t(3,0,2.5), class="b")
+)
+
 
 ModelQHarmfulContent.Intersectional.AD.Race. <- brm(
   formula = formula1,

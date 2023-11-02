@@ -15,7 +15,7 @@ dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
 library(tidybayes)
 library(brms) # for the analysis
 library(haven) # to load the SPSS .sav file
-library(tidyverse) # needed for data manipulation.
+# library(tidyverse) # needed for data manipulation.
 library(RColorBrewer) # needed for some extra colours in one of the graphs
 library(ggmcmc)
 library(ggthemes)

@@ -1,10 +1,26 @@
-dices1=read.csv('https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/350/diverse_safety_adversarial_dialog_350.csv')
-dices=dices1
-raters=unique(dices$rater_id)
+# setwd("/home/al3170/Bayesian_Multilevel")
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
+# install.packages("haven")
+# install.packages("tidyverse")
+# install.packages("brms", type="binary")
+# install.packages("lme4", type="binary")
+# install.packages("lmerTest", type="binary")
+# install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
+# install.packages("ellipsis" ,type="binary")
+# install.packages("tidybayes")
+# install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
 
 
-# ###################Turning Q_Overall rating to numeric from character################
-dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
+library(tidybayes)
+library(brms) # for the analysis
+library(haven) # to load the SPSS .sav file
+# library(tidyverse) # needed for data manipulation.
+library(RColorBrewer) # needed for some extra colours in one of the graphs
+library(ggmcmc)
+library(ggthemes)
+library(ggridges)
+library(loo)
 
 sumdices<-summary(dices)# #########################Reading dices dataset#######################
 dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
