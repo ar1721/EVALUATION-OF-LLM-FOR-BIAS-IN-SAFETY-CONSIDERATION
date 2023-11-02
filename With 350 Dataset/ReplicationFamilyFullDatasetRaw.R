@@ -368,11 +368,12 @@ parameter_dfQS<-parameter_df[-1,]
 
 # conditions=data.frame(Q_overall="No")
 ##################################Plots##########################
-setwd("")
+
 # plot(mod_plot, plot = FALSE)[[1]] +facet_wrap("rater_raw_race")
 
-plottingBar <- function(m,k) { # create a function with the name my_function
+plottingBar <- function(m,k,l) { # create a function with the name my_function
   titlex=paste("Probability of No by rater_gender and ",k)
+  titlex=paste(titlex,l)
   gr=m$data
   gr1=gr[gr$effect2__=="No",]
   nrc=length(unique(dices$rater_raw_race))*length(unique(dices[[k]]))
