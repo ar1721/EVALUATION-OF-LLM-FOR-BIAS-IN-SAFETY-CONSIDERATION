@@ -1,5 +1,5 @@
-# setwd("/home/al3170/Bayesian_Multilevel")
-setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+setwd("/home/al3170/Bayesian_Multilevel")
+#setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
 # install.packages("haven")
 # install.packages("tidyverse")
