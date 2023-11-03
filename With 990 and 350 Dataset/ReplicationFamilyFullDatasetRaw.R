@@ -223,7 +223,7 @@ Modelraw.Intersectional.AD <- brm(
   chains = 4,
   seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 save(Modelraw.Intersectional.AD,file="ModelrawIntersectionalAD.RData")
 
@@ -238,7 +238,7 @@ Modelraw.Intersectional.QS <- brm(
   chains = 4,
   seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 save(Modelraw.Intersectional.QS,file="ModelrawIntersectionalQS.RData")
 
@@ -253,7 +253,7 @@ Modelraw.Intersectional.QSGE <- brm(
   chains = 4,
   seed = 42,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 save(Modelraw.Intersectional.QSGE,file="ModelrawIntersectionalQSGE.RData")
 
