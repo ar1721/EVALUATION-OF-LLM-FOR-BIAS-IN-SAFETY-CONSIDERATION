@@ -22,7 +22,7 @@ library(ggthemes)
 library(ggridges)
 library(loo)
 
-# #########################Reading dices dataset#######################
+sumdices<-summary(dices)# #########################Reading dices dataset#######################
 dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
 dices2=read.csv("diverse_safety_adversarial_dialog_990.csv")
 colnm<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q_overall")
@@ -128,12 +128,11 @@ dices<-dices %>% mutate(
 dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
 ###################Models###########################
 
-# Age
-formula11<- Q_overall ~ rater_age * (rater_raw_race +rater_gender +rater_education) + (1 | rater_id) + (1 | item_id)
+# Degree of harm
 
-formula12<-Q_overall ~ rater_age * (rater_raw_race + rater_gender + degree_of_harm+rater_education) + (1 | rater_id) + (1 | item_id)
+formula17<-Q_overall ~ degree_of_harm * (rater_raw_race + rater_gender + rater_education+rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula13 <- Q_overall ~ rater_age *(rater_raw_race + rater_gender + degree_of_harm+rater_education) + (degree_of_harm | rater_id) + (1 | item_id)
+formula18 <- Q_overall ~ degree_of_harm *(rater_raw_race + rater_gender + rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
 
 prior_thresholds <- c(
   prior(normal(.440,0.5), class=Intercept, coef=1),
@@ -142,49 +141,35 @@ prior_thresholds <- c(
 )
 
 
-Model.intersectional.AD.Age <- brm(
-  formula = formula11,
+Model.intersectional.QS.DegreeOfHarm <- brm(
+  formula = formula17,
   data = dices,
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
   iter = 4000,
   chains = 4,
-  seed = 42,init=0,
+  seed = 42,init =0,
   backend = 'rstan',
   cores = 4
 )
 
-save(Model.intersectional.AD.Age,file="ModelIntersectionalADAge.RData")
-
-Model.intersectional.QS.Age <- brm(
-  formula = formula12,
-  data = dices,
-  family = cumulative("probit"),
-  prior = prior_thresholds,
-  warmup = 1000,
-  iter = 4000,
-  chains = 4,
-  seed = 42,init=0,
-  backend = 'rstan',
-  cores = 4
-)
-
-save(Model.intersectional.QS.Age,file="ModelIntersectionalQSAge.RData")
+save(Model.intersectional.QS.DegreeOfHarm,file="ModelIntersectionalQSDegreeOfHarm.RData")
 # 
-# Model.intersectional.QSGE.Age <- brm(
-#   formula = formula13,
+# Model.intersectional.QSGE.DegreeOfHarm <- brm(
+#   formula = formula18,
 #   data = dices,
 #   family = cumulative("probit"),
 #   prior = prior_thresholds,
 #   warmup = 1000,
-#   iter = 4000,init=0,
+#   iter = 4000,
 #   chains = 4,
-#   seed = 42,
+#   seed = 42,init =0,
 #   backend = 'rstan',
 #   cores = 4
 # )
 # 
-# save(Model.intersectional.QSGE.Age,file="ModelIntersectionalQSGEAge.RData")
+# save(Model.intersectional.QSGE.DegreeOfHarm,file="ModelIntersectionalQSGEDegreeOfHarm.RData")
+
 
 ##################################Plots##########################
