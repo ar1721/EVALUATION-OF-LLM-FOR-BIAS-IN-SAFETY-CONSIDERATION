@@ -48,7 +48,7 @@ dices3<-dices2[colnm2]
 colnames(dices3)<-colnm3
 
 
-dices3<-dices3[!(is.na(dices$degree_of_harm) | dices3$degree_of_harm==""), ]
+# dices3<-dices3[!(is.na(dices$degree_of_harm) | dices3$degree_of_harm==""), ]
 
 dices<-rbind(dices1,dices3) 
 
@@ -146,11 +146,11 @@ Model.intersectional.AD.Gender <- brm(
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(Model.intersectional.AD.Gender,file="ModelIntersectionalADGender.RData")
@@ -161,11 +161,11 @@ Model.intersectional.QS.Gender <- brm(
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,init=0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(Model.intersectional.QS.Gender,file="ModelIntersectionalQSGender.RData")
@@ -180,7 +180,7 @@ Model.intersectional.QSGE.Gender <- brm(
   chains = 4,
   seed = 123,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(Model.intersectional.QSGE.Gender,file="ModelIntersectionalQSGEGender.RData")

@@ -128,12 +128,12 @@ dices<-dices %>% mutate(
 dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
 ###################Models###########################
 
-# Education
-formula14<- Q_overall ~ rater_education * (rater_raw_race +phase+rater_gender +rater_age) + (1 | rater_id) + (1 | item_id)
+# Age
+formula11<- Q_overall ~ rater_age * (rater_raw_race +rater_gender +rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula15<-Q_overall ~ rater_education * (rater_raw_race +phase+ rater_gender + degree_of_harm+rater_age) + (1 | rater_id) + (1 | item_id)
+formula12<-Q_overall ~ rater_age * (rater_raw_race + rater_gender + degree_of_harm+rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula16 <- Q_overall ~ rater_education *(rater_raw_race + phase+rater_gender + degree_of_harm+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
+formula13 <- Q_overall ~ rater_age *(rater_raw_race + rater_gender + degree_of_harm+rater_education) + (degree_of_harm | rater_id) + (1 | item_id)
 
 prior_thresholds <- c(
   prior(normal(.440,0.5), class=Intercept, coef=1),
@@ -142,8 +142,8 @@ prior_thresholds <- c(
 )
 
 
-Model.intersectional.AD.Education <- brm(
-  formula = formula14,
+Model.intersectional.AD.Age <- brm(
+  formula = formula11,
   data = dices,
   family = cumulative("probit"),
   prior = prior_thresholds,
@@ -155,37 +155,36 @@ Model.intersectional.AD.Education <- brm(
   cores = 4
 )
 
-save(Model.intersectional.AD.Education,file="ModelIntersectionalADEducation.RData")
+save(Model.intersectional.AD.Age,file="ModelIntersectionalADAge.RData")
 
-Model.intersectional.QS.Education <- brm(
-  formula = formula15,
-  data = dices,
-  family = cumulative("probit"),
-  prior = prior_thresholds,
-  warmup = 1000,
-  iter = 4000,
-  chains = 4,
-  seed = 42,init=0,
-  backend = 'rstan',
-  cores = 4
-)
-
-save(Model.intersectional.QS.Education,file="ModelIntersectionalQSEducation.RData")
-
-Model.intersectional.QSGE.Education <- brm(
-  formula = formula16,
-  data = dices,
-  family = cumulative("probit"),
-  prior = prior_thresholds,
-  warmup = 1000,
-  iter = 4000,
-  chains = 4,
-  seed = 42,init=0,
-  backend = 'rstan',
-  cores = 4
-)
-
-save(Model.intersectional.QSGE.Education,file="ModelIntersectionalQSGEEducation.RData")
-
+# Model.intersectional.QS.Age <- brm(
+#   formula = formula12,
+#   data = dices,
+#   family = cumulative("probit"),
+#   prior = prior_thresholds,
+#   warmup = 1000,
+#   iter = 4000,
+#   chains = 4,
+#   seed = 42,init=0,
+#   backend = 'rstan',
+#   cores = 4
+# )
+# 
+# save(Model.intersectional.QS.Age,file="ModelIntersectionalQSAge.RData")
+# 
+# Model.intersectional.QSGE.Age <- brm(
+#   formula = formula13,
+#   data = dices,
+#   family = cumulative("probit"),
+#   prior = prior_thresholds,
+#   warmup = 1000,
+#   iter = 4000,init=0,
+#   chains = 4,
+#   seed = 42,
+#   backend = 'rstan',
+#   cores = 4
+# )
+# 
+# save(Model.intersectional.QSGE.Age,file="ModelIntersectionalQSGEAge.RData")
 
 ##################################Plots##########################

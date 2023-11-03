@@ -48,7 +48,7 @@ dices3<-dices2[colnm2]
 colnames(dices3)<-colnm3
 
 
-dices3<-dices3[!(is.na(dices$degree_of_harm) | dices3$degree_of_harm==""), ]
+# dices3<-dices3[!(is.na(dices$degree_of_harm) | dices3$degree_of_harm==""), ]
 
 dices<-rbind(dices1,dices3) 
 
@@ -151,7 +151,7 @@ Model.intersectional.QS.DegreeOfHarm <- brm(
   chains = 4,
   seed = 42,init =0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(Model.intersectional.QS.DegreeOfHarm,file="ModelIntersectionalQSDegreeOfHarm.RData")
@@ -166,7 +166,7 @@ Model.intersectional.QSGE.DegreeOfHarm <- brm(
   chains = 4,
   seed = 42,init =0,
   backend = 'rstan',
-  cores = 8
+  cores = 4
 )
 
 save(Model.intersectional.QSGE.DegreeOfHarm,file="ModelIntersectionalQSGEDegreeOfHarm.RData")
