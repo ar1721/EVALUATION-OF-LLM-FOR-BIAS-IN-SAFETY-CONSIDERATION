@@ -221,7 +221,7 @@ Modelraw.Intersectional.AD <- brm(
   warmup = 1000,
   iter = 2000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
   cores = 8
 )
@@ -236,7 +236,7 @@ Modelraw.Intersectional.QS <- brm(
   warmup = 1000,
   iter = 2000,
   chains = 4,
-  seed = 42,
+  seed = 42,init=0,
   backend = 'rstan',
   cores = 8
 )
