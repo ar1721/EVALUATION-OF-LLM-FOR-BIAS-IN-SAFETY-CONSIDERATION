@@ -32,5 +32,5 @@ spack load r@4.2.2
 
 # Your job script goes below this line.  
 #
-R < CodeRun/ReplicationFamilyFullDatasetRawAD.R --no-save
+R < ReplicationFamilyFullDatasetRawAD.R --no-save
 
