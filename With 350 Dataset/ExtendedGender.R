@@ -104,13 +104,75 @@ waic_results_estimate <- list(
   Intersectional_QSGE_estimate = waic_results$Intersectional_QSGE$estimates)
 
 
-sum=summary(Model.intersectional.AD.Gender)
+# Define the parameter of interest (e.g., rater_age)
+parameter_df<-data_frame(Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+
+# Extract posterior samples for the parameter
+parameter_samples <- posterior_samples(Model.intersectional.AD.Gender)
+colPosteriorall<-colnames(parameter_samples)
+colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
+
+for (i in colPosterior){
+  print(i)
+  # Calculate the median of the posterior distribution
+  median_estimate <- median(parameter_samples[[i]])
+  
+  # Calculate the 95% Bayesian credible interval
+  credible_interval <- quantile(parameter_samples[[i]], c(0.025, 0.975))
+  
+  # Calculate the probability of direction (96% chance of being positive)
+  probability_direction <- mean(parameter_samples[[i]] > 0)
+  
+  # Calculate the probability of practical significance (95% chance of being > 0.05)
+  probability_practical_significance <- mean(parameter_samples[[i]] > 0.05)
+  
+  # Calculate the probability of having a large effect (89% chance of being > 0.30)
+  probability_large_effect <- mean(parameter_samples[[i]] > 0.30)
+  
+  parameter_df<-rbind(parameter_df,c(median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  
+}
+parameter_df<-parameter_df[-1,]
+# Print the results
+
+
+parameter_dfQS<-data_frame(Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+
+# Extract posterior samples for the parameter
+parameter_samples <- posterior_samples(Model.intersectional.QSGE.Gender)
+colPosteriorall<-colnames(parameter_samples)
+colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
+
+for (i in colPosterior){
+  print(i)
+  # Calculate the median of the posterior distribution
+  median_estimate <- median(parameter_samples[[i]])
+  
+  # Calculate the 95% Bayesian credible interval
+  credible_interval <- quantile(parameter_samples[[i]], c(0.025, 0.975))
+  
+  # Calculate the probability of direction (96% chance of being positive)
+  probability_direction <- mean(parameter_samples[[i]] > 0)
+  
+  # Calculate the probability of practical significance (95% chance of being > 0.05)
+  probability_practical_significance <- mean(parameter_samples[[i]] > 0.05)
+  
+  # Calculate the probability of having a large effect (89% chance of being > 0.30)
+  probability_large_effect <- mean(parameter_samples[[i]] > 0.30)
+  
+  parameter_dfQS<-rbind(parameter_df,c(median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  
+}
+parameter_dfQS<-parameter_df[-1,]
+
 
 ##################################Plots##########################
 # plot(mod_plot, plot = FALSE)[[1]] +facet_wrap("rater_raw_race")
 
-plottingBar <- function(m,k) { # create a function with the name my_function
+
+plottingBar <- function(m,l,k) { # create a function with the name my_function
   titlex=paste("Probability of No by rater_gender and ",k)
+  titlex=paste(titlex,l)
   gr=m$data
   gr1=gr[gr$effect2__=="No",]
   nrc=length(unique(dices$rater_gender))*length(unique(dices[[k]]))
@@ -128,12 +190,13 @@ plottingBar <- function(m,k) { # create a function with the name my_function
   return (m)
 }
 ######################################Model.Intersection.AD################
+modelname=" AD Intersection"
 # rater_gender
 conditions <- expand.grid(rater_education = "College degree or higher",rater_age="gen x+", rater_gender =unique(dices$rater_gender),rater_raw_race="White")
 mod_plot <- conditional_effects(Model.intersectional.AD.Gender,categorical = TRUE, effect ="rater_gender",conditions = conditions)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_gender")
-plotb=plottingBar(m,"rater_gender")
+plotb=plottingBar(m,modelname,"rater_gender")
 ggsave(filename = "rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
 
 
@@ -143,7 +206,7 @@ conditions <- expand.grid(rater_education = "College degree or higher",rater_age
 mod_plot <- conditional_effects(Model.intersectional.AD.Gender,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_raw_race")
-plotb=plottingBar(m,"rater_raw_race")
+plotb=plottingBar(m,modelname,"rater_raw_race")
 ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
 
 
@@ -157,7 +220,7 @@ str(mod_plot)
 
 
 m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
-plotb=plottingBar(m,"rater_education")
+plotb=plottingBar(m,modelname,"rater_education")
 ggsave(filename = "rater_gender_and_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
 
 
@@ -168,7 +231,7 @@ mod_plot <- conditional_effects(Model.intersectional.AD.Gender,categorical = TRU
 str(mod_plot)
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_age")
-plotb=plottingBar(m,"rater_age")
+plotb=plottingBar(m,modelname,"rater_age")
 
 ggsave(filename = "rater_gender_and_rater_age.jpeg", plot = plotb, width = 8, height = 6) 
 
@@ -178,13 +241,13 @@ ggsave(filename = "rater_gender_and_rater_age.jpeg", plot = plotb, width = 8, he
 
 
 ######################################Model.Intersection.QS################
-
+modelname=" QS Intersection"
 # rater_gender
 conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College degree or higher",rater_age="gen x+", rater_gender =unique(dices$rater_gender),rater_raw_race="White")
 mod_plot <- conditional_effects(Model.intersectional.QS.Gender,categorical = TRUE, effect ="rater_gender",conditions = conditions)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_gender")
-plotb=plottingBar(m,"rater_gender")
+plotb=plottingBar(m,modelname,"rater_gender")
 
 ggsave(filename = "QS_rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
 
@@ -195,7 +258,7 @@ conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College d
 mod_plot <- conditional_effects(Model.intersectional.QS.Gender,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_raw_race")
-plotb=plottingBar(m,"rater_raw_race")
+plotb=plottingBar(m,modelname,"rater_raw_race")
 ggsave(filename = "QS_rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
 
 
@@ -209,7 +272,7 @@ str(mod_plot)
 
 
 m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
-plotb=plottingBar(m,"rater_education")
+plotb=plottingBar(m,modelname,"rater_education")
 
 ggsave(filename = "QS_rater_gender_and_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
 
@@ -218,7 +281,7 @@ ggsave(filename = "QS_rater_gender_and_rater_education.jpeg", plot = plotb, widt
 conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College degree or higher",rater_age=unique(dices$rater_age), rater_gender =unique(dices$rater_gender),rater_raw_race="White")
 mod_plot <- conditional_effects(Model.intersectional.QS.Gender,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
 m=plot(mod_plot)[[1]] + facet_wrap("rater_age")
-plotb=plottingBar(m,"rater_age")
+plotb=plottingBar(m,modelname,"rater_age")
 ggsave(filename = "QS_rater_gender_and_rater_age.jpeg", plot = plotb, width = 8, height = 6) 
 
 
@@ -228,7 +291,7 @@ conditions <- expand.grid(rater_education = "College degree or higher",rater_age
 mod_plot <- conditional_effects(Model.intersectional.QS.Gender,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("degree_of_harm")
-plotb=plottingBar(m,"degree_of_harm")
+plotb=plottingBar(m,modelname,"degree_of_harm")
 
 
 ggsave(filename = "QS_rater_gender_and_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
@@ -236,12 +299,13 @@ ggsave(filename = "QS_rater_gender_and_degree_of_harm.jpeg", plot = plotb, width
 
 ######################################Model.Intersection.QSGE################
 
+modelname=" QSGE Intersection"
 # rater_gender
 conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College degree or higher",rater_age="gen x+", rater_gender =unique(dices$rater_gender),rater_raw_race="White")
 mod_plot <- conditional_effects(Model.intersectional.QSGE.Gender,categorical = TRUE, effect ="rater_gender",conditions = conditions)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_gender")
-plotb=plottingBar(m,"rater_gender")
+plotb=plottingBar(m,modelname,"rater_gender")
 
 ggsave(filename = "QSGE_rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
 
@@ -252,7 +316,7 @@ conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College d
 mod_plot <- conditional_effects(Model.intersectional.QSGE.Gender,categorical = TRUE, effect ="rater_gender" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_raw_race")
-plotb=plottingBar(m,"rater_raw_race")
+plotb=plottingBar(m,modelname,"rater_raw_race")
 ggsave(filename = "QSGE_rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
 
 
@@ -266,7 +330,7 @@ str(mod_plot)
 
 
 m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
-plotb=plottingBar(m,"rater_education")
+plotb=plottingBar(m,modelname,"rater_education")
 ggsave(filename = "QSGE_rater_gender_and_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
 
 
@@ -277,7 +341,7 @@ mod_plot <- conditional_effects(Model.intersectional.QSGE.Gender,categorical = T
 str(mod_plot)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_age")
-plotb=plottingBar(m,"rater_age")
+plotb=plottingBar(m,modelname,"rater_age")
 ggsave(filename = "QSGE_rater_gender_and_rater_age.jpeg", plot = plotb, width = 8, height = 6) 
 
 
@@ -288,5 +352,5 @@ mod_plot <- conditional_effects(Model.intersectional.QSGE.Gender,categorical = T
 
 
 m=plot(mod_plot)[[1]] +facet_wrap("degree_of_harm")
-plotb=plottingBar(m,"degree_of_harm")
+plotb=plottingBar(m,modelname,"degree_of_harm")
 ggsave(filename = "QSGE_rater_gender_and_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
