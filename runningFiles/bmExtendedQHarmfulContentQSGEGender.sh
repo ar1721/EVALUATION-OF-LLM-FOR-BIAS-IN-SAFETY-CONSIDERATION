@@ -5,8 +5,8 @@
 #SBATCH -J bayesian
 
 # Standard out and Standard Error output files
-#SBATCH -o %j_%x.output
-#SBATCH -e %j_%x.error
+#SBATCH -o logs/%j_%x.output
+#SBATCH -e logs/%j_%x.error
 
 #To send emails, set the adcdress below and remove one of the "#" signs.
 #SBATCH --mail-user=slack:@al3170
@@ -32,4 +32,4 @@ spack load r@4.2.2
 
 # Your job script goes below this line.  
 #
-R < ExtendedQHarmfulContentQSGEGender.R --no-save
+R < CodeRun/ExtendedQHarmfulContentQSGEGender.R --no-save

@@ -33,7 +33,7 @@ for rsh in onlyfiles:
     fw=open("runningFiles/"+shw,'w')
     for lines in fsh:
         if lines.__contains__("R <"):
-            k="R < "+rsh+" --no-save"
+            k="R < CodeRun/"+rsh+" --no-save"
             fw.write(k)
         else:
             fw.write(lines)
