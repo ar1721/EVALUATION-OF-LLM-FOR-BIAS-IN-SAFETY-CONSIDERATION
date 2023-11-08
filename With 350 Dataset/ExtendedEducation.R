@@ -344,3 +344,6 @@ mod_plot <- conditional_effects(Modelraw.Intersectional.QSGE,categorical = TRUE,
 m=plot(mod_plot)[[1]] +facet_wrap("degree_of_harm")
 plotb=plottingBar(m,modelname,"degree_of_harm")
 ggsave(filename = "QSGE_rater_race_and_degree_of_harm.jpeg", plot = m, width =24, height = 12) 
+
+######################################Model.Intersection.AD################
+modelname=" AD Intersection"
