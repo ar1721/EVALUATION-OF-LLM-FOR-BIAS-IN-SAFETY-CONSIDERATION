@@ -8,11 +8,11 @@ dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
 # install.packages("lmerTest", type="binary")
 # install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
 # install.packages("ellipsis" ,type="binary")
-# install.packages("tidybayes")
+#library(tidybayes)
 # install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
 
 
-library(tidybayes)
+#library(tidybayes)
 library(brms) # for the analysis
 library(haven) # to load the SPSS .sav file
 # library(tidyverse) # needed for data manipulation.
@@ -130,9 +130,9 @@ dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), or
 
 # Degree of harm
 
-formula17<-Q_overall ~ degree_of_harm * (rater_raw_race + rater_gender + rater_education+rater_age) + (1 | rater_id) + (1 | item_id)
+formula17<-Q_overall ~ degree_of_harm * (rater_ethinicity + rater_gender + rater_education+rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula18 <- Q_overall ~ degree_of_harm *(rater_raw_race + rater_gender + rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
+formula18 <- Q_overall ~ degree_of_harm *(rater_ethinicity + rater_gender + rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
 
 prior_thresholds <- c(
   prior(normal(.440,0.5), class=Intercept, coef=1),

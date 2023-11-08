@@ -129,11 +129,11 @@ dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), or
 ###################Models###########################
 
 # Education
-formula14<- Q_overall ~ rater_education * (rater_raw_race +phase+rater_gender +rater_age) + (1 | rater_id) + (1 | item_id)
+formula14<- Q_overall ~ rater_education * (rater_ethinicity +phase+rater_gender +rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula15<-Q_overall ~ rater_education * (rater_raw_race +phase+ rater_gender + degree_of_harm+rater_age) + (1 | rater_id) + (1 | item_id)
+formula15<-Q_overall ~ rater_education * (rater_ethinicity +phase+ rater_gender + degree_of_harm+rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula16 <- Q_overall ~ rater_education *(rater_raw_race + phase+rater_gender + degree_of_harm+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
+formula16 <- Q_overall ~ rater_education *(rater_ethinicity + phase+rater_gender + degree_of_harm+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
 
 prior_thresholds <- c(
   prior(normal(.440,0.5), class=Intercept, coef=1),

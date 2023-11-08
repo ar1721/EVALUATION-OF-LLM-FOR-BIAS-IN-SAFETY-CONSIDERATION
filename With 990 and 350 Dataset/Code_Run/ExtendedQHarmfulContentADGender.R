@@ -8,11 +8,11 @@ dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
 # install.packages("lmerTest", type="binary")
 # install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
 # install.packages("ellipsis" ,type="binary")
-# install.packages("tidybayes")
+#library(tidybayes)
 # install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
 
 
-library(tidybayes)
+#library(tidybayes)
 library(brms) # for the analysis
 library(haven) # to load the SPSS .sav file
 # library(tidyverse) # needed for data manipulation.
@@ -132,33 +132,33 @@ dices$Q2_harmful_content_overall <- factor(dices$Q2_harmful_content_overall, lev
 
 #########################Models###################################
 
-formula1 <- Q2_harmful_content_overall ~ rater_raw_race * (rater_gender + rater_age+phase+ rater_education) + (1 | rater_id) + (1 | item_id)
+formula1 <- Q2_harmful_content_overall ~ rater_ethinicity * (rater_gender + rater_age+phase+ rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula2 <- Q2_harmful_content_overall ~ rater_raw_race * (rater_gender + rater_age+phase+ rater_education + degree_of_harm) + (1 | rater_id) + (1 | item_id)
+formula2 <- Q2_harmful_content_overall ~ rater_ethinicity * (rater_gender + rater_age+phase+ rater_education + degree_of_harm) + (1 | rater_id) + (1 | item_id)
 
-formula3 <- Q2_harmful_content_overall ~ rater_raw_race * (rater_gender + rater_age+phase+ rater_education + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
+formula3 <- Q2_harmful_content_overall ~ rater_ethinicity * (rater_gender + rater_age+phase+ rater_education + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
 
-formula4<- Q2_harmful_content_overall ~ rater_age * (rater_raw_race +rater_gender +rater_education) + (1 | rater_id) + (1 | item_id)
+formula4<- Q2_harmful_content_overall ~ rater_age * (rater_ethinicity +rater_gender +rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula5<-Q2_harmful_content_overall ~ rater_age * (rater_raw_race + rater_gender + degree_of_harm+rater_education) + (1 | rater_id) + (1 | item_id)
+formula5<-Q2_harmful_content_overall ~ rater_age * (rater_ethinicity + rater_gender + degree_of_harm+rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula6 <- Q2_harmful_content_overall ~ rater_age *(rater_raw_race + rater_gender + degree_of_harm+rater_education) + (degree_of_harm | rater_id) + (1 | item_id)
+formula6 <- Q2_harmful_content_overall ~ rater_age *(rater_ethinicity + rater_gender + degree_of_harm+rater_education) + (degree_of_harm | rater_id) + (1 | item_id)
 
-formula7<- Q2_harmful_content_overall ~ rater_education * (rater_raw_race +phase+rater_gender +rater_age) + (1 | rater_id) + (1 | item_id)
+formula7<- Q2_harmful_content_overall ~ rater_education * (rater_ethinicity +phase+rater_gender +rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula8<-Q2_harmful_content_overall ~ rater_education * (rater_raw_race +phase+ rater_gender + degree_of_harm+rater_age) + (1 | rater_id) + (1 | item_id)
+formula8<-Q2_harmful_content_overall ~ rater_education * (rater_ethinicity +phase+ rater_gender + degree_of_harm+rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula9 <- Q2_harmful_content_overall ~ rater_education *(rater_raw_race + phase+rater_gender + degree_of_harm+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
+formula9 <- Q2_harmful_content_overall ~ rater_education *(rater_ethinicity + phase+rater_gender + degree_of_harm+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
 
-formula10<-Q2_harmful_content_overall ~ degree_of_harm * (rater_raw_race + rater_gender + rater_education+rater_age) + (1 | rater_id) + (1 | item_id)
+formula10<-Q2_harmful_content_overall ~ degree_of_harm * (rater_ethinicity + rater_gender + rater_education+rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula11 <- Q2_harmful_content_overall ~ degree_of_harm *(rater_raw_race + rater_gender + rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
+formula11 <- Q2_harmful_content_overall ~ degree_of_harm *(rater_ethinicity + rater_gender + rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
 
-formula12<- Q2_harmful_content_overall ~ rater_gender * (rater_raw_race +phase+ rater_age+rater_education+phase) + (1 | rater_id) + (1 | item_id)
+formula12<- Q2_harmful_content_overall ~ rater_gender * (rater_ethinicity +phase+ rater_age+rater_education+phase) + (1 | rater_id) + (1 | item_id)
 
-formula13<-Q2_harmful_content_overall ~ rater_gender * (rater_raw_race +phase+ rater_age + degree_of_harm+rater_education+phase) + (1 | rater_id) + (1 | item_id)
+formula13<-Q2_harmful_content_overall ~ rater_gender * (rater_ethinicity +phase+ rater_age + degree_of_harm+rater_education+phase) + (1 | rater_id) + (1 | item_id)
 
-formula14<- Q2_harmful_content_overall ~ rater_gender *(rater_raw_race +phase+ rater_age + degree_of_harm+rater_education+phase) + (degree_of_harm | rater_id) + (1 | item_id)
+formula14<- Q2_harmful_content_overall ~ rater_gender *(rater_ethinicity +phase+ rater_age + degree_of_harm+rater_education+phase) + (degree_of_harm | rater_id) + (1 | item_id)
 
 
 prior_thresholds <- c(

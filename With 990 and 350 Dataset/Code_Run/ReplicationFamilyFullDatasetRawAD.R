@@ -9,11 +9,11 @@ dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
 # install.packages("lmerTest", type="binary")
 # install.packages("rstan", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
 # install.packages("ellipsis" ,type="binary")
-# install.packages("tidybayes")
+#library(tidybayes)
 # install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
 
 
-library(tidybayes)
+#library(tidybayes)
 library(brms) # for the analysis
 library(haven) # to load the SPSS .sav file
 # library(tidyverse) # needed for data manipulation.
@@ -133,17 +133,17 @@ dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), or
 # Create formula objects
 formula1 <- Q_overall ~ 1 + (1 | rater_id) + (1 | item_id)
 
-formula2 <- Q_overall ~ rater_raw_race + rater_gender + rater_age+ rater_education+phase+ (1 | rater_id) + (1 | item_id)
+formula2 <- Q_overall ~ rater_ethinicity + rater_gender + rater_age+ rater_education+phase+ (1 | rater_id) + (1 | item_id)
 
-formula3 <- Q_overall ~ rater_raw_race + rater_gender + rater_age+ rater_education + phase+degree_of_harm + (1 | rater_id) + (1 | item_id)
+formula3 <- Q_overall ~ rater_ethinicity + rater_gender + rater_age+ rater_education + phase+degree_of_harm + (1 | rater_id) + (1 | item_id)
 
-formula4 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+phase+ rater_education) + (1 | rater_id) + (1 | item_id)
+formula4 <- Q_overall ~ rater_ethinicity * (rater_gender + rater_age+phase+ rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula5 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+phase+ rater_education + degree_of_harm) + (1 | rater_id) + (1 | item_id)
+formula5 <- Q_overall ~ rater_ethinicity * (rater_gender + rater_age+phase+ rater_education + degree_of_harm) + (1 | rater_id) + (1 | item_id)
 
-formula6 <- Q_overall ~ rater_raw_race * (rater_gender + rater_age+phase+ rater_education + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
+formula6 <- Q_overall ~ rater_ethinicity * (rater_gender + rater_age+phase+ rater_education + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
 
-formula7 <- Q_overall ~ rater_raw_race +rater_gender + rater_age+ phase+rater_education + degree_of_harm + (degree_of_harm | rater_id) + (1 | item_id)
+formula7 <- Q_overall ~ rater_ethinicity +rater_gender + rater_age+ phase+rater_education + degree_of_harm + (degree_of_harm | rater_id) + (1 | item_id)
 
 # Get prior specifications for the models
 prior_thresholds <- c(
