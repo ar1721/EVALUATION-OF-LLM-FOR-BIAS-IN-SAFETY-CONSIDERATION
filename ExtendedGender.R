@@ -222,17 +222,10 @@ m=plot(mod_plot)[[1]] +facet_wrap("rater_raw_race")
 gr=m$data
 gr1=gr[gr$effect2__=="No",]
 k="rater_raw_race"
+gr1 <- subset(df, select = -cond__)
+gr2=gr1
 
-ud1=length(unique(dices$rater_gender)) 
- ud2=length(unique(dices[[k]])) 
- selected_rows_indices <- c() 
- i=1 
- for (lo in range(ud1)){ 
- hel=c(seq(i, nrow(gr1), by = ud1*ud1)) 
- selected_rows_indices <- c(selected_rows_indices, hel) 
- i=i+1 
- }
-gr2=gr1[selected_rows_indices,]
+
 plotb=plottingBar(gr2,modelname,k)
 ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
 
