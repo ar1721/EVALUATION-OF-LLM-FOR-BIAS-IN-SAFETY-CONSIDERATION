@@ -219,7 +219,7 @@ Modelraw.Intersectional.AD <- brm(
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,init=0,
   backend = 'rstan',
@@ -234,7 +234,7 @@ Modelraw.Intersectional.QS <- brm(
   family = cumulative("probit"),
   prior = prior_thresholds,
   warmup = 1000,
-  iter = 2000,
+  iter = 4000,
   chains = 4,
   seed = 42,init=0,
   backend = 'rstan',
@@ -253,6 +253,7 @@ Modelraw.Intersectional.QSGE <- brm(
   chains = 4,
   seed = 42,
   backend = 'rstan',
+  init=0,
   cores = 4
 )
 save(Modelraw.Intersectional.QSGE,file="ModelrawIntersectionalQSGE.RData")

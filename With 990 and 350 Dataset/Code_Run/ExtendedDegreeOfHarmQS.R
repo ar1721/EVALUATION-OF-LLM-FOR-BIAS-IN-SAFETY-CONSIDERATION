@@ -21,8 +21,7 @@ library(ggmcmc)
 library(ggthemes)
 library(ggridges)
 library(loo)
-
-sumdices<-summary(dices)# #########################Reading dices dataset#######################
+ #########################Reading dices dataset#######################
 dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
 dices2=read.csv("diverse_safety_adversarial_dialog_990.csv")
 colnm<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q_overall")

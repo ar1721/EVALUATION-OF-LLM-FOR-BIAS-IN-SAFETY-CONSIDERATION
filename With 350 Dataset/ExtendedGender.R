@@ -170,13 +170,10 @@ parameter_dfQS<-parameter_df[-1,]
 # plot(mod_plot, plot = FALSE)[[1]] +facet_wrap("rater_raw_race")
 
 
-plottingBar <- function(m,l,k) { # create a function with the name my_function
-  titlex=paste("Probability of No by rater_gender and ",k)
+plottingBar <- function(gr1,l,k) { # create a function with the name my_function
+  titlex=paste("Probability of \"No\" by rater_gender and ",k)
   titlex=paste(titlex,l)
-  gr=m$data
-  gr1=gr[gr$effect2__=="No",]
-  nrc=length(unique(dices$rater_gender))*length(unique(dices[[k]]))
-  gr1=gr[1:nrc,]
+  
   m=ggplot(gr1, aes(x = rater_gender, y = estimate__*100, fill = !! sym(k), colour = !! sym(k))) +
     geom_point(position = position_dodge(width = 0.3)) +
     geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.3)) +
@@ -196,7 +193,12 @@ conditions <- expand.grid(rater_education = "College degree or higher",rater_age
 mod_plot <- conditional_effects(Model.intersectional.AD.Gender,categorical = TRUE, effect ="rater_gender",conditions = conditions)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_gender")
-plotb=plottingBar(m,modelname,"rater_gender")
+gr=m$data   
+gr1=gr[gr$effect2__=="No",]   
+k="rater_gender"
+nrc=length(unique(dices$rater_gender))*length(unique(dices[[k]]))  
+gr1=gr[1:nrc,] 
+plotb=plottingBar(gr1,modelname,k)
 ggsave(filename = "rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
 
 
