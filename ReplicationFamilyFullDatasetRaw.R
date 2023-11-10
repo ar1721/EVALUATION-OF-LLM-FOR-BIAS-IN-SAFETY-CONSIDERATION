@@ -374,7 +374,11 @@ plottingBar <- function(m,l,k) { # create a function with the name my_function
 
   titlex=paste("Probability of No by rater_race and ",k)
   titlex=paste(titlex,l)
-  
+  gr=m$data
+  gr1=gr[gr$effect2__=="No",]
+  nrc=length(unique(dices$rater_raw_race))*length(unique(dices[[k]]))
+  gr1=gr[1:nrc,]
+  # print(gr)
   m=ggplot(gr1, aes(x = rater_raw_race, y = estimate__*100, fill = !! sym(k), colour = !! sym(k))) +
     geom_point(position = position_dodge(width = 0.3)) +
     geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.3)) +

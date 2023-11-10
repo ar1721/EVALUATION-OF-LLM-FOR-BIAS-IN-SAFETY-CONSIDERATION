@@ -9,15 +9,46 @@ dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), or
 sumdices<-summary(dices)
 ###################Models###########################
 
-# Degree of harm
+# Education
+formula14<- Q_overall ~ rater_education * (rater_raw_race +rater_gender +rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula17<-Q_overall ~ degree_of_harm * (rater_raw_race + rater_gender +phase+ rater_education+rater_age) + (1 | rater_id) + (1 | item_id)
+formula15<-Q_overall ~ rater_education * (rater_raw_race + rater_gender + degree_of_harm+rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula18 <- Q_overall ~ degree_of_harm *(rater_raw_race + rater_gender +phase+ rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
+formula16 <- Q_overall ~ rater_education *(rater_raw_race + rater_gender + degree_of_harm+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
+
+prior_thresholds <- c(
+  prior(normal(.440,0.5), class=Intercept, coef=1),
+  prior(normal(.583,0.5), class=Intercept, coef=2),
+  prior(student_t(3,0,2.5), class="b")
+)
 
 
-Model.intersectional.QS.DegreeOfHarm <- brm(
-  formula = formula17,
+Model.intersectional.AD.Education <- brm(
+  formula = formula14,
+  data = dices,
+  family = cumulative("probit"),
+  prior = prior_thresholds,
+  warmup = 1000,
+  iter = 2000,
+  chains = 4,
+  seed = 42,
+  backend = 'rstan',
+  cores = 8
+)
+Model.intersectional.QS.Education <- brm(
+  formula = formula15,
+  data = dices,
+  family = cumulative("probit"),
+  prior = prior_thresholds,
+  warmup = 1000,
+  iter = 2000,
+  chains = 4,
+  seed = 42,
+  backend = 'rstan',
+  cores = 8
+)
+Model.intersectional.QSGE.Education <- brm(
+  formula = formula16,
   data = dices,
   family = cumulative("probit"),
   prior = prior_thresholds,
@@ -28,42 +59,30 @@ Model.intersectional.QS.DegreeOfHarm <- brm(
   backend = 'rstan',
   cores = 8
 )
-Model.intersectional.QSGE.DegreeOfHarm <- brm(
-  formula = formula18,
-  data = dices,
-  family = cumulative("probit"),
-  prior = prior_thresholds,
-  warmup = 1000,
-  iter = 4000,
-  chains = 4,
-  seed = 42,
-  backend = 'rstan',
-  cores = 8
-)
-
-save(Model.intersectional.QS.DegreeOfHarm,file="ModelIntersectionalQSDegreeOfHarm.RData")
-save(Model.intersectional.QSGE.DegreeOfHarm,file="ModelIntersectionalQSGEDegreeOfHarm.RData")
+save(Model.intersectional.AD.Education,file="ModelIntersectionalADEducation.RData")
+save(Model.intersectional.QS.Education,file="ModelIntersectionalQSEducation.RData")
+save(Model.intersectional.QSGE.Education,file="ModelIntersectionalQSGEEducation.RData")
 
 
 ##################################Fitness########################
 
 loo_results <- list(
-  Intersectional_AD = loo(Model.intersectional.AD.Gender),
-  Intersectional_QS = loo(Model.intersectional.QS.Gender),
-  Intersectional_QSGE = loo(Model.intersectional.QSGE.Gender)
+  Intersectional_AD = loo(Model.intersectional.AD.Education),
+  Intersectional_QS = loo(Model.intersectional.QS.Education),
+  Intersectional_QSGE = loo(Model.intersectional.QSGE.Education)
 )
 
 waic_results <- list( 
-  Intersectional_AD = waic(Model.intersectional.AD.Gender),
-  Intersectional_QS = waic(Model.intersectional.QS.Gender),
-  Intersectional_QSGE = waic(Model.intersectional.QSGE.Gender) )
+  Intersectional_AD = waic(Model.intersectional.AD.Education),
+  Intersectional_QS = waic(Model.intersectional.QS.Education),
+  Intersectional_QSGE = waic(Model.intersectional.QSGE.Education) )
 
 
 
 r2_results<-list( 
-  Modelraw_Intersectional_AD_r2=performance::r2(Model.intersectional.AD.Gender),
-  Modelraw_Intersectional_QS_r2=performance::r2(Model.intersectional.QS.Gender),
-  Modelraw_Intersectional_QSGE_r2=performance::r2(Model.intersectional.QSGE.Gender))
+  Modelraw_Intersectional_AD_r2=performance::r2(Model.intersectional.AD.Education),
+  Modelraw_Intersectional_QS_r2=performance::r2(Model.intersectional.QS.Education),
+  Modelraw_Intersectional_QSGE_r2=performance::r2(Model.intersectional.QSGE.Education))
 
 save(loo_results,file="LooModelReplication.RData")
 save(waic_results,file="WAICModelReplication.RData")
@@ -86,7 +105,7 @@ waic_results_estimate <- list(
 parameter_df<-data_frame(Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
 
 # Extract posterior samples for the parameter
-parameter_samples <- posterior_samples(Modelraw.Intersectional.AD)
+parameter_samples <- posterior_samples(Model.intersectional.AD.Education)
 colPosteriorall<-colnames(parameter_samples)
 colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
 
@@ -117,7 +136,7 @@ parameter_df<-parameter_df[-1,]
 parameter_dfQS<-data_frame(Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
 
 # Extract posterior samples for the parameter
-parameter_samples <- posterior_samples(Modelraw.Intersectional.QSGE)
+parameter_samples <- posterior_samples(Model.intersectional.QSGE.Education)
 colPosteriorall<-colnames(parameter_samples)
 colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
 
@@ -166,6 +185,48 @@ plottingBar <- function(m,l,k) { # create a function with the name my_function
     theme_minimal()
   return (m)
 }
+######################################Model.Intersection.AD################
+# rater_race
+modelname="AD Intersectional"
+conditions <- expand.grid(rater_education = "College degree or higher",rater_age="gen x+", rater_gender ="Man",rater_raw_race=unique(dices$rater_raw_race))
+mod_plot <- conditional_effects(Modelraw.Intersectional.AD,categorical = TRUE, effect ="rater_raw_race",conditions = conditions)
+
+m=plot(mod_plot)[[1]]+facet_wrap("rater_raw_race")
+plotb=plottingBar(m,modelname,"rater_raw_race")
+ggsave(filename = "rater_race.jpeg", plot = m, width =24, height = 12) 
+
+
+# rater_race,rater-race
+conditions <- expand.grid(rater_education = "College degree or higher",rater_age="gen x+", rater_raw_race =unique(dices$rater_raw_race),rater_gender =unique(dices$rater_gender))
+
+mod_plot <- conditional_effects(Modelraw.Intersectional.AD,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
+
+m=plot(mod_plot)[[1]] +facet_wrap("rater_gender")
+plotb=plottingBar(m,modelname,"rater_gender")
+ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = m, width =24, height = 12) 
+
+
+
+
+# rater_raw_race,rater-education
+conditions <- expand.grid(rater_gender ="Man",rater_age="gen x+", rater_raw_race =unique(dices$rater_raw_race),rater_education =unique(dices$rater_education))
+
+mod_plot <- conditional_effects(Modelraw.Intersectional.AD,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
+
+m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
+plotb=plottingBar(m,modelname,"rater_education")
+ggsave(filename = "rater_race_and_rater_education.jpeg", plot = m, width =24, height = 12) 
+
+
+# rater_race,rater-age
+conditions <- expand.grid(rater_education = "College degree or higher",rater_age=unique(dices$rater_age), rater_raw_race =unique(dices$rater_raw_race),rater_gender ="Man")
+
+mod_plot <- conditional_effects(Modelraw.Intersectional.AD,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
+
+m=plot(mod_plot)[[1]] +facet_wrap("rater_age")
+plotb=plottingBar(m,modelname,"rater_age")
+
+ggsave(filename = "rater_race_and_rater_age.jpeg", plot = m, width =24, height = 12) 
 
 ######################################Model.Intersection.QS################
 
@@ -175,22 +236,7 @@ conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College d
 mod_plot <- conditional_effects(Modelraw.Intersectional.QS,categorical = TRUE, effect ="rater_raw_race",conditions = conditions)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_raw_race")
-
-gr=m$data
-gr1=gr[gr$effect2__=="No",]
-k="rater_raw_race"
-
-ud1=length(unique(dices$rater_gender)) 
- ud2=length(unique(dices[[k]])) 
- selected_rows_indices <- c() 
- i=1 
- for (lo in range(ud1)){ 
- hel=c(seq(i, nrow(gr1), by = ud1*ud1)) 
- selected_rows_indices <- c(selected_rows_indices, hel) 
- i=i+1 
- }
-gr2=gr1[selected_rows_indices,]
-plotb=plottingBar(gr2,modelname,k)
+plotb=plottingBar(m,modelname,"rater_raw_race")
 ggsave(filename = "QS_rater_race.jpeg", plot = m, width =24, height = 12) 
 
 
@@ -200,22 +246,7 @@ conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College d
 mod_plot <- conditional_effects(Modelraw.Intersectional.QS,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_gender")
-
-gr=m$data
-gr1=gr[gr$effect2__=="No",]
-k="rater_gender"
-
-ud1=length(unique(dices$rater_gender)) 
- ud2=length(unique(dices[[k]])) 
- selected_rows_indices <- c() 
- i=1 
- for (lo in range(ud1)){ 
- hel=c(seq(i, nrow(gr1), by = ud1*ud1)) 
- selected_rows_indices <- c(selected_rows_indices, hel) 
- i=i+1 
- }
-gr2=gr1[selected_rows_indices,]
-plotb=plottingBar(gr2,modelname,k)
+plotb=plottingBar(m,modelname,"rater_gender")
 ggsave(filename = "QS_rater_gender_and_rater_raw_race.jpeg", plot = m, width =24, height = 12) 
 
 
@@ -229,22 +260,7 @@ str(mod_plot)
 
 
 m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
-
-gr=m$data
-gr1=gr[gr$effect2__=="No",]
-k="rater_education"
-
-ud1=length(unique(dices$rater_gender)) 
- ud2=length(unique(dices[[k]])) 
- selected_rows_indices <- c() 
- i=1 
- for (lo in range(ud1)){ 
- hel=c(seq(i, nrow(gr1), by = ud1*ud1)) 
- selected_rows_indices <- c(selected_rows_indices, hel) 
- i=i+1 
- }
-gr2=gr1[selected_rows_indices,]
-plotb=plottingBar(gr2,modelname,k)
+plotb=plottingBar(m,modelname,"rater_education")
 
 ggsave(filename = "QS_rater_race_and_rater_education.jpeg", plot = m, width =24, height = 12) 
 
@@ -255,22 +271,7 @@ conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College d
 mod_plot <- conditional_effects(Modelraw.Intersectional.QS,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] + facet_wrap("rater_age")
-
-gr=m$data
-gr1=gr[gr$effect2__=="No",]
-k="rater_age"
-
-ud1=length(unique(dices$rater_gender)) 
- ud2=length(unique(dices[[k]])) 
- selected_rows_indices <- c() 
- i=1 
- for (lo in range(ud1)){ 
- hel=c(seq(i, nrow(gr1), by = ud1*ud1)) 
- selected_rows_indices <- c(selected_rows_indices, hel) 
- i=i+1 
- }
-gr2=gr1[selected_rows_indices,]
-plotb=plottingBar(gr2,modelname,k)
+plotb=plottingBar(m,modelname,"rater_age")
 ggsave(filename = "QS_rater_race_and_rater_age.jpeg", plot = m, width =24, height = 12) 
 
 
@@ -280,22 +281,7 @@ conditions <- expand.grid(rater_education = "College degree or higher",rater_age
 mod_plot <- conditional_effects(Modelraw.Intersectional.QS,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("degree_of_harm")
-
-gr=m$data
-gr1=gr[gr$effect2__=="No",]
-k="degree_of_harm"
-
-ud1=length(unique(dices$rater_gender)) 
- ud2=length(unique(dices[[k]])) 
- selected_rows_indices <- c() 
- i=1 
- for (lo in range(ud1)){ 
- hel=c(seq(i, nrow(gr1), by = ud1*ud1)) 
- selected_rows_indices <- c(selected_rows_indices, hel) 
- i=i+1 
- }
-gr2=gr1[selected_rows_indices,]
-plotb=plottingBar(gr2,modelname,k)
+plotb=plottingBar(m,modelname,"degree_of_harm")
 
 
 ggsave(filename = "QS_rater_race_and_degree_of_harm.jpeg", plot = m, width =24, height = 12) 
@@ -308,22 +294,7 @@ conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College d
 mod_plot <- conditional_effects(Modelraw.Intersectional.QSGE,categorical = TRUE, effect ="rater_raw_race",conditions = conditions)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_raw_race")
-
-gr=m$data
-gr1=gr[gr$effect2__=="No",]
-k="rater_raw_race"
-
-ud1=length(unique(dices$rater_gender)) 
- ud2=length(unique(dices[[k]])) 
- selected_rows_indices <- c() 
- i=1 
- for (lo in range(ud1)){ 
- hel=c(seq(i, nrow(gr1), by = ud1*ud1)) 
- selected_rows_indices <- c(selected_rows_indices, hel) 
- i=i+1 
- }
-gr2=gr1[selected_rows_indices,]
-plotb=plottingBar(gr2,modelname,k)
+plotb=plottingBar(m,modelname,"rater_raw_race")
 
 ggsave(filename = "QSGE_rater_gender.jpeg", plot = m, width =24, height = 12) 
 
@@ -334,22 +305,7 @@ conditions <- expand.grid(degree_of_harm="Moderate",rater_education = "College d
 mod_plot <- conditional_effects(Modelraw.Intersectional.QSGE,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("rater_gender")
-
-gr=m$data
-gr1=gr[gr$effect2__=="No",]
-k="rater_gender"
-
-ud1=length(unique(dices$rater_gender)) 
- ud2=length(unique(dices[[k]])) 
- selected_rows_indices <- c() 
- i=1 
- for (lo in range(ud1)){ 
- hel=c(seq(i, nrow(gr1), by = ud1*ud1)) 
- selected_rows_indices <- c(selected_rows_indices, hel) 
- i=i+1 
- }
-gr2=gr1[selected_rows_indices,]
-plotb=plottingBar(gr2,modelname,k)
+plotb=plottingBar(m,modelname,"rater_gender")
 
 ggsave(filename = "QSGE_rater_gender_and_rater_raw_race.jpeg", plot = m, width =24, height = 12) 
 
@@ -364,22 +320,7 @@ str(mod_plot)
 
 
 m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
-
-gr=m$data
-gr1=gr[gr$effect2__=="No",]
-k="rater_education"
-
-ud1=length(unique(dices$rater_gender)) 
- ud2=length(unique(dices[[k]])) 
- selected_rows_indices <- c() 
- i=1 
- for (lo in range(ud1)){ 
- hel=c(seq(i, nrow(gr1), by = ud1*ud1)) 
- selected_rows_indices <- c(selected_rows_indices, hel) 
- i=i+1 
- }
-gr2=gr1[selected_rows_indices,]
-plotb=plottingBar(gr2,modelname,k)
+plotb=plottingBar(m,modelname,"rater_education")
 
 ggsave(filename = "QSGE_rater_race_and_rater_education.jpeg", plot = m, width =24, height = 12) 
 
@@ -391,22 +332,7 @@ mod_plot <- conditional_effects(Modelraw.Intersectional.QSGE,categorical = TRUE,
 str(mod_plot)
 
 m=plot(mod_plot)[[1]]+facet_wrap("rater_age")
-
-gr=m$data
-gr1=gr[gr$effect2__=="No",]
-k="rater_age"
-
-ud1=length(unique(dices$rater_gender)) 
- ud2=length(unique(dices[[k]])) 
- selected_rows_indices <- c() 
- i=1 
- for (lo in range(ud1)){ 
- hel=c(seq(i, nrow(gr1), by = ud1*ud1)) 
- selected_rows_indices <- c(selected_rows_indices, hel) 
- i=i+1 
- }
-gr2=gr1[selected_rows_indices,]
-plotb=plottingBar(gr2,modelname,k)
+plotb=plottingBar(m,modelname,"rater_age")
 ggsave(filename = "QSGE_rater_race_and_rater_age.jpeg", plot = m, width =24, height = 12) 
 
 
@@ -416,20 +342,8 @@ conditions <- expand.grid(rater_education = "College degree or higher",rater_age
 mod_plot <- conditional_effects(Modelraw.Intersectional.QSGE,categorical = TRUE, effect ="rater_raw_race" , conditions = conditions)
 
 m=plot(mod_plot)[[1]] +facet_wrap("degree_of_harm")
-
-gr=m$data
-gr1=gr[gr$effect2__=="No",]
-k="degree_of_harm"
-
-ud1=length(unique(dices$rater_gender)) 
- ud2=length(unique(dices[[k]])) 
- selected_rows_indices <- c() 
- i=1 
- for (lo in range(ud1)){ 
- hel=c(seq(i, nrow(gr1), by = ud1*ud1)) 
- selected_rows_indices <- c(selected_rows_indices, hel) 
- i=i+1 
- }
-gr2=gr1[selected_rows_indices,]
-plotb=plottingBar(gr2,modelname,k)
+plotb=plottingBar(m,modelname,"degree_of_harm")
 ggsave(filename = "QSGE_rater_race_and_degree_of_harm.jpeg", plot = m, width =24, height = 12) 
+
+######################################Model.Intersection.AD################
+modelname=" AD Intersection"
