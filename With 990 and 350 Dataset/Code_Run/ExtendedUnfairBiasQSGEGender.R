@@ -29,31 +29,13 @@ dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
 dices2=read.csv("diverse_safety_adversarial_dialog_990.csv")
 colnm<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q3_bias_overall")
 
-colnm2<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q3_unfair_bias_overall")
-colnm3<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q3_bias_overall")
-dices1<-dices1[colnm]
+
+colnm2<-c("rater_id","rater_gender","rater_race","rater_race_raw","rater_age","phase","rater_education","item_id","degree_of_harm","Q3_unfair_bias_overall")
+colnm3<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q3_bias_overall")dices1<-dices1[colnm]
 dices3<-dices2[colnm2]
 colnames(dices3)<-colnm3
 dices=rbind(dices1,dices3)
 
-# ###################Turning Q3_bias_overall rating to numeric from character################
-
-dices<-dices %>% mutate(
-  
-  rater_ethinicity = case_when(
-    
-    
-    rater_raw_race %in% c("White") ~ "White",
-    
-    rater_raw_race %in% c(
-      
-      "Asian", "East or South-East Asian") ~ "Asian",
-    
-    rater_raw_race %in% c("Black or African American") ~ "Black",
-    
-    rater_raw_race %in% c(
-      
-      "Indian",
       
       "Indian subcontinent (including Bangladesh, Bhutan, India, Maldives, Nepal, Pakistan, and Sri Lanka)"
       
