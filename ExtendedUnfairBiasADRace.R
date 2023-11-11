@@ -28,31 +28,15 @@ library(loo)
 dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
 dices2=read.csv("diverse_safety_adversarial_dialog_990.csv")
 colnm<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q3_bias_overall")
-colnm2<-c("rater_id","rater_gender","rater_race","rater_race_raw","rater_age","phase","rater_education","item_id","degree_of_harm","Q3_bias_overall")
+
+colnm2<-c("rater_id","rater_gender","rater_race","rater_race_raw","rater_age","phase","rater_education","item_id","degree_of_harm","Q3_unfair_bias_overall")
+
 colnm3<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q3_bias_overall")
 
 dices1<-dices1[colnm]
 dices3<-dices2[colnm2]
 colnames(dices3)<-colnm3
 dices=rbind(dices1,dices3)
-
-dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
-dices2=read.csv("diverse_safety_adversarial_dialog_990.csv")
-colnm<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm",
-         "Q3_bias_overall")
-colnm2<-c("rater_id","rater_gender","rater_race","rater_race_raw","rater_age","phase","rater_education","item_id","degree_of_harm",
-          "Q3_unfair_bias_overall")
-colnm3<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q3_bias_overall",
-          )
-
-dices1<-dices1[colnm]
-dices3<-dices2[colnm2]
-colnames(dices3)<-colnm3
-
-
-# dices3<-dices3[!(is.na(dices$degree_of_harm) | dices3$degree_of_harm==""), ]
-
-dices<-rbind(dices1,dices3) 
 
 # ###################Turning Q3_bias_overall rating to numeric from character################
 
@@ -167,20 +151,20 @@ prior_thresholds <- c(
   prior(student_t(3,0,2.5), class="b")
 )
 
-# 
-# ModelQUnfairBias.Intersectional.AD.Race. <- brm(
-#   formula = formula1,
-#   data = dices,
-#   family = cumulative("probit"),
-#   prior = prior_thresholds,
-#   warmup = 1000,
-#   iter = 4000,
-#   chains = 4,
-#   seed = 42,init=0,
-#   backend = 'rstan',
-#   cores =4
-# )
-# save(ModelQUnfairBias.Intersectional.AD,file="ModelQUnfairBiasIntersectionalADRace.RData")
+
+ModelQUnfairBias.Intersectional.AD.Race. <- brm(
+  formula = formula1,
+  data = dices,
+  family = cumulative("probit"),
+  prior = prior_thresholds,
+  warmup = 1000,
+  iter = 4000,
+  chains = 4,
+  seed = 42,init=0,
+  backend = 'rstan',
+  cores =4
+)
+save(ModelQUnfairBias.Intersectional.AD,file="ModelQUnfairBiasIntersectionalADRace.RData")
 
 # 
 # ModelQUnfairBias.Intersectional.QS.Race <- brm(
@@ -212,7 +196,7 @@ prior_thresholds <- c(
 # )
 # save(ModelQUnfairBias.Intersectional.QSGE,file="ModelQUnfairBiasIntersectionalQSGERace.RData")
 # 
-
+# 
 # 
 # 
 # ModelQUnfairBias.Intersectional.AD.Age <- brm(
@@ -229,7 +213,7 @@ prior_thresholds <- c(
 # )
 # 
 # save(ModelQUnfairBias.Intersectional.AD.Age,file="ModelQUnfairBiasADAge.RData")
-# # 
+# 
 # ModelQUnfairBias.Intersectional.QS.Age <- brm(
 #   formula = formula5,
 #   data = dices,
@@ -245,20 +229,20 @@ prior_thresholds <- c(
 # 
 # save(ModelQUnfairBias.Intersectional.QS.Age,file="ModelQUnfairBiasQSAge.RData")
 # 
-ModelQUnfairBias.Intersectional.QSGE.Age <- brm(
-  formula = formula6,
-  data = dices,
-  family = cumulative("probit"),
-  prior = prior_thresholds,
-  warmup = 1000,
-  iter = 4000,
-  chains = 4,
-  seed = 42,init=0,
-  backend = 'rstan',
-  cores =4
-)
-
-save(ModelQUnfairBias.Intersectional.QSGE.Age,file="ModelQUnfairBiasQSGEAge.RData")
+# ModelQUnfairBias.Intersectional.QSGE.Age <- brm(
+#   formula = formula6,
+#   data = dices,
+#   family = cumulative("probit"),
+#   prior = prior_thresholds,
+#   warmup = 1000,
+#   iter = 4000,
+#   chains = 4,
+#   seed = 42,init=0,
+#   backend = 'rstan',
+#   cores =4
+# )
+# 
+# save(ModelQUnfairBias.Intersectional.QSGE.Age,file="ModelQUnfairBiasQSGEAge.RData")
 # 
 # 
 # ModelQUnfairBias.Intersectional.AD.Education <- brm(

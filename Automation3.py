@@ -19,11 +19,11 @@ for rfiles in onlyfiles:
             linno=linno+1
         elif line.__contains__("colnm3<-c(\"rater_id\","):
             print("change")
-            fw.write("\ncolnm3<-c(\"rater_id\",\"rater_gender\",\"rater_race\",\"rater_raw_race\",\"rater_age\",\"phase\",\"rater_education\",\"item_id\",\"degree_of_harm\",\"Q3_bias_overall\")")
+            fw.write("\ncolnm3<-c(\"rater_id\",\"rater_gender\",\"rater_race\",\"rater_raw_race\",\"rater_age\",\"phase\",\"rater_education\",\"item_id\",\"degree_of_harm\",\"Q3_bias_overall\")\n")
             linno=linno+1
         elif line.__contains__("colnm2<-c(\"rater_id\",\"rater_gender\","):   
             print("change")
-            fw.write("\ncolnm2<-c(\"rater_id\",\"rater_gender\",\"rater_race\",\"rater_race_raw\",\"rater_age\",\"phase\",\"rater_education\",\"item_id\",\"degree_of_harm\",\"Q3_unfair_bias_overall\")")
+            fw.write("\ncolnm2<-c(\"rater_id\",\"rater_gender\",\"rater_race\",\"rater_race_raw\",\"rater_age\",\"phase\",\"rater_education\",\"item_id\",\"degree_of_harm\",\"Q3_unfair_bias_overall\")\n")
             linno=linno+1
         else:
             fw.write(line)
