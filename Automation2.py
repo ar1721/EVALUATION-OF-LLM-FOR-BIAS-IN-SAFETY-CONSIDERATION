@@ -14,8 +14,8 @@ files=[i for i in onlyfiles if i.__contains__("Extended") or i.__contains__("Rep
 # gr=m$data   
 # gr1=gr[gr$effect2__=="No",]   
 # k="rater_gender"
-# nrc=length(unique(dices$rater_gender))*length(unique(dices[[k]]))  
-# gr1=gr[1:nrc,] 
+#gr1 <- subset(gr1, select = -cond__)
+# gr2=distinct(gr1)
 # plotb=plottingBar(gr1,modelname,k)
 
 for f in files:
@@ -41,9 +41,7 @@ for f in files:
             fw.write("\n")
             # fw.write("#nrc=length(unique(dices$rater_gender))*length(unique(dices[[k]]))")
             fw.write("\n")
-            fw.write("ud1=length(unique(dices$rater_gender)) \n ud2=length(unique(dices[[k]])) \n selected_rows_indices <- c() \n i=1 \n for (lo in range(ud1)){ \n hel=c(seq(i, nrow(gr1), by = ud1*ud1)) \n selected_rows_indices <- c(selected_rows_indices, hel) \n i=i+1 \n }")
-            fw.write("\n")
-            fw.write("gr2=gr1[selected_rows_indices,]")
+            fw.write("gr1 <- subset(gr1, select = -cond__) \n gr2=distinct(gr1)")
             fw.write("\n")
             fw.write("plotb=plottingBar(gr2,modelname,k)")
             fw.write("\n")
