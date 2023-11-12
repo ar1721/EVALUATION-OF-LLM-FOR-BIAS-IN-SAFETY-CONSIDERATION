@@ -189,7 +189,7 @@ ModelQUnfairBias.Intersectional.QSGE.Race <- brm(
   iter = 4000,
   chains = 4,
   init=0,
-  seed = 42,init=0,
+  seed = 42,
   backend = 'rstan',
   cores =4
 )

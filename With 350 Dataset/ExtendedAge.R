@@ -157,21 +157,20 @@ parameter_dfQS<-parameter_df[-1,]
 
 
 ##################################Plots##########################
-# plot(mod_plot, plot = FALSE)[[1]] +facet_wrap("rater_raw_race")
 
 plottingBar <- function(m,l,k) { # create a function with the name my_function
-  titlex=paste("Probability of No by rater_gender and ",k)
+  titlex=paste("Probability of No by rater_age and ",k)
   titlex=paste(titlex,l)
   gr=m$data
   gr1=gr[gr$effect2__=="No",]
-  nrc=length(unique(dices$rater_raw_race))*length(unique(dices[[k]]))
+  nrc=length(unique(dices$rater_age))*length(unique(dices[[k]]))
   gr1=gr[1:nrc,]
   m=ggplot(gr1, aes(x = rater_raw_race, y = estimate__*100, fill = !! sym(k), colour = !! sym(k))) +
     geom_point(position = position_dodge(width = 0.3)) +
     geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.3)) +
     labs(
       title = titlex ,
-      x = "Rater Race",
+      x = "Rater Age",
       y = "Probability Of No rating"
     )+scale_y_continuous(
       limits =   c(0,100))+

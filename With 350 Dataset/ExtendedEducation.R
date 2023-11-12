@@ -178,7 +178,7 @@ plottingBar <- function(gr1,l,k) { # create a function with the name my_function
     geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.3)) +
     labs(
       title = titlex ,
-      x = "Rater Gender",
+      x = "Rater Education",
       y = "Probability Of No rating"
     )+scale_y_continuous(
       limits =   c(0,100))+
