@@ -1,6 +1,6 @@
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 
-dices1=read.csv('https://raw.githubusercontent.com/google-research-datasets/dices-dataset/main/350/diverse_safety_adversarial_dialog_350.csv')
+dices1=read.csv('diverse_safety_adversarial_dialog_350.csv')
 dices=dices1
 raters=unique(dices$rater_id)
 
