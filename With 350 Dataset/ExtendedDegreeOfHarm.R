@@ -16,6 +16,13 @@ formula17<-Q_overall ~ degree_of_harm * (rater_raw_race + rater_gender +phase+ r
 formula18 <- Q_overall ~ degree_of_harm *(rater_raw_race + rater_gender +phase+ rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
 
 
+prior_thresholds <- c(
+  prior(normal(.440,0.5), class=Intercept, coef=1),
+  prior(normal(.583,0.5), class=Intercept, coef=2),
+  prior(student_t(3,0,2.5), class="b")
+)
+
+
 Model.intersectional.QS.DegreeOfHarm <- brm(
   formula = formula17,
   data = dices,
