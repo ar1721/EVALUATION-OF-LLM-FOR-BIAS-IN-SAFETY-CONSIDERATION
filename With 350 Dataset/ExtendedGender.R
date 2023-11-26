@@ -201,7 +201,7 @@ k="rater_gender"
 gr1 <- subset(gr1, select = -cond__) 
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_Gender_rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 # rater-gender,rater-race
@@ -218,7 +218,7 @@ k="rater_raw_race"
 gr1 <- subset(gr1, select = -cond__) 
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
+ggsave(filename = "Overall_Gender_rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
 
 
 
@@ -239,7 +239,7 @@ k="rater_education"
 gr1 <- subset(gr1, select = -cond__) 
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "rater_gender_and_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_Gender_rater_gender_and_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 # rater_gender,rater-age
@@ -258,7 +258,7 @@ gr1 <- subset(gr1, select = -cond__)
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
 
-ggsave(filename = "rater_gender_and_rater_age.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_Gender_rater_gender_and_rater_age.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 
@@ -281,7 +281,7 @@ gr1 <- subset(gr1, select = -cond__)
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
 
-ggsave(filename = "QS_rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_Gender_QS_rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 # rater-gender,rater-race
@@ -298,7 +298,7 @@ k="rater_raw_race"
 gr1 <- subset(gr1, select = -cond__) 
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "QS_rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
+ggsave(filename = "Overall_Gender_QS_rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
 
 
 
@@ -320,7 +320,7 @@ gr1 <- subset(gr1, select = -cond__)
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
 
-ggsave(filename = "QS_rater_gender_and_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_Gender_QS_rater_gender_and_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 # rater_gender,rater-age
@@ -335,7 +335,7 @@ k="rater_age"
 gr1 <- subset(gr1, select = -cond__) 
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "QS_rater_gender_and_rater_age.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_Gender_QS_rater_gender_and_rater_age.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 # rater_gender,degree of harm
@@ -354,7 +354,7 @@ gr1 <- subset(gr1, select = -cond__)
 plotb=plottingBar(gr2,modelname,k)
 
 
-ggsave(filename = "QS_rater_gender_and_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_Gender_QS_rater_gender_and_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 ######################################Model.Intersection.QSGE################
@@ -374,7 +374,7 @@ gr1 <- subset(gr1, select = -cond__)
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
 
-ggsave(filename = "QSGE_rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_Gender_QSGE_rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 # rater-gender,rater-race
@@ -391,7 +391,7 @@ k="rater_raw_race"
 gr1 <- subset(gr1, select = -cond__) 
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "QSGE_rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
+ggsave(filename = "Overall_Gender_QSGE_rater_gender_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
 
 
 
@@ -412,7 +412,7 @@ k="rater_education"
 gr1 <- subset(gr1, select = -cond__) 
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "QSGE_rater_gender_and_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_Gender_QSGE_rater_gender_and_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 # rater_gender,rater-age
@@ -430,7 +430,7 @@ k="rater_age"
 gr1 <- subset(gr1, select = -cond__) 
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "QSGE_rater_gender_and_rater_age.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_Gender_QSGE_rater_gender_and_rater_age.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 # rater_gender,degree of harm
@@ -448,4 +448,4 @@ k="degree_of_harm"
 gr1 <- subset(gr1, select = -cond__) 
  gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "QSGE_rater_gender_and_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_Gender_QSGE_rater_gender_and_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 

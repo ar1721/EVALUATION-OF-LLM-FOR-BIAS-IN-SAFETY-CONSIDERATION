@@ -34,23 +34,7 @@ dices3<-dices2[colnm2]
 colnames(dices3)<-colnm3
 dices=rbind(dices1,dices3)
 
-dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
-dices2=read.csv("diverse_safety_adversarial_dialog_990.csv")
-colnm<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q2_harmful_content_overall",
-         "Q3_bias_overall", "Q4_misinformation","Q_overall")
-colnm2<-c("rater_id","rater_gender","rater_race","rater_race_raw","rater_age","phase","rater_education","item_id","degree_of_harm","Q2_harmful_content_overall",
-          "Q3_unfair_bias_overall", "Q4_misinformation_overall","Q_overall")
-colnm3<-c("rater_id","rater_gender","rater_race","rater_raw_race","rater_age","phase","rater_education","item_id","degree_of_harm","Q2_harmful_content_overall",
-          "Q3_bias_overall", "Q4_misinformation","Q_overall")
 
-dices1<-dices1[colnm]
-dices3<-dices2[colnm2]
-colnames(dices3)<-colnm3
-
-
-# dices3<-dices3[!(is.na(dices$degree_of_harm) | dices3$degree_of_harm==""), ]
-
-dices<-rbind(dices1,dices3) 
 
 # ###################Turning Q_Overall rating to numeric from character################
 
@@ -130,9 +114,9 @@ dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), or
 
 # Degree of harm
 
-formula17<-Q_overall ~ degree_of_harm * (rater_ethinicity + rater_gender + rater_education+rater_age) + (1 | rater_id) + (1 | item_id)
+formula17<-Q_overall ~ degree_of_harm * (rater_ethinicity +phase+ rater_gender + rater_education+rater_age) + (1 | rater_id) + (1 | item_id)
 
-formula18 <- Q_overall ~ degree_of_harm *(rater_ethinicity + rater_gender + rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
+formula18 <- Q_overall ~ degree_of_harm *(rater_ethinicity+phase + rater_gender + rater_education+rater_age) + (degree_of_harm | rater_id) + (1 | item_id)
 
 prior_thresholds <- c(
   prior(normal(.440,0.5), class=Intercept, coef=1),
