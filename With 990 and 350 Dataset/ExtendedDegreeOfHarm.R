@@ -166,10 +166,10 @@ save(Model.intersectional.QSGE.DegreeOfHarm,file="ModelIntersectionalQSGEDegreeO
 plottingBar <- function(gr1,l,k) { # create a function with the name my_function
   titlex=paste("Probability of \"No\" by degree_of_harm and ",k)
   titlex=paste(titlex,l)
-  
+  dof=unique(dices$degree_of_harm)
   m=ggplot(gr1, aes(x = degree_of_harm, y = estimate__*100, fill = !! sym(k), colour = !! sym(k))) +
     geom_point(position = position_dodge(width = 0.3)) +
-    geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.3)) +
+    geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.3),na.rm = TRUE) +
     labs(
       title = titlex ,
       x = "Degree Of Harm",
@@ -179,40 +179,44 @@ plottingBar <- function(gr1,l,k) { # create a function with the name my_function
     theme_minimal()
   return (m)
 }
-
+dof=unique(dices$degree_of_harm)
 
 # For Model.Intersection.QS
 # Condition 5: rater_age
-conditions5 <- expand.grid( rater_age = "gen x+", degree_of_harm = unique(dices$degree_of_harm), rater_education="College degree or higher", rater_gender = "Man", rater_raw_race = "White")
+conditions5 <- expand.grid(phase="Phase1", rater_age = "gen x+", degree_of_harm = dof[1:4], rater_education="College degree or higher", rater_gender = "Man", rater_ethinicity = "White")
 
 # Condition 6: rater_age, rater-race
-conditions6 <- expand.grid(rater_age = "gen x+", degree_of_harm = unique(dices$degree_of_harm), rater_education="College degree or higher", rater_gender = "Man", rater_raw_race = unique(dices$rater_raw_race))
+conditions6 <- expand.grid(phase="Phase1",rater_age = "gen x+", degree_of_harm = dof[1:4], rater_education="College degree or higher", rater_gender = "Man", rater_ethinicity = unique(dices$rater_ethinicity))
 
 # Condition 7: rater_age, rater-gender
-conditions7 <- expand.grid(rater_age = "gen x+", rater_raw_race = "White", rater_education="College degree or higher", rater_gender = unique(dices$rater_gender), degree_of_harm = unique(dices$degree_of_harm))
+conditions7 <- expand.grid(phase="Phase1",rater_age = "gen x+", rater_ethinicity = "White", rater_education="College degree or higher", rater_gender = unique(dices$rater_gender), degree_of_harm = dof[1:4])
 
 # Condition 8: rater_age, rater-age
-conditions8 <- expand.grid(rater_age = "gen x+", degree_of_harm = unique(dices$degree_of_harm), rater_education = unique(dices$rater_education), rater_gender = "Man", rater_raw_race = "White")
+conditions8 <- expand.grid(phase="Phase1",rater_age = "gen x+", degree_of_harm = dof[1:4], rater_education = unique(dices$rater_education), rater_gender = "Man", rater_ethinicity = "White")
 
 # Condition 9: rater_age, degree of harm
-conditions9 <- expand.grid(rater_age= unique(dices$rater_age), rater_education="College degree or higher", degree_of_harm = unique(dices$degree_of_harm), rater_gender = "Man", rater_raw_race = "White")
+conditions9 <- expand.grid(phase="Phase1",rater_age= unique(dices$rater_age), rater_education="College degree or higher", degree_of_harm = dof[1:4], rater_gender = "Man", rater_ethinicity = "White")
 
 # For Model.Intersection.QSGE
 # Condition 10: rater_age
-conditions10 <- expand.grid(rater_age = "gen x+", degree_of_harm = unique(dices$degree_of_harm), rater_education="College degree or higher", rater_gender = "Man", rater_raw_race = "White")
+conditions10 <- expand.grid(phase="Phase1",rater_age = "gen x+", degree_of_harm = dof[1:4], rater_education="College degree or higher", rater_gender = "Man", rater_ethinicity = "White")
 
 # Condition 11: rater_age, rater-race
-conditions11 <- expand.grid(rater_age = "gen x+", degree_of_harm = unique(dices$degree_of_harm), rater_education="College degree or higher", rater_gender = "Man", rater_raw_race = unique(dices$rater_raw_race))
+conditions11 <- expand.grid(phase="Phase1",rater_age = "gen x+", degree_of_harm = dof[1:4], rater_education="College degree or higher", rater_gender = "Man", rater_ethinicity = unique(dices$rater_ethinicity))
 
 # Condition 12: rater_age, rater-gender
-conditions12 <- expand.grid(rater_age = "gen x+", rater_raw_race = "White", rater_education="College degree or higher", rater_gender = unique(dices$rater_gender), degree_of_harm = unique(dices$degree_of_harm))
+conditions12 <- expand.grid(phase="Phase1",rater_age = "gen x+", rater_ethinicity = "White", rater_education="College degree or higher", rater_gender = unique(dices$rater_gender), degree_of_harm = dof[1:4])
 
 # Condition 13: rater_age, rater-age
-conditions13 <- expand.grid(rater_age = "gen x+", degree_of_harm = unique(dices$degree_of_harm), rater_education = unique(dices$rater_education), rater_gender = "Man", rater_raw_race = "White")
+conditions13 <- expand.grid(phase="Phase1",rater_age = "gen x+", degree_of_harm = dof[1:4], rater_education = unique(dices$rater_education), rater_gender = "Man", rater_ethinicity = "White")
 
 # Condition 14: rater_age, degree of harm
-conditions14 <- expand.grid(rater_age= unique(dices$rater_age), rater_education="College degree or higher", degree_of_harm = unique(dices$degree_of_harm), rater_gender = "Man", rater_raw_race = "White")
+conditions14 <- expand.grid(phase="Phase1",rater_age= unique(dices$rater_age), rater_education="College degree or higher", degree_of_harm = dof[1:4], rater_gender = "Man", rater_ethinicity = "White")
 
+
+conditions16 <- expand.grid(phase=unique(dices$phase),rater_education = "College degree or higher",rater_age="gen x+", degree_of_harm = dof[1:4],rater_ethinicity ="White",rater_gender ="Man")
+
+conditions17 <- expand.grid(phase=unique(dices$phase),rater_education = "College degree or higher",rater_age="gen x+", degree_of_harm = dof[1:4],rater_ethinicity ="White",rater_gender ="Man")
 
 
 
@@ -230,25 +234,27 @@ k="degree_of_harm"
 
 gr1 <- subset(gr1, select = -cond__) 
 gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
 plotb=plottingBar(gr2,modelname,k)
 
 ggsave(filename = "Overall_DegreeOfHarm_QS_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
 
 
-# rater-gender,rater-race
+# degreeofharm,rater-race
 conditions <- conditions6
 mod_plot <- conditional_effects(Model.intersectional.QS.DegreeOfHarm,categorical = TRUE, effect ="degree_of_harm" , conditions = conditions)
 
-m=plot(mod_plot)[[1]] +facet_wrap("rater_raw_race")
+m=plot(mod_plot)[[1]] +facet_wrap("rater_ethinicity")
 
 gr=m$data
 gr1=gr[gr$effect2__=="No",]
-k="rater_raw_race"
+k="rater_ethinicity"
 
 gr1 <- subset(gr1, select = -cond__) 
 gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "Overall_DegreeOfHarm_QS_degree_of_harm_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
+ggsave(filename = "Overall_DegreeOfHarm_QS_degree_of_harm_and_rater_ethinicity.jpeg", plot = plotb, width = 16, height = 8) 
 
 
 
@@ -267,6 +273,7 @@ k="rater_gender"
 
 gr1 <- subset(gr1, select = -cond__) 
 gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
 plotb=plottingBar(gr2,modelname,k)
 
 ggsave(filename = "Overall_DegreeOfHarm_QS_degree_of_harm_and_rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
@@ -275,14 +282,15 @@ ggsave(filename = "Overall_DegreeOfHarm_QS_degree_of_harm_and_rater_gender.jpeg"
 # rater_education,rater-age
 conditions <- conditions8
 mod_plot <- conditional_effects(Model.intersectional.QS.DegreeOfHarm,categorical = TRUE, effect ="degree_of_harm" , conditions = conditions)
-m=plot(mod_plot)[[1]] + facet_wrap("rater_age")
+m=plot(mod_plot)[[1]] + facet_wrap("rater_education")
 
 gr=m$data
 gr1=gr[gr$effect2__=="No",]
-k="rater_age"
+k="rater_education"
 
 gr1 <- subset(gr1, select = -cond__) 
 gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
 plotb=plottingBar(gr2,modelname,k)
 ggsave(filename = "Overall_DegreeOfHarm_QS_degree_of_harm_and_rater_age.jpeg", plot = plotb, width = 8, height = 6) 
 
@@ -291,14 +299,15 @@ ggsave(filename = "Overall_DegreeOfHarm_QS_degree_of_harm_and_rater_age.jpeg", p
 conditions <- conditions9
 mod_plot <- conditional_effects(Model.intersectional.QS.DegreeOfHarm,categorical = TRUE, effect ="degree_of_harm" , conditions = conditions)
 
-m=plot(mod_plot)[[1]] +facet_wrap("rater_education")
+m=plot(mod_plot)[[1]] +facet_wrap("rater_age")
 
 gr=m$data
 gr1=gr[gr$effect2__=="No",]
-k="rater_education"
+k="rater_age"
 
 gr1 <- subset(gr1, select = -cond__) 
 gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
 plotb=plottingBar(gr2,modelname,k)
 
 
@@ -312,33 +321,35 @@ modelname=" QSGE Intersection"
 conditions <- conditions10
 mod_plot <- conditional_effects(Model.intersectional.QSGE.DegreeOfHarm,categorical = TRUE, effect ="degree_of_harm",conditions = conditions)
 
-m=plot(mod_plot)[[1]]+facet_wrap("rater_age")
+m=plot(mod_plot)[[1]]+facet_wrap("degree_of_harm")
 
 gr=m$data
 gr1=gr[gr$effect2__=="No",]
-k="rater_age"
+k="degree_of_harm"
 
 gr1 <- subset(gr1, select = -cond__) 
 gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
 plotb=plottingBar(gr2,modelname,k)
 
-ggsave(filename = "Overall_DegreeOfHarm_QSGE_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_DegreeOfHarm_QSGE_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 # rater-gender,rater-race
 conditions <- conditions11
 mod_plot <- conditional_effects(Model.intersectional.QSGE.DegreeOfHarm,categorical = TRUE, effect ="degree_of_harm" , conditions = conditions)
 
-m=plot(mod_plot)[[1]] +facet_wrap("rater_raw_race")
+m=plot(mod_plot)[[1]] +facet_wrap("rater_ethinicity")
 
 gr=m$data
 gr1=gr[gr$effect2__=="No",]
-k="rater_raw_race"
+k="rater_ethinicity"
 
 gr1 <- subset(gr1, select = -cond__) 
 gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "Overall_DegreeOfHarm_QSGE_degree_of_harm_and_rater_raw_race.jpeg", plot = plotb, width = 16, height = 8) 
+ggsave(filename = "Overall_DegreeOfHarm_QSGE_degree_of_harm_and_rater_ethinicity.jpeg", plot = plotb, width = 16, height = 8) 
 
 
 
@@ -357,6 +368,7 @@ k="rater_gender"
 
 gr1 <- subset(gr1, select = -cond__) 
 gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
 plotb=plottingBar(gr2,modelname,k)
 ggsave(filename = "Overall_DegreeOfHarm_QSGE_degree_of_harm_and_rater_gender.jpeg", plot = plotb, width = 8, height = 6) 
 
@@ -366,16 +378,17 @@ conditions <- conditions13
 mod_plot <- conditional_effects(Model.intersectional.QSGE.DegreeOfHarm,categorical = TRUE, effect ="degree_of_harm" , conditions = conditions)
 str(mod_plot)
 
-m=plot(mod_plot)[[1]]+facet_wrap("rater_age")
+m=plot(mod_plot)[[1]]+facet_wrap("rater_education")
 
 gr=m$data
 gr1=gr[gr$effect2__=="No",]
-k="rater_age"
+k="rater_education"
 
 gr1 <- subset(gr1, select = -cond__) 
 gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "Overall_DegreeOfHarm_QSGE_degree_of_harm_and_rater_age.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_DegreeOfHarm_QSGE_degree_of_harm_and_rater_education.jpeg", plot = plotb, width = 8, height = 6) 
 
 
 # rater_education,degree of harm
@@ -384,13 +397,53 @@ conditions <- conditions14
 mod_plot <- conditional_effects(Model.intersectional.QSGE.DegreeOfHarm,categorical = TRUE, effect ="degree_of_harm" , conditions = conditions)
 
 
-m=plot(mod_plot)[[1]] +facet_wrap("rater_education")
+m=plot(mod_plot)[[1]] +facet_wrap("rater_age")
 
 gr=m$data
 gr1=gr[gr$effect2__=="No",]
-k="rater_education"
+k="rater_age"
 
 gr1 <- subset(gr1, select = -cond__) 
 gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
 plotb=plottingBar(gr2,modelname,k)
-ggsave(filename = "Overall_DegreeOfHarm_QSGE_rater_education_and_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
+ggsave(filename = "Overall_DegreeOfHarm_QSGE_rater_age_and_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
+
+
+# rater_education,phase
+conditions <- conditions16
+
+mod_plot <- conditional_effects(Model.intersectional.QSGE.DegreeOfHarm,categorical = TRUE, effect ="degree_of_harm" , conditions = conditions)
+
+
+m=plot(mod_plot)[[1]] +facet_wrap("phase")
+
+gr=m$data
+gr1=gr[gr$effect2__=="No",]
+k="phase"
+
+gr1 <- subset(gr1, select = -cond__) 
+gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
+plotb=plottingBar(gr2,modelname,k)
+ggsave(filename = "Overall_DegreeOfHarm_QSGE_phase_and_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
+
+
+# rater_education,phase
+conditions <- conditions17
+
+mod_plot <- conditional_effects(Model.intersectional.QSGE.DegreeOfHarm,categorical = TRUE, effect ="degree_of_harm" , conditions = conditions)
+
+
+m=plot(mod_plot)[[1]] +facet_wrap("phase")
+
+gr=m$data
+gr1=gr[gr$effect2__=="No",]
+k="phase"
+
+gr1 <- subset(gr1, select = -cond__) 
+gr2=distinct(gr1)
+gr2=gr2[!(gr2$degree_of_harm==""), ]
+plotb=plottingBar(gr2,modelname,k)
+ggsave(filename = "Overall_DegreeOfHarm_QS_phase_and_degree_of_harm.jpeg", plot = plotb, width = 8, height = 6) 
+
