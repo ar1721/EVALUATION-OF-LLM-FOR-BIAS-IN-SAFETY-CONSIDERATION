@@ -158,6 +158,151 @@ save(Model.intersectional.QSGE.DegreeOfHarm,file="ModelIntersectionalQSGEDegreeO
 
 
 
+########################Summary Of Model#####################
+
+
+summary_Modelraw.Intersectional.QS <- summary(Model.intersectional.QS.DegreeOfHarm)
+summary_Modelraw.Intersectional.QSGE <- summary(Model.intersectional.QSGE.DegreeOfHarm)
+
+fixed_Modelraw_Intersectional_QS <- summary_Modelraw.Intersectional.QS$fixed
+fixed_Modelraw_Intersectional_QSGE <- summary_Modelraw.Intersectional.QSGE$fixed
+random_Modelraw_Intersectional_QS <- summary_Modelraw.Intersectional.QS$random
+random_Modelraw_Intersectional_QSGE <- summary_Modelraw.Intersectional.QSGE$random
+
+
+
+b=fixed_Modelraw_Intersectional_QS[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QS","QS LCI","QS UCI")
+names(b)<-names
+
+c=fixed_Modelraw_Intersectional_QSGE[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QSGE","QSGE LCI","QSGE UCI")
+names(c)<-names
+
+temp2=merge(b,c, by = 'row.names', all = TRUE)
+fixed=temp2
+
+
+QSitem=random_Modelraw_Intersectional_QS$item_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QS","QS LCI","QS UCI")
+names(QSitem)<-names
+rn=rownames(QSitem)
+temp3=paste(rn[1],"item_id",sep="_")
+rownames(QSitem)<-c(temp3)
+
+QSrater=random_Modelraw_Intersectional_QS$rater_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QS","QS LCI","QS UCI")
+names(QSrater)<-names
+rn=rownames(QSrater)
+temp3=paste(rn[1],"rater_id",sep="_")
+rownames(QSrater)<-c(temp3)
+
+
+
+QSGEitem=random_Modelraw_Intersectional_QSGE$item_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QSGE","QSGE LCI","QSGE UCI")
+names(QSGEitem)<-names
+rn=rownames(QSGEitem)
+temp3=paste(rn[1],"item_id",sep="_")
+rownames(QSGEitem)<-c(temp3)
+
+QSGErater=random_Modelraw_Intersectional_QSGE$rater_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QSGE","QSGE LCI","QSGE UCI")
+names(QSGErater)<-names
+rn=rownames(QSGErater)
+temp3<-c()
+for(i in rn){
+  temp3=rbind(temp3,paste(i,"rater_id",sep="_"))
+}
+rownames(QSGErater)<-c(temp3)
+
+temp5<-merge(QSitem,QSGEitem, by = 'row.names', all = TRUE)
+
+randomitem=temp5
+
+
+temp5<-merge(QSrater,QSGErater, by = 'row.names', all = TRUE)
+
+randomrater<-temp5
+
+random<-rbind(fixed,randomitem)
+randomfixed=rbind(random,randomrater)
+
+print(xtable(randomfixed,type="latex"),file="EstimateDegreeofHarm.txt")
+#########################################POSTERIOR SAMPLES#####################################
+
+
+
+parameter_dfQS<-data_frame(Parameter=NA,Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+
+# Extract posterior samples for the parameter
+parameter_samples <- posterior_samples(Model.intersectional.QS.DegreeOfHarm)
+colPosteriorall<-colnames(parameter_samples)
+colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
+
+for (i in colPosterior){
+  print(i)
+  # Calculate the median of the posterior distribution
+  median_estimate <- round(median(parameter_samples[[i]]),5)
+  
+  # Calculate the 95% Bayesian credible interval
+  credible_interval <- round(quantile(parameter_samples[[i]], c(0.025, 0.975)),5)
+  
+  # Calculate the probability of direction (96% chance of being positive)
+  probability_direction <- round(mean(parameter_samples[[i]] > 0),5)
+  
+  # Calculate the probability of practical significance (95% chance of being > 0.05)
+  probability_practical_significance <- round(mean(parameter_samples[[i]] > 0.05),5)
+  
+  # Calculate the probability of having a large effect (89% chance of being > 0.30)
+  probability_large_effect <- round(mean(parameter_samples[[i]] > 0.30),5)
+  
+  parameter_dfQS<-rbind(parameter_dfQS,c(i,median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  
+}
+parameter_dfQS<-parameter_dfQS[-1,]
+
+
+
+
+parameter_dfQSGE<-data_frame(Parameter=NA,Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+
+# Extract posterior samples for the parameter
+parameter_samples <- posterior_samples(Model.intersectional.QSGE.DegreeOfHarm)
+colPosteriorall<-colnames(parameter_samples)
+colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
+
+for (i in colPosterior){
+  print(i)
+  # Calculate the median of the posterior distribution
+  median_estimate <- round(median(parameter_samples[[i]]),5)
+  
+  # Calculate the 95% Bayesian credible interval
+  credible_interval <- round(quantile(parameter_samples[[i]], c(0.025, 0.975)),5)
+  
+  # Calculate the probability of direction (96% chance of being positive)
+  probability_direction <- round(mean(parameter_samples[[i]] > 0),5)
+  
+  # Calculate the probability of practical significance (95% chance of being > 0.05)
+  probability_practical_significance <- round(mean(parameter_samples[[i]] > 0.05),5)
+  
+  # Calculate the probability of having a large effect (89% chance of being > 0.30)
+  probability_large_effect <- round(mean(parameter_samples[[i]] > 0.30),5)
+  
+  parameter_dfQSGE<-rbind(parameter_dfQSGE,c(i,median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  
+}
+parameter_dfQSGE<-parameter_dfQSGE[-1,]
+
+
+
+pTableQS<-data.frame(parameter_dfQS)
+print(xtable(pTableQS,type="latex"),file="QSDegreeOfHarm.txt")
+
+
+pTableQSGE<-data.frame(parameter_dfQSGE) 
+print(xtable(pTableQSGE,type="latex"),file="QSGEDegreeOfHarm.txt")
+
 
 ##################################Plots##########################
 
@@ -168,15 +313,22 @@ plottingBar <- function(gr1,l,k) { # create a function with the name my_function
   titlex=paste(titlex,l)
   dof=unique(dices$degree_of_harm)
   m=ggplot(gr1, aes(x = degree_of_harm, y = estimate__*100, fill = !! sym(k), colour = !! sym(k))) +
-    geom_point(position = position_dodge(width = 0.3)) +
-    geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.3),na.rm = TRUE) +
+    geom_point(position = position_dodge(width = 0.5),size=4) +
+    geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.5),na.rm = TRUE) +
     labs(
       title = titlex ,
       x = "Degree Of Harm",
       y = "Probability Of No rating"
-    )+scale_y_continuous(
+    )+scale_x_discrete(labels = label_wrap(10))+
+    scale_y_continuous(
       limits =   c(0,100))+
-    theme_minimal()
+    theme_minimal()+
+    theme(axis.text.x = element_text(size=20),
+          axis.title.y = element_text(size = 20),
+          plot.title = element_text(size = 15),
+          legend.text=element_text(size=20),
+          legend.title=element_text(size=20)
+    )
   return (m)
 }
 dof=unique(dices$degree_of_harm)

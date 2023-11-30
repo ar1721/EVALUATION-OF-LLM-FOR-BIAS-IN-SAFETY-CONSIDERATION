@@ -1,0 +1,84 @@
+% latex table generated in R 4.3.1 by xtable 1.8-4 package
+% Tue Nov 28 19:57:52 2023
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllllll}
+  \hline
+ & Parameter & Median & CI & Direction & Significance & Large \\ 
+  \hline
+1 & b\_Intercept[1] & 1.06737 & 0.6844 & 1.44094 & 1 & 1 \\ 
+  2 & b\_Intercept[2] & 1.30334 & 0.92034 & 1.67599 & 1 & 1 \\ 
+  3 & b\_rater\_genderNonbinary & 0.02826 & -2.01937 & 2.13961 & 0.512 & 0.49092 \\ 
+  4 & b\_rater\_genderSelfMdescribebelow & -0.14144 & -2.56409 & 2.00052 & 0.44042 & 0.42117 \\ 
+  5 & b\_rater\_genderWoman & 0.23865 & -0.2452 & 0.7357 & 0.83542 & 0.77842 \\ 
+  6 & b\_rater\_ethinicityAsian & 0.10848 & -0.42606 & 0.66941 & 0.65683 & 0.58625 \\ 
+  7 & b\_rater\_ethinicityBlack & 0.18672 & -0.34749 & 0.70659 & 0.75442 & 0.69333 \\ 
+  8 & b\_rater\_ethinicityIndianSubcontinent & 0.60237 & 0.15371 & 1.04943 & 0.99475 & 0.99142 \\ 
+  9 & b\_rater\_ethinicityIndigenous & 0.6291 & -0.08801 & 1.40424 & 0.95675 & 0.94283 \\ 
+  10 & b\_rater\_ethinicityLatinxe & 0.19372 & -0.36005 & 0.75007 & 0.75342 & 0.69292 \\ 
+  11 & b\_rater\_ethinicityMultiracial & 0.40589 & -0.30575 & 1.1354 & 0.86317 & 0.82883 \\ 
+  12 & b\_rater\_ethinicityOther & 0.87559 & 0.41224 & 1.34163 & 0.99975 & 0.99942 \\ 
+  13 & b\_phasePhase2 & -0.04609 & -0.21528 & 0.1193 & 0.28775 & 0.1275 \\ 
+  14 & b\_phasePhase3 & 0.10347 & -0.05875 & 0.26483 & 0.89325 & 0.73925 \\ 
+  15 & b\_rater\_agegenz & -0.15732 & -0.55436 & 0.22986 & 0.20892 & 0.14508 \\ 
+  16 & b\_rater\_agemillenial & -0.64596 & -0.88137 & -0.41335 & 0 & 0 \\ 
+  17 & b\_degree\_of\_harmBenign & 0.2204 & 0.15504 & 0.28362 & 1 & 1 \\ 
+  18 & b\_degree\_of\_harmDebatable & 0.59475 & 0.51443 & 0.67384 & 1 & 1 \\ 
+  19 & b\_degree\_of\_harmExtreme & 0.79861 & 0.73503 & 0.86187 & 1 & 1 \\ 
+  20 & b\_degree\_of\_harmModerate & 0.58413 & 0.51503 & 0.65136 & 1 & 1 \\ 
+  21 & b\_rater\_educationHighschoolorbelow & 0.02464 & -0.39498 & 0.43789 & 0.54708 & 0.45367 \\ 
+  22 & b\_rater\_educationOther & -0.00239 & -0.59389 & 0.5876 & 0.49633 & 0.42983 \\ 
+  23 & b\_rater\_genderNonbinary:rater\_ethinicityAsian & -0.01564 & -3.13191 & 3.05913 & 0.49442 & 0.47575 \\ 
+  24 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityAsian & 0.0133 & -3.25581 & 3.28004 & 0.5045 & 0.48642 \\ 
+  25 & b\_rater\_genderWoman:rater\_ethinicityAsian & -0.89495 & -1.59197 & -0.22132 & 0.00408 & 0.00258 \\ 
+  26 & b\_rater\_genderNonbinary:rater\_ethinicityBlack & 0.01262 & -3.18132 & 3.19272 & 0.50533 & 0.48575 \\ 
+  27 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityBlack & -0.00033 & -3.13399 & 3.03979 & 0.5 & 0.48083 \\ 
+  28 & b\_rater\_genderWoman:rater\_ethinicityBlack & -0.09082 & -0.80367 & 0.62234 & 0.401 & 0.34625 \\ 
+  29 & b\_rater\_genderNonbinary:rater\_ethinicityIndianSubcontinent & 0.00638 & -3.03383 & 3.10052 & 0.502 & 0.48508 \\ 
+  30 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityIndianSubcontinent & -0.01032 & -3.34452 & 3.398 & 0.49667 & 0.4775 \\ 
+  31 & b\_rater\_genderWoman:rater\_ethinicityIndianSubcontinent & 0.50174 & -0.09161 & 1.12345 & 0.95108 & 0.93317 \\ 
+  32 & b\_rater\_genderNonbinary:rater\_ethinicityIndigenous & 0.01978 & -2.07539 & 2.19833 & 0.50983 & 0.48667 \\ 
+  33 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityIndigenous & -0.00897 & -3.21408 & 3.15578 & 0.496 & 0.47783 \\ 
+  34 & b\_rater\_genderWoman:rater\_ethinicityIndigenous & 0.05128 & -1.10317 & 1.19926 & 0.53525 & 0.50092 \\ 
+  35 & b\_rater\_genderNonbinary:rater\_ethinicityLatinxe & -0.00148 & -3.03295 & 3.06743 & 0.49933 & 0.48 \\ 
+  36 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityLatinxe & -0.14319 & -2.58517 & 2.09127 & 0.44067 & 0.41825 \\ 
+  37 & b\_rater\_genderWoman:rater\_ethinicityLatinxe & -0.01744 & -0.73903 & 0.70254 & 0.47975 & 0.42367 \\ 
+  38 & b\_rater\_genderNonbinary:rater\_ethinicityMultiracial & -0.00154 & -3.41346 & 3.13414 & 0.49942 & 0.48008 \\ 
+  39 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityMultiracial & -0.01049 & -3.17675 & 3.08038 & 0.49658 & 0.47725 \\ 
+  40 & b\_rater\_genderWoman:rater\_ethinicityMultiracial & -0.11951 & -1.12669 & 0.88525 & 0.40817 & 0.36908 \\ 
+  41 & b\_rater\_genderNonbinary:rater\_ethinicityOther & -0.00237 & -2.91934 & 2.90357 & 0.49908 & 0.482 \\ 
+  42 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityOther & -0.02423 & -3.30385 & 3.44739 & 0.4905 & 0.47433 \\ 
+  43 & b\_rater\_genderWoman:rater\_ethinicityOther & -0.15886 & -0.80146 & 0.47947 & 0.31342 & 0.26325 \\ 
+  44 & b\_rater\_genderNonbinary:phasePhase2 & -0.00288 & -3.01128 & 2.9967 & 0.49833 & 0.48008 \\ 
+  45 & b\_rater\_genderSelfMdescribebelow:phasePhase2 & -0.13339 & -2.59974 & 2.06488 & 0.4465 & 0.4285 \\ 
+  46 & b\_rater\_genderWoman:phasePhase2 & -0.15746 & -0.36567 & 0.05584 & 0.06983 & 0.02742 \\ 
+  47 & b\_rater\_genderNonbinary:phasePhase3 & -0.00789 & -2.89389 & 2.89855 & 0.49625 & 0.47592 \\ 
+  48 & b\_rater\_genderSelfMdescribebelow:phasePhase3 & -0.00219 & -3.15497 & 3.12076 & 0.49892 & 0.479 \\ 
+  49 & b\_rater\_genderWoman:phasePhase3 & -0.22341 & -0.43331 & -0.02027 & 0.016 & 0.00408 \\ 
+  50 & b\_rater\_genderNonbinary:rater\_agegenz & -0.00576 & -3.07087 & 3.0374 & 0.49775 & 0.48092 \\ 
+  51 & b\_rater\_genderSelfMdescribebelow:rater\_agegenz & -0.13731 & -2.59934 & 2.08293 & 0.44008 & 0.4185 \\ 
+  52 & b\_rater\_genderWoman:rater\_agegenz & -0.00253 & -0.54989 & 0.54799 & 0.49675 & 0.42433 \\ 
+  53 & b\_rater\_genderNonbinary:rater\_agemillenial & 0.03786 & -2.08861 & 2.1781 & 0.51542 & 0.495 \\ 
+  54 & b\_rater\_genderSelfMdescribebelow:rater\_agemillenial & 0.00294 & -2.98179 & 3.14867 & 0.50125 & 0.48158 \\ 
+  55 & b\_rater\_genderWoman:rater\_agemillenial & 0.24422 & -0.05483 & 0.53641 & 0.94567 & 0.89725 \\ 
+  56 & b\_rater\_genderNonbinary:degree\_of\_harmBenign & -0.53014 & -1.11883 & 0.01226 & 0.0275 & 0.01742 \\ 
+  57 & b\_rater\_genderSelfMdescribebelow:degree\_of\_harmBenign & -1.58886 & -5.62514 & -0.3808 & 0.00233 & 0.00117 \\ 
+  58 & b\_rater\_genderWoman:degree\_of\_harmBenign & -0.0566 & -0.11928 & 0.00671 & 0.039 & 0.00067 \\ 
+  59 & b\_rater\_genderNonbinary:degree\_of\_harmDebatable & -0.06622 & -0.5728 & 0.44003 & 0.40258 & 0.33125 \\ 
+  60 & b\_rater\_genderSelfMdescribebelow:degree\_of\_harmDebatable & -0.211 & -0.80362 & 0.35002 & 0.239 & 0.18742 \\ 
+  61 & b\_rater\_genderWoman:degree\_of\_harmDebatable & -0.00479 & -0.07861 & 0.06928 & 0.45067 & 0.07117 \\ 
+  62 & b\_rater\_genderNonbinary:degree\_of\_harmExtreme & -0.44132 & -0.95288 & 0.04628 & 0.0385 & 0.02417 \\ 
+  63 & b\_rater\_genderSelfMdescribebelow:degree\_of\_harmExtreme & -0.60639 & -1.27313 & 0.0046 & 0.02567 & 0.01658 \\ 
+  64 & b\_rater\_genderWoman:degree\_of\_harmExtreme & -0.04051 & -0.1005 & 0.0201 & 0.09817 & 0.002 \\ 
+  65 & b\_rater\_genderNonbinary:degree\_of\_harmModerate & -0.19017 & -0.69861 & 0.30502 & 0.23175 & 0.174 \\ 
+  66 & b\_rater\_genderSelfMdescribebelow:degree\_of\_harmModerate & -0.53053 & -1.24336 & 0.0958 & 0.04908 & 0.035 \\ 
+  67 & b\_rater\_genderWoman:degree\_of\_harmModerate & -0.02813 & -0.09288 & 0.03663 & 0.19433 & 0.00817 \\ 
+  68 & b\_rater\_genderNonbinary:rater\_educationHighschoolorbelow & 0.00147 & -3.0878 & 3.10043 & 0.50075 & 0.48067 \\ 
+  69 & b\_rater\_genderSelfMdescribebelow:rater\_educationHighschoolorbelow & -0.14325 & -2.42685 & 2.02354 & 0.4385 & 0.41708 \\ 
+  70 & b\_rater\_genderWoman:rater\_educationHighschoolorbelow & -0.03568 & -0.61389 & 0.55696 & 0.45425 & 0.38933 \\ 
+  71 & b\_rater\_genderNonbinary:rater\_educationOther & -0.00736 & -3.26657 & 3.18735 & 0.49767 & 0.48175 \\ 
+  72 & b\_rater\_genderSelfMdescribebelow:rater\_educationOther & 0.00341 & -3.38593 & 3.17664 & 0.50125 & 0.48342 \\ 
+  73 & b\_rater\_genderWoman:rater\_educationOther & -0.0273 & -1.14374 & 1.09369 & 0.48217 & 0.447 \\ 
+   \hline
+\end{tabular}
+\end{table}

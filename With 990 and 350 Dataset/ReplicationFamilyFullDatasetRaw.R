@@ -11,7 +11,9 @@ dir.create(Sys.getenv("R_LIBS_USER"), showWarnings = FALSE, recursive = TRUE)
 # install.packages("ellipsis" ,type="binary")
 # install.packages("tidybayes")
 # install.packages("cmdstanr", repos = c("https://mc-stan.org/r-packages/", getOption("repos")))
-
+# install.packages("data.table")
+# install.packages("xtable")# Install & load data.table package
+# install.packages("scales")
 
 library(tidybayes)
 library(brms) # for the analysis
@@ -22,7 +24,9 @@ library(ggmcmc)
 library(ggthemes)
 library(ggridges)
 library(loo)
-
+library("data.table")
+library(xtable)
+library(scales)  
 # #########################Reading dices dataset#######################
 dices1=read.csv("diverse_safety_adversarial_dialog_350.csv")
 dices2=read.csv("diverse_safety_adversarial_dialog_990.csv")
@@ -118,7 +122,7 @@ formula1 <- Q_overall ~ 1 + (1 | rater_id) + (1 | item_id)
 
 formula2 <- Q_overall ~ rater_ethinicity + rater_gender + rater_age+ rater_education+phase+ (1 | rater_id) + (1 | item_id)
 
-formula3 <- Q_overall ~ rater_ethinicity + rater_gender + rater_age+ rater_education + phase+degree_of_harm + (1 | rater_id) + (1 | item_id)
+formula3 <- Q_overall ~ rater_ethinicity + rater_gender + rater_age+rater_education + phase+degree_of_harm + (1 | rater_id) + (1 | item_id)
 
 formula4 <- Q_overall ~ rater_ethinicity * (rater_gender + rater_age+phase+ rater_education) + (1 | rater_id) + (1 | item_id)
 
@@ -242,156 +246,121 @@ Modelraw.Intersectional.QSGE <- brm(
 save(Modelraw.Intersectional.QSGE,file="ModelrawIntersectionalQSGE.RData")
 
 
-########################Metrics and Transformation#####################
-
-model_summaries <- list()
-
-# Store the summary of each model with "summary" added to the variable name
-model_summaries$summary_Modelraw.null <- summary(Modelraw.null)
-model_summaries$summary_Modelraw.linear.AD <- summary(Modelraw.linear.AD)
-model_summaries$summary_Modelraw.linear.QS <- summary(Modelraw.linear.QS)
-model_summaries$summary_Modelraw.linear.QSGE <- summary(Modelraw.linear.QSGE)
-model_summaries$summary_Modelraw.Intersectional.AD <- summary(Modelraw.Intersectional.AD)
-model_summaries$summary_Modelraw.Intersectional.QS <- summary(Modelraw.Intersectional.QS)
-model_summaries$summary_Modelraw.Intersectional.QSGE <- summary(Modelraw.Intersectional.QSGE)
+########################Summary Of Model#####################
 
 
-loo_results <- list(
-  Linear_AD = loo(Modelraw.linear.AD),
-  Linear_QS = loo(Modelraw.linear.QS),
-  Linear_QSGE = loo(Modelraw.linear.QSGE),
-  Intersectional_AD = loo(Modelraw.Intersectional.AD),
-  Intersectional_QS = loo(Modelraw.Intersectional.QS),
-  Intersectional_QSGE = loo(Modelraw.Intersectional.QSGE)
-)
+summary_Modelraw.Intersectional.AD <- summary(Modelraw.Intersectional.AD)
+summary_Modelraw.Intersectional.QS <- summary(Modelraw.Intersectional.QS)
+summary_Modelraw.Intersectional.QSGE <- summary(Modelraw.Intersectional.QSGE)
 
-waic_results <- list( 
-                      Linear_AD = waic(Modelraw.linear.AD),
-                      Linear_QS = waic(Modelraw.linear.QS),
-                      Linear_QSGE = waic(Modelraw.linear.QSGE),
-                      Intersectional_AD = waic(Modelraw.Intersectional.AD),
-                      Intersectional_QS = waic(Modelraw.Intersectional.QS),
-                      Intersectional_QSGE = waic(Modelraw.Intersectional.QSGE) )
+fixed_Modelraw_Intersectional_AD <- summary_Modelraw.Intersectional.AD$fixed
+fixed_Modelraw_Intersectional_QS <- summary_Modelraw.Intersectional.QS$fixed
+fixed_Modelraw_Intersectional_QSGE <- summary_Modelraw.Intersectional.QSGE$fixed
+random_Modelraw_Intersectional_AD <- summary_Modelraw.Intersectional.AD$random
+random_Modelraw_Intersectional_QS <- summary_Modelraw.Intersectional.QS$random
+random_Modelraw_Intersectional_QSGE <- summary_Modelraw.Intersectional.QSGE$random
 
 
+a=fixed_Modelraw_Intersectional_AD[c("Estimate","l-95% CI","u-95% CI")]
+names=c("AD","AD LCI","AD UCI")
+names(a)<-names
 
-r2_results<-list(
-                  Modelraw_linear_AD_r2=performance::r2(Modelraw.linear.AD),
-                  Modelraw_linear_QS_r2=performance::r2(Modelraw.linear.QS),
-                  Modelraw_linear_QSGE_r2=performance::r2(Modelraw.linear.QSGE),
-                  Modelraw_Intersectional_AD_r2=performance::r2(Modelraw.Intersectional.AD),
-                  Modelraw_Intersectional_QS_r2=performance::r2(Modelraw.Intersectional.QS),
-                  Modelraw_Intersectional_QSGE_r2=performance::r2(Modelraw.Intersectional.QSGE))
-save(loo_results,file="LooModelReplication.RData")
-save(waic_results,file="WAICModelReplication.RData")
-save(r2_results,file="R2ModelReplication.RData")
+b=fixed_Modelraw_Intersectional_QS[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QS","QS LCI","QS UCI")
+names(b)<-names
 
+c=fixed_Modelraw_Intersectional_QSGE[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QSGE","QSGE LCI","QSGE UCI")
+names(c)<-names
 
-Modelraw.nullTransformed<-ggs(Modelraw.null)
-Modelraw.null.fixed_effects <- fixef(Modelraw.null)
-Modelraw.null.random_effects <- ranef(Modelraw.null)
-
-Modelraw.Intersectional.ADTransformed<-ggs(Modelraw.Intersectional.AD)
-Modelraw.linear.AD.fixed_effects <- fixef(Modelraw.linear.AD)
-Modelraw.linear.AD.random_effects <- ranef(Modelraw.linear.AD)
-
-Modelraw.linear.QS.fixed_effects <- fixef(Modelraw.linear.QS)
-Modelraw.linear.QS.random_effects <- ranef(Modelraw.linear.QS)
-
-Modelraw.linear.QSGE.fixed_effects <- fixef(Modelraw.linear.QSGE)
-Modelraw.linear.QSGE.random_effects <- ranef(Modelraw.linear.QSGE)
-
-Modelraw.Intersectional.AD.fixed_effects <- fixef(Modelraw.Intersectional.AD)
-Modelraw.Intersectional.AD.random_effects <- ranef(Modelraw.Intersectional.AD)
-
-Modelraw.Intersectional.QS.fixed_effects <- fixef(Modelraw.Intersectional.QS)
-Modelraw.Intersectional.QS.random_effects <- ranef(Modelraw.Intersectional.QS)
-
-Modelraw.Intersectional.QSGE.fixed_effects <- fixef(Modelraw.Intersectional.QSGE)
-Modelraw.Intersectional.QSGE.random_effects <- ranef(Modelraw.Intersectional.QSGE)
-
-elpd<-list(loo_results$Null_Modelraw$elpd_loo,
-           loo_results$Linear_AD$elpd_loo,
-           loo_results$Intersectional_AD$elpd_loo,
-           loo_results$Linear_QS$elpd_loo,
-           loo_results$Linear_QSGE$elpd_loo,
-           loo_results$Intersectional_QS$elpd_loo,
-           loo_results$Intersectional_QSGE$elpd_loo)
+temp=merge(a,b, by = 'row.names', all = TRUE)
+temp2=merge(a,c, by = 'row.names', all = TRUE)
+names=c("Row.names","QSGE","QSGE LCI","QSGE UCI")
+temp2=temp2[names]
+fixed=merge(temp,temp2, by = 'row.names', all = TRUE)
+fixed=fixed[c("Row.names.x","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI","QSGE","QSGE LCI","QSGE UCI")]
 
 
-looic<-list(loo_results$Null_Modelraw$looic,
-            loo_results$Linear_AD$looic,
-            loo_results$Intersectional_AD$looic,
-            loo_results$Linear_QS$looic,
-            loo_results$Linear_QSGE$looic,
-            loo_results$Intersectional_QS$looic,
-            loo_results$Intersectional_QSGE$looic)
 
-waic<-list(waic_results$Null_Modelraw$waic,
-           waic_results$Linear_AD$waic,
-           waic_results$Intersectional_AD$waic,
-           waic_results$Linear_QS$waic,
-           waic_results$Linear_QSGE$waic,
-           waic_results$Intersectional_QS$waic,
-           waic_results$Intersectional_QSGE$waic)
 
-conditional_r2<-list(r2_results$Modelraw_null_r2$R2_Bayes,
-                     r2_results$Modelraw_linear_AD_r2$R2_Bayes,
-                     r2_results$Modelraw_Intersectional_AD_r2$R2_Bayes,
-                     r2_results$Modelraw_linear_QS_r2$R2_Bayes,
-                     r2_results$Modelraw_linear_QSGE_r2$R2_Bayes,
-                     r2_results$Modelraw_Intersectional_QS_r2$R2_Bayes,
-                     r2_results$Modelraw_Intersectional_QSGE_r2$R2_Bayes)
 
-marginal_r2<-list(r2_results$Modelraw_null_r2$R2_Bayes_marginal,
-                  r2_results$Modelraw_linear_AD_r2$R2_Bayes_marginal,
-                  r2_results$Modelraw_Intersectional_AD_r2$R2_Bayes_marginal,
-                  r2_results$Modelraw_linear_QS_r2$R2_Bayes_marginal,
-                  r2_results$Modelraw_linear_QSGE_r2$R2_Bayes_marginal,
-                  r2_results$Modelraw_Intersectional_QS_r2$R2_Bayes_marginal,
-                  r2_results$Modelraw_Intersectional_QSGE_r2$R2_Bayes_marginal)
 
-estimate_fixed<-list(fixed_Modelraw_null <- model_summaries$summary_Modelraw.null$fixed,
-                     fixed_Modelraw_linear_AD <- model_summaries$summary_Modelraw.linear.AD$fixed,
-                     fixed_Modelraw_linear_QS <- model_summaries$summary_Modelraw.linear.QS$fixed,
-                     fixed_Modelraw_linear_QSGE <- model_summaries$summary_Modelraw.linear.QSGE$fixed,
-                     fixed_Modelraw_Intersectional_AD <- model_summaries$summary_Modelraw.Intersectional.AD$fixed,
-                     fixed_Modelraw_Intersectional_QS <- model_summaries$summary_Modelraw.Intersectional.QS$fixed,
-                     fixed_Modelraw_Intersectional_QSGE <- model_summaries$summary_Modelraw.Intersectional.QSGE$fixed)
-estimate_random<-list(random_Modelraw_null <- model_summaries$summary_Modelraw.null$random,
-                      random_Modelraw_linear_AD <- model_summaries$summary_Modelraw.linear.AD$random,
-                      random_Modelraw_linear_QS <- model_summaries$summary_Modelraw.linear.QS$random,
-                      random_Modelraw_linear_QSGE <- model_summaries$summary_Modelraw.linear.QSGE$random,
-                      random_Modelraw_Intersectional_AD <- model_summaries$summary_Modelraw.Intersectional.AD$random,
-                      random_Modelraw_Intersectional_QS <- model_summaries$summary_Modelraw.Intersectional.QS$random,
-                      random_Modelraw_Intersectional_QSGE <- model_summaries$summary_Modelraw.Intersectional.QSGE$random)
 
-fixed_Modelraw_null
-fixed_Modelraw_linear_AD
-fixed_Modelraw_linear_QS
-fixed_Modelraw_linear_QSGE
-fixed_Modelraw_Intersectional_AD
-fixed_Modelraw_Intersectional_QS
-fixed_Modelraw_Intersectional_QSGE
 
-a1<-random_Modelraw_null$item_id
-a2<-random_Modelraw_linear_AD$item_id
-a3<-random_Modelraw_linear_QS$item_id
-a4<-random_Modelraw_linear_QSGE$item_id
-a5<-random_Modelraw_Intersectional_AD$item_id
-a6<-random_Modelraw_Intersectional_QS$item_id
-a7<-random_Modelraw_Intersectional_QSGE$item_id
+ADitem=random_Modelraw_Intersectional_AD$item_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("AD","AD LCI","AD UCI")
+names(ADitem)<-names
+rn=rownames(ADitem)
+temp3=paste(rn[1],"item_id",sep="_")
+rownames(ADitem)<-c(temp3)
 
-b1<-random_Modelraw_null$rater_id
-b2<-random_Modelraw_linear_AD$rater_id
-b3<-random_Modelraw_linear_QS$rater_id
-b4<-random_Modelraw_linear_QSGE$rater_id
-b5<-random_Modelraw_Intersectional_AD$rater_id
-b6<-random_Modelraw_Intersectional_QS$rater_id
-b7<-random_Modelraw_Intersectional_QSGE$rater_id
 
+ADrater=random_Modelraw_Intersectional_AD$rater_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("AD","AD LCI","AD UCI")
+names(ADrater)<-names
+rn=rownames(ADrater) 
+temp3=paste(rn[1],"rater_id",sep="_")
+rownames(ADrater)<-c(temp3)
+
+
+
+QSitem=random_Modelraw_Intersectional_QS$item_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QS","QS LCI","QS UCI")
+names(QSitem)<-names
+rn=rownames(QSitem)
+temp3=paste(rn[1],"item_id",sep="_")
+rownames(QSitem)<-c(temp3)
+
+QSrater=random_Modelraw_Intersectional_QS$rater_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QS","QS LCI","QS UCI")
+names(QSrater)<-names
+rn=rownames(QSrater)
+temp3=paste(rn[1],"rater_id",sep="_")
+rownames(QSrater)<-c(temp3)
+
+
+
+QSGEitem=random_Modelraw_Intersectional_QSGE$item_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QSGE","QSGE LCI","QSGE UCI")
+names(QSGEitem)<-names
+rn=rownames(QSGEitem)
+temp3=paste(rn[1],"item_id",sep="_")
+rownames(QSGEitem)<-c(temp3)
+
+QSGErater=random_Modelraw_Intersectional_QSGE$rater_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QSGE","QSGE LCI","QSGE UCI")
+names(QSGErater)<-names
+rn=rownames(QSGErater)
+temp3<-c()
+for(i in rn){
+  temp3=rbind(temp3,paste(i,"rater_id",sep="_"))
+}
+rownames(QSGErater)<-c(temp3)
+
+temp4<-merge(ADitem,QSitem, by = 'row.names', all = TRUE)
+temp5<-merge(ADitem,QSGEitem, by = 'row.names', all = TRUE)
+names=c("Row.names","QSGE","QSGE LCI","QSGE UCI")
+temp5=temp5[names]
+randomitem<-merge(temp4,temp5, by = 'row.names', all = TRUE)
+randomitem=randomitem[c("Row.names.x","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI","QSGE","QSGE LCI","QSGE UCI")]
+
+
+
+temp4<-merge(ADrater,QSrater, by = 'row.names', all = TRUE)
+temp5<-merge(ADrater,QSGErater, by = 'row.names', all = TRUE)
+names=c("Row.names","QSGE","QSGE LCI","QSGE UCI")
+temp5=temp5[names]
+randomrater<-merge(temp4,temp5, by = 'Row.names', all = TRUE)
+randomrater=randomrater[c("Row.names","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI","QSGE","QSGE LCI","QSGE UCI")]
+names(randomrater)<-c("Row.names.x","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI","QSGE","QSGE LCI","QSGE UCI")
+random<-rbind(fixed,randomitem)
+randomfixed=rbind(random,randomrater)
+
+
+print(include.rownames=FALSE,xtable(randomfixed,type="latex"),file="EstimateRace.txt")
+#########################################POSTERIOR SAMPLES#####################################
 # Define the parameter of interest (e.g., rater_age)
-parameter_df<-data_frame(Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+parameter_dfAD<-data_frame(Parameter=NA,Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
 
 # Extract posterior samples for the parameter
 parameter_samples <- posterior_samples(Modelraw.Intersectional.AD)
@@ -401,28 +370,61 @@ colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
 for (i in colPosterior){
   print(i)
   # Calculate the median of the posterior distribution
-  median_estimate <- median(parameter_samples[[i]])
+  median_estimate <- round(median(parameter_samples[[i]]),5)
   
   # Calculate the 95% Bayesian credible interval
-  credible_interval <- quantile(parameter_samples[[i]], c(0.025, 0.975))
+  credible_interval <- round(quantile(parameter_samples[[i]], c(0.025, 0.975)),5)
   
   # Calculate the probability of direction (96% chance of being positive)
-  probability_direction <- mean(parameter_samples[[i]] > 0)
+  probability_direction <- round(mean(parameter_samples[[i]] > 0),5)
   
   # Calculate the probability of practical significance (95% chance of being > 0.05)
-  probability_practical_significance <- mean(parameter_samples[[i]] > 0.05)
+  probability_practical_significance <- round(mean(parameter_samples[[i]] > 0.05),5)
   
   # Calculate the probability of having a large effect (89% chance of being > 0.30)
-  probability_large_effect <- mean(parameter_samples[[i]] > 0.30)
+  probability_large_effect <- round(mean(parameter_samples[[i]] > 0.30),5)
   
-  parameter_df<-rbind(parameter_df,c(median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  parameter_dfAD<-rbind(parameter_dfAD,c(i,median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
   
 }
-parameter_df<-parameter_df[-1,]
-# Print the results
+parameter_dfAD<-parameter_dfAD[-1,]
 
 
-parameter_dfQS<-data_frame(Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+
+
+parameter_dfQS<-data_frame(Parameter=NA,Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+
+# Extract posterior samples for the parameter
+parameter_samples <- posterior_samples(Modelraw.Intersectional.QS)
+colPosteriorall<-colnames(parameter_samples)
+colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
+
+for (i in colPosterior){
+  print(i)
+  # Calculate the median of the posterior distribution
+  median_estimate <- round(median(parameter_samples[[i]]),5)
+  
+  # Calculate the 95% Bayesian credible interval
+  credible_interval <- round(quantile(parameter_samples[[i]], c(0.025, 0.975)),5)
+  
+  # Calculate the probability of direction (96% chance of being positive)
+  probability_direction <- round(mean(parameter_samples[[i]] > 0),5)
+  
+  # Calculate the probability of practical significance (95% chance of being > 0.05)
+  probability_practical_significance <- round(mean(parameter_samples[[i]] > 0.05),5)
+  
+  # Calculate the probability of having a large effect (89% chance of being > 0.30)
+  probability_large_effect <- round(mean(parameter_samples[[i]] > 0.30),5)
+  
+  parameter_dfQS<-rbind(parameter_dfQS,c(i,median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  
+}
+parameter_dfQS<-parameter_dfQS[-1,]
+
+
+
+
+parameter_dfQSGE<-data_frame(Parameter=NA,Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
 
 # Extract posterior samples for the parameter
 parameter_samples <- posterior_samples(Modelraw.Intersectional.QSGE)
@@ -432,25 +434,36 @@ colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
 for (i in colPosterior){
   print(i)
   # Calculate the median of the posterior distribution
-  median_estimate <- median(parameter_samples[[i]])
+  median_estimate <- round(median(parameter_samples[[i]]),5)
   
   # Calculate the 95% Bayesian credible interval
-  credible_interval <- quantile(parameter_samples[[i]], c(0.025, 0.975))
+  credible_interval <- round(quantile(parameter_samples[[i]], c(0.025, 0.975)),5)
   
   # Calculate the probability of direction (96% chance of being positive)
-  probability_direction <- mean(parameter_samples[[i]] > 0)
+  probability_direction <- round(mean(parameter_samples[[i]] > 0),5)
   
   # Calculate the probability of practical significance (95% chance of being > 0.05)
-  probability_practical_significance <- mean(parameter_samples[[i]] > 0.05)
+  probability_practical_significance <- round(mean(parameter_samples[[i]] > 0.05),5)
   
   # Calculate the probability of having a large effect (89% chance of being > 0.30)
-  probability_large_effect <- mean(parameter_samples[[i]] > 0.30)
+  probability_large_effect <- round(mean(parameter_samples[[i]] > 0.30),5)
   
-  parameter_dfQS<-rbind(parameter_df,c(median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  parameter_dfQSGE<-rbind(parameter_dfQSGE,c(i,median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
   
 }
-parameter_dfQS<-parameter_df[-1,]
+parameter_dfQSGE<-parameter_dfQSGE[-1,]
 
+
+
+pTable<-data.frame(parameter_dfAD) 
+print(xtable(pTable,type="latex"),file="ADRace.txt")
+
+pTableQS<-data.frame(parameter_dfQS)
+print(xtable(pTableQS,type="latex"),file="QSRace.txt")
+
+
+pTableQSGE<-data.frame(parameter_dfQSGE) 
+print(xtable(pTableQSGE,type="latex"),file="QSGERace.txt")
 
 
 ##################################Plots##########################
@@ -459,20 +472,27 @@ parameter_dfQS<-parameter_df[-1,]
 
 plottingBar <- function(m,l,k) { # create a function with the name my_function
   
-  titlex=paste("Probability of No by rater_race and ",k)
+  titlex=paste("Probability of No by rater_ethinicity and ",k)
   titlex=paste(titlex,l)
-  
   # print(gr)
   m=ggplot(gr1, aes(x = rater_ethinicity, y = estimate__*100, fill = !! sym(k), colour = !! sym(k))) +
-    geom_point(position = position_dodge(width = 0.3)) +
-    geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.3)) +
+    geom_point(position = position_dodge(width = 0.5),size=4) +
+    geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100),width = 0.01,  position = position_dodge(width = 0.5)) +
     labs(
       title = titlex ,
       x = "Rater Race",
       y = "Probability Of No rating"
-    )+scale_y_continuous(
+    )+scale_x_discrete(labels = label_wrap(10),"type",
+                       expand=c(0,1.5))+
+    scale_y_continuous(
       limits =   c(0,100))+
-    theme(axis.text.x = element_text(angle = 90, hjust = 1))
+    theme_minimal()+
+    theme(axis.text.x = element_text(size=30),
+          axis.title.y = element_text(size = 30),
+          plot.title = element_text(size = 30),
+          legend.text=element_text(size=30),
+          legend.title=element_text(size=40)
+          )
   return (m)
 }
 ######################################Model.Intersection.AD################
@@ -698,7 +718,7 @@ gr1 <- subset(gr1, select = -cond__)
 gr2=distinct(gr1)
 plotb=plottingBar(gr2,modelname,k)
 
-ggsave(filename = "Overall_Race_QSGE_rater_gender.jpeg", plot = plotb, width =24, height = 12) 
+ggsave(filename = "Overall_Race_QSGE_rater_race.jpeg", plot = plotb, width =24, height = 12) 
 
 
 # rater_race,rater-race

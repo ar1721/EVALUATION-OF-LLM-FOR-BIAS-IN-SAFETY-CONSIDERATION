@@ -171,7 +171,223 @@ Model.intersectional.QSGE.Age <- brm(
 save(Model.intersectional.QSGE.Age,file="ModelIntersectionalQSGEAge.RData")
 
 
+########################Summary Of Model#####################
 
+
+summary_Modelraw.Intersectional.AD <- summary(Model.intersectional.AD.Age)
+summary_Modelraw.Intersectional.QS <- summary(Model.intersectional.QS.Age)
+summary_Modelraw.Intersectional.QSGE <- summary(Model.intersectional.QSGE.Age)
+
+fixed_Modelraw_Intersectional_AD <- summary_Modelraw.Intersectional.AD$fixed
+fixed_Modelraw_Intersectional_QS <- summary_Modelraw.Intersectional.QS$fixed
+fixed_Modelraw_Intersectional_QSGE <- summary_Modelraw.Intersectional.QSGE$fixed
+random_Modelraw_Intersectional_AD <- summary_Modelraw.Intersectional.AD$random
+random_Modelraw_Intersectional_QS <- summary_Modelraw.Intersectional.QS$random
+random_Modelraw_Intersectional_QSGE <- summary_Modelraw.Intersectional.QSGE$random
+
+
+a=fixed_Modelraw_Intersectional_AD[c("Estimate","l-95% CI","u-95% CI")]
+names=c("AD","AD LCI","AD UCI")
+names(a)<-names
+
+b=fixed_Modelraw_Intersectional_QS[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QS","QS LCI","QS UCI")
+names(b)<-names
+
+c=fixed_Modelraw_Intersectional_QSGE[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QSGE","QSGE LCI","QSGE UCI")
+names(c)<-names
+
+temp=merge(a,b, by = 'row.names', all = TRUE)
+temp2=merge(a,c, by = 'row.names', all = TRUE)
+names=c("Row.names","QSGE","QSGE LCI","QSGE UCI")
+temp2=temp2[names]
+fixed=merge(temp,temp2, by = 'row.names', all = TRUE)
+fixed=fixed[c("Row.names.x","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI","QSGE","QSGE LCI","QSGE UCI")]
+
+
+
+
+
+
+
+
+ADitem=random_Modelraw_Intersectional_AD$item_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("AD","AD LCI","AD UCI")
+names(ADitem)<-names
+rn=rownames(ADitem)
+temp3=paste(rn[1],"item_id",sep="_")
+rownames(ADitem)<-c(temp3)
+
+
+ADrater=random_Modelraw_Intersectional_AD$rater_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("AD","AD LCI","AD UCI")
+names(ADrater)<-names
+rn=rownames(ADrater) 
+temp3=paste(rn[1],"rater_id",sep="_")
+rownames(ADrater)<-c(temp3)
+
+
+
+QSitem=random_Modelraw_Intersectional_QS$item_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QS","QS LCI","QS UCI")
+names(QSitem)<-names
+rn=rownames(QSitem)
+temp3=paste(rn[1],"item_id",sep="_")
+rownames(QSitem)<-c(temp3)
+
+QSrater=random_Modelraw_Intersectional_QS$rater_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QS","QS LCI","QS UCI")
+names(QSrater)<-names
+rn=rownames(QSrater)
+temp3=paste(rn[1],"rater_id",sep="_")
+rownames(QSrater)<-c(temp3)
+
+
+
+QSGEitem=random_Modelraw_Intersectional_QSGE$item_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QSGE","QSGE LCI","QSGE UCI")
+names(QSGEitem)<-names
+rn=rownames(QSGEitem)
+temp3=paste(rn[1],"item_id",sep="_")
+rownames(QSGEitem)<-c(temp3)
+
+QSGErater=random_Modelraw_Intersectional_QSGE$rater_id[c("Estimate","l-95% CI","u-95% CI")]
+names=c("QSGE","QSGE LCI","QSGE UCI")
+names(QSGErater)<-names
+rn=rownames(QSGErater)
+temp3<-c()
+for(i in rn){
+  temp3=rbind(temp3,paste(i,"rater_id",sep="_"))
+}
+rownames(QSGErater)<-c(temp3)
+
+temp4<-merge(ADitem,QSitem, by = 'row.names', all = TRUE)
+temp5<-merge(ADitem,QSGEitem, by = 'row.names', all = TRUE)
+names=c("Row.names","QSGE","QSGE LCI","QSGE UCI")
+temp5=temp5[names]
+randomitem<-merge(temp4,temp5, by = 'row.names', all = TRUE)
+randomitem=randomitem[c("Row.names.x","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI","QSGE","QSGE LCI","QSGE UCI")]
+
+
+
+temp4<-merge(ADrater,QSrater, by = 'row.names', all = TRUE)
+temp5<-merge(ADrater,QSGErater, by = 'row.names', all = TRUE)
+names=c("Row.names","QSGE","QSGE LCI","QSGE UCI")
+temp5=temp5[names]
+randomrater<-merge(temp4,temp5, by = 'Row.names', all = TRUE)
+randomrater=randomrater[c("Row.names","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI","QSGE","QSGE LCI","QSGE UCI")]
+names(randomrater)<-c("Row.names.x","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI","QSGE","QSGE LCI","QSGE UCI")
+random<-rbind(fixed,randomitem)
+randomfixed=rbind(random,randomrater)
+
+print(xtable(randomfixed,type="latex"),file="EstimateAge.txt")
+#########################################POSTERIOR SAMPLES#####################################
+# Define the parameter of interest (e.g., rater_age)
+parameter_dfAD<-data_frame(Parameter=NA,Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+
+# Extract posterior samples for the parameter
+parameter_samples <- posterior_samples(Model.intersectional.AD.Age)
+colPosteriorall<-colnames(parameter_samples)
+colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
+
+for (i in colPosterior){
+  print(i)
+  # Calculate the median of the posterior distribution
+  median_estimate <- round(median(parameter_samples[[i]]),5)
+  
+  # Calculate the 95% Bayesian credible interval
+  credible_interval <- round(quantile(parameter_samples[[i]], c(0.025, 0.975)),5)
+  
+  # Calculate the probability of direction (96% chance of being positive)
+  probability_direction <- round(mean(parameter_samples[[i]] > 0),5)
+  
+  # Calculate the probability of practical significance (95% chance of being > 0.05)
+  probability_practical_significance <- round(mean(parameter_samples[[i]] > 0.05),5)
+  
+  # Calculate the probability of having a large effect (89% chance of being > 0.30)
+  probability_large_effect <- round(mean(parameter_samples[[i]] > 0.30),5)
+  
+  parameter_dfAD<-rbind(parameter_dfAD,c(i,median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  
+}
+parameter_dfAD<-parameter_dfAD[-1,]
+
+
+
+
+parameter_dfQS<-data_frame(Parameter=NA,Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+
+# Extract posterior samples for the parameter
+parameter_samples <- posterior_samples(Model.intersectional.QS.Age)
+colPosteriorall<-colnames(parameter_samples)
+colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
+
+for (i in colPosterior){
+  print(i)
+  # Calculate the median of the posterior distribution
+  median_estimate <- round(median(parameter_samples[[i]]),5)
+  
+  # Calculate the 95% Bayesian credible interval
+  credible_interval <- round(quantile(parameter_samples[[i]], c(0.025, 0.975)),5)
+  
+  # Calculate the probability of direction (96% chance of being positive)
+  probability_direction <- round(mean(parameter_samples[[i]] > 0),5)
+  
+  # Calculate the probability of practical significance (95% chance of being > 0.05)
+  probability_practical_significance <- round(mean(parameter_samples[[i]] > 0.05),5)
+  
+  # Calculate the probability of having a large effect (89% chance of being > 0.30)
+  probability_large_effect <- round(mean(parameter_samples[[i]] > 0.30),5)
+  
+  parameter_dfQS<-rbind(parameter_dfQS,c(i,median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  
+}
+parameter_dfQS<-parameter_dfQS[-1,]
+
+
+
+
+parameter_dfQSGE<-data_frame(Parameter=NA,Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)
+
+# Extract posterior samples for the parameter
+parameter_samples <- posterior_samples(Model.intersectional.QSGE.Age)
+colPosteriorall<-colnames(parameter_samples)
+colPosterior <- colPosteriorall[grep("^b_", colPosteriorall)]
+
+for (i in colPosterior){
+  print(i)
+  # Calculate the median of the posterior distribution
+  median_estimate <- round(median(parameter_samples[[i]]),5)
+  
+  # Calculate the 95% Bayesian credible interval
+  credible_interval <- round(quantile(parameter_samples[[i]], c(0.025, 0.975)),5)
+  
+  # Calculate the probability of direction (96% chance of being positive)
+  probability_direction <- round(mean(parameter_samples[[i]] > 0),5)
+  
+  # Calculate the probability of practical significance (95% chance of being > 0.05)
+  probability_practical_significance <- round(mean(parameter_samples[[i]] > 0.05),5)
+  
+  # Calculate the probability of having a large effect (89% chance of being > 0.30)
+  probability_large_effect <- round(mean(parameter_samples[[i]] > 0.30),5)
+  
+  parameter_dfQSGE<-rbind(parameter_dfQSGE,c(i,median_estimate,credible_interval,probability_direction,probability_practical_significance,probability_large_effect))
+  
+}
+parameter_dfQSGE<-parameter_dfQSGE[-1,]
+
+
+
+pTable<-data.frame(parameter_dfAD) 
+print(xtable(pTable,type="latex"),file="ADAge.txt")
+
+pTableQS<-data.frame(parameter_dfQS)
+print(xtable(pTableQS,type="latex"),file="QSAge.txt")
+
+
+pTableQSGE<-data.frame(parameter_dfQSGE) 
+print(xtable(pTableQSGE,type="latex"),file="QSGEAge.txt")
 
 
 ##################################Plots##########################
@@ -183,15 +399,22 @@ plottingBar <- function(gr1,l,k) { # create a function with the name my_function
   titlex=paste(titlex,l)
   
   m=ggplot(gr1, aes(x = rater_age, y = estimate__*100, fill = !! sym(k), colour = !! sym(k))) +
-    geom_point(position = position_dodge(width = 0.3)) +
-    geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.3)) +
+    geom_point(position = position_dodge(width = 0.5),size=4) +
+    geom_errorbar(aes(ymin = lower__*100, ymax = upper__*100), width = 0.11, position = position_dodge(width = 0.5)) +
     labs(
       title = titlex ,
       x = "Rater Age",
       y = "Probability Of No rating"
-    )+scale_y_continuous(
+    )+scale_x_discrete(labels = label_wrap(10))+
+    scale_y_continuous(
       limits =   c(0,100))+
-    theme_minimal()
+    theme_minimal()+
+    theme(axis.text.x = element_text(size=20),
+          axis.title.y = element_text(size = 20),
+          plot.title = element_text(size = 15),
+          legend.text=element_text(size=20),
+          legend.title=element_text(size=20)
+    )
   return (m)
 }
 

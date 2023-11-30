@@ -1,0 +1,68 @@
+% latex table generated in R 4.3.1 by xtable 1.8-4 package
+% Tue Nov 28 21:00:27 2023
+\begin{table}[ht]
+\centering
+\begin{tabular}{rllllll}
+  \hline
+ & Parameter & Median & CI & Direction & Significance & Large \\ 
+  \hline
+1 & b\_Intercept[1] & 1.51099 & 1.12121 & 1.89368 & 1 & 1 \\ 
+  2 & b\_Intercept[2] & 1.70667 & 1.31628 & 2.08726 & 1 & 1 \\ 
+  3 & b\_rater\_genderNonbinary & -0.04931 & -4.7268 & 4.78694 & 0.4905 & 0.48375 \\ 
+  4 & b\_rater\_genderSelfMdescribebelow & -0.06347 & -6.03546 & 5.72791 & 0.491 & 0.48125 \\ 
+  5 & b\_rater\_genderWoman & 0.09398 & -0.45048 & 0.62598 & 0.6325 & 0.561 \\ 
+  6 & b\_rater\_ethinicityAsian & 0.25269 & -0.26443 & 0.8019 & 0.8195 & 0.76825 \\ 
+  7 & b\_rater\_ethinicityBlack & 0.26568 & -0.30063 & 0.7989 & 0.83475 & 0.7895 \\ 
+  8 & b\_rater\_ethinicityIndianSubcontinent & 0.5705 & 0.14311 & 1.05603 & 0.99725 & 0.99175 \\ 
+  9 & b\_rater\_ethinicityIndigenous & 0.78212 & -0.01365 & 1.55267 & 0.97175 & 0.9655 \\ 
+  10 & b\_rater\_ethinicityLatinxe & 0.09494 & -0.45834 & 0.66342 & 0.62625 & 0.5595 \\ 
+  11 & b\_rater\_ethinicityMultiracial & 0.33913 & -0.3909 & 1.0849 & 0.827 & 0.79 \\ 
+  12 & b\_rater\_ethinicityOther & 0.69422 & 0.2509 & 1.16864 & 0.999 & 0.99775 \\ 
+  13 & b\_phasePhase2 & 0.11703 & -0.0713 & 0.31549 & 0.8895 & 0.74975 \\ 
+  14 & b\_phasePhase3 & 0.67778 & 0.51115 & 0.84969 & 1 & 1 \\ 
+  15 & b\_rater\_agegenz & -0.25245 & -0.66442 & 0.12174 & 0.09175 & 0.05225 \\ 
+  16 & b\_rater\_agemillenial & -0.65415 & -0.92136 & -0.3978 & 0 & 0 \\ 
+  17 & b\_rater\_educationHighschoolorbelow & 0.11343 & -0.28044 & 0.50409 & 0.7245 & 0.63375 \\ 
+  18 & b\_rater\_educationOther & -0.54494 & -1.11545 & 0.06617 & 0.04075 & 0.028 \\ 
+  19 & b\_rater\_genderNonbinary:rater\_ethinicityAsian & 0.07088 & -7.48405 & 7.7337 & 0.51175 & 0.50325 \\ 
+  20 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityAsian & 0.06689 & -7.76835 & 7.43912 & 0.50925 & 0.50275 \\ 
+  21 & b\_rater\_genderWoman:rater\_ethinicityAsian & -0.64331 & -1.37526 & 0.03873 & 0.0335 & 0.0225 \\ 
+  22 & b\_rater\_genderNonbinary:rater\_ethinicityBlack & -0.04675 & -7.52469 & 7.66862 & 0.494 & 0.4855 \\ 
+  23 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityBlack & 0.0078 & -7.80404 & 8.09797 & 0.50125 & 0.496 \\ 
+  24 & b\_rater\_genderWoman:rater\_ethinicityBlack & -0.23567 & -0.95001 & 0.49122 & 0.2535 & 0.20825 \\ 
+  25 & b\_rater\_genderNonbinary:rater\_ethinicityIndianSubcontinent & 0.03904 & -7.2665 & 7.79877 & 0.50675 & 0.4985 \\ 
+  26 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityIndianSubcontinent & 0.04333 & -7.61407 & 8.70886 & 0.5045 & 0.4985 \\ 
+  27 & b\_rater\_genderWoman:rater\_ethinicityIndianSubcontinent & -0.06748 & -0.70452 & 0.52316 & 0.4195 & 0.352 \\ 
+  28 & b\_rater\_genderNonbinary:rater\_ethinicityIndigenous & -0.00033 & -4.90547 & 4.75867 & 0.5 & 0.4915 \\ 
+  29 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityIndigenous & 0.04421 & -8.0156 & 9.12002 & 0.50575 & 0.499 \\ 
+  30 & b\_rater\_genderWoman:rater\_ethinicityIndigenous & -0.27081 & -1.48887 & 0.96465 & 0.34 & 0.3135 \\ 
+  31 & b\_rater\_genderNonbinary:rater\_ethinicityLatinxe & -0.04503 & -7.37482 & 7.72319 & 0.49525 & 0.49 \\ 
+  32 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityLatinxe & -0.1581 & -5.98037 & 5.90963 & 0.47775 & 0.4685 \\ 
+  33 & b\_rater\_genderWoman:rater\_ethinicityLatinxe & 0.0161 & -0.6816 & 0.72294 & 0.5165 & 0.464 \\ 
+  34 & b\_rater\_genderNonbinary:rater\_ethinicityMultiracial & -0.04241 & -8.01878 & 7.64787 & 0.49475 & 0.48875 \\ 
+  35 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityMultiracial & 0.01504 & -8.05291 & 7.69396 & 0.50175 & 0.496 \\ 
+  36 & b\_rater\_genderWoman:rater\_ethinicityMultiracial & -0.23004 & -1.33465 & 0.87831 & 0.3385 & 0.3065 \\ 
+  37 & b\_rater\_genderNonbinary:rater\_ethinicityOther & 0.01512 & -7.79714 & 7.57167 & 0.5025 & 0.4955 \\ 
+  38 & b\_rater\_genderSelfMdescribebelow:rater\_ethinicityOther & -0.05493 & -7.6264 & 7.22569 & 0.493 & 0.4875 \\ 
+  39 & b\_rater\_genderWoman:rater\_ethinicityOther & -0.26982 & -0.97945 & 0.36538 & 0.22175 & 0.1785 \\ 
+  40 & b\_rater\_genderNonbinary:phasePhase2 & 0.08218 & -7.71887 & 7.77245 & 0.512 & 0.50525 \\ 
+  41 & b\_rater\_genderSelfMdescribebelow:phasePhase2 & -0.04157 & -5.57383 & 5.5776 & 0.49 & 0.4835 \\ 
+  42 & b\_rater\_genderWoman:phasePhase2 & -0.23999 & -0.49034 & 0.01087 & 0.031 & 0.012 \\ 
+  43 & b\_rater\_genderNonbinary:phasePhase3 & -0.02417 & -6.93314 & 7.76129 & 0.49625 & 0.4885 \\ 
+  44 & b\_rater\_genderSelfMdescribebelow:phasePhase3 & 0.05594 & -9.1311 & 8.19035 & 0.5065 & 0.501 \\ 
+  45 & b\_rater\_genderWoman:phasePhase3 & -0.29609 & -0.53714 & -0.05914 & 0.00825 & 0.00325 \\ 
+  46 & b\_rater\_genderNonbinary:rater\_agegenz & 0.04677 & -7.54487 & 8.61939 & 0.5065 & 0.49975 \\ 
+  47 & b\_rater\_genderSelfMdescribebelow:rater\_agegenz & -0.11147 & -6.02842 & 5.63916 & 0.4805 & 0.47475 \\ 
+  48 & b\_rater\_genderWoman:rater\_agegenz & 0.26388 & -0.24916 & 0.83126 & 0.83225 & 0.78525 \\ 
+  49 & b\_rater\_genderNonbinary:rater\_agemillenial & -0.01019 & -4.98309 & 4.79874 & 0.49875 & 0.48925 \\ 
+  50 & b\_rater\_genderSelfMdescribebelow:rater\_agemillenial & -0.07856 & -9.42328 & 7.44985 & 0.489 & 0.48325 \\ 
+  51 & b\_rater\_genderWoman:rater\_agemillenial & 0.5912 & 0.24898 & 0.94681 & 0.99975 & 0.9995 \\ 
+  52 & b\_rater\_genderNonbinary:rater\_educationHighschoolorbelow & 0.01423 & -7.48166 & 7.45954 & 0.50275 & 0.49425 \\ 
+  53 & b\_rater\_genderSelfMdescribebelow:rater\_educationHighschoolorbelow & -0.09417 & -5.66365 & 5.1258 & 0.484 & 0.47425 \\ 
+  54 & b\_rater\_genderWoman:rater\_educationHighschoolorbelow & -0.05409 & -0.60798 & 0.4849 & 0.4255 & 0.3535 \\ 
+  55 & b\_rater\_genderNonbinary:rater\_educationOther & 0.01457 & -7.82278 & 7.60604 & 0.502 & 0.49525 \\ 
+  56 & b\_rater\_genderSelfMdescribebelow:rater\_educationOther & 0.00724 & -8.57096 & 8.05535 & 0.50125 & 0.491 \\ 
+  57 & b\_rater\_genderWoman:rater\_educationOther & 0.62199 & -0.55919 & 1.81731 & 0.8475 & 0.83 \\ 
+   \hline
+\end{tabular}
+\end{table}

@@ -1,0 +1,85 @@
+% latex table generated in R 4.3.1 by xtable 1.8-4 package
+% Tue Nov 28 20:16:01 2023
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlrrrrrrrrr}
+  \hline
+ & Row.names.x & AD & AD LCI & AD UCI & QS & QS LCI & QS UCI & QSGE & QSGE LCI & QSGE UCI \\ 
+  \hline
+1 & degree\_of\_harmBenign &  &  &  & 0.16 & 0.07 & 0.24 & 0.13 & 0.04 & 0.22 \\ 
+  2 & rater\_agegenz:degree\_of\_harmBenign &  &  &  & 0.04 & -0.05 & 0.13 & 0.04 & -0.07 & 0.15 \\ 
+  3 & rater\_agegenz:degree\_of\_harmDebatable &  &  &  & -0.04 & -0.15 & 0.06 & -0.04 & -0.19 & 0.10 \\ 
+  4 & rater\_agegenz:degree\_of\_harmExtreme &  &  &  & 0.01 & -0.08 & 0.10 & -0.00 & -0.14 & 0.14 \\ 
+  5 & rater\_agegenz:degree\_of\_harmModerate &  &  &  & -0.03 & -0.13 & 0.06 & -0.03 & -0.17 & 0.10 \\ 
+  6 & rater\_agegenz:phasePhase2 & -0.82 & -1.87 & 0.24 & -0.86 & -1.91 & 0.18 & -0.83 & -1.84 & 0.17 \\ 
+  7 & rater\_agegenz:phasePhase3 & -0.35 & -1.28 & 0.56 & -0.35 & -1.30 & 0.56 & -0.28 & -1.20 & 0.61 \\ 
+  8 & rater\_agegenz:rater\_educationHighschoolorbelow & 0.47 & -0.38 & 1.33 & 0.44 & -0.46 & 1.35 & 0.41 & -0.46 & 1.29 \\ 
+  9 & rater\_agegenz:rater\_educationOther & 0.11 & -1.41 & 1.63 & 0.08 & -1.45 & 1.61 & 0.00 & -1.53 & 1.47 \\ 
+  10 & rater\_agegenz:rater\_ethinicityAsian & 1.57 & 0.45 & 2.70 & 1.60 & 0.50 & 2.71 & 1.41 & 0.30 & 2.54 \\ 
+  11 & rater\_agegenz:rater\_ethinicityBlack & 0.75 & -0.14 & 1.66 & 0.71 & -0.22 & 1.62 & 0.66 & -0.24 & 1.56 \\ 
+  12 & degree\_of\_harmDebatable &  &  &  & 0.59 & 0.49 & 0.68 & 0.54 & 0.43 & 0.66 \\ 
+  13 & rater\_agegenz:rater\_ethinicityIndianSubcontinent & -1.00 & -2.16 & 0.17 & -1.08 & -2.24 & 0.05 & -0.98 & -2.12 & 0.15 \\ 
+  14 & rater\_agegenz:rater\_ethinicityIndigenous & 0.32 & -1.92 & 2.54 & 0.31 & -1.91 & 2.55 & 0.24 & -1.94 & 2.45 \\ 
+  15 & rater\_agegenz:rater\_ethinicityLatinxe & 0.78 & -0.21 & 1.75 & 0.76 & -0.23 & 1.75 & 0.77 & -0.19 & 1.75 \\ 
+  16 & rater\_agegenz:rater\_ethinicityMultiracial & 0.80 & -0.47 & 2.10 & 0.80 & -0.50 & 2.11 & 0.49 & -0.80 & 1.82 \\ 
+  17 & rater\_agegenz:rater\_ethinicityOther & 1.01 & -0.12 & 2.12 & 1.02 & -0.11 & 2.16 & 1.11 & -0.00 & 2.20 \\ 
+  18 & rater\_agegenz:rater\_genderNonbinary & 0.10 & -7.37 & 8.29 & -0.12 & -8.25 & 7.80 & -0.06 & -8.18 & 7.93 \\ 
+  19 & rater\_agegenz:rater\_genderSelfMdescribebelow & -0.26 & -4.12 & 3.73 & -0.27 & -4.09 & 3.72 & -0.40 & -4.40 & 3.59 \\ 
+  20 & rater\_agegenz:rater\_genderWoman & -0.66 & -1.28 & -0.04 & -0.63 & -1.24 & -0.02 & -0.61 & -1.19 & 0.00 \\ 
+  21 & rater\_agemillenial & -1.08 & -1.34 & -0.81 & -1.09 & -1.36 & -0.83 & -1.14 & -1.42 & -0.87 \\ 
+  22 & rater\_agemillenial:degree\_of\_harmBenign &  &  &  & 0.03 & -0.04 & 0.11 & 0.05 & -0.04 & 0.14 \\ 
+  23 & degree\_of\_harmExtreme &  &  &  & 0.74 & 0.66 & 0.82 & 0.72 & 0.61 & 0.83 \\ 
+  24 & rater\_agemillenial:degree\_of\_harmDebatable &  &  &  & 0.04 & -0.06 & 0.13 & 0.08 & -0.04 & 0.21 \\ 
+  25 & rater\_agemillenial:degree\_of\_harmExtreme &  &  &  & 0.06 & -0.02 & 0.14 & 0.08 & -0.05 & 0.20 \\ 
+  26 & rater\_agemillenial:degree\_of\_harmModerate &  &  &  & 0.04 & -0.05 & 0.12 & 0.06 & -0.06 & 0.18 \\ 
+  27 & rater\_agemillenial:phasePhase2 & 0.58 & 0.36 & 0.79 & 0.57 & 0.35 & 0.78 & 0.59 & 0.36 & 0.82 \\ 
+  28 & rater\_agemillenial:phasePhase3 & 0.37 & 0.17 & 0.58 & 0.35 & 0.15 & 0.56 & 0.34 & 0.10 & 0.59 \\ 
+  29 & rater\_agemillenial:rater\_educationHighschoolorbelow & 1.05 & 0.17 & 1.94 & 1.04 & 0.13 & 1.94 & 0.85 & -0.01 & 1.73 \\ 
+  30 & rater\_agemillenial:rater\_educationOther & -0.01 & -1.24 & 1.28 & -0.09 & -1.43 & 1.24 & -0.06 & -1.38 & 1.25 \\ 
+  31 & rater\_agemillenial:rater\_ethinicityAsian & 0.89 & 0.35 & 1.43 & 0.92 & 0.40 & 1.44 & 0.99 & 0.46 & 1.51 \\ 
+  32 & rater\_agemillenial:rater\_ethinicityBlack & 1.18 & 0.29 & 2.09 & 1.17 & 0.26 & 2.09 & 1.15 & 0.26 & 2.03 \\ 
+  33 & rater\_agemillenial:rater\_ethinicityIndianSubcontinent & 0.44 & -0.18 & 1.04 & 0.44 & -0.18 & 1.06 & 0.49 & -0.09 & 1.09 \\ 
+  34 & degree\_of\_harmModerate &  &  &  & 0.56 & 0.47 & 0.64 & 0.52 & 0.41 & 0.63 \\ 
+  35 & rater\_agemillenial:rater\_ethinicityIndigenous & 0.47 & -0.97 & 1.93 & 0.48 & -1.00 & 1.92 & 0.64 & -0.76 & 2.05 \\ 
+  36 & rater\_agemillenial:rater\_ethinicityLatinxe & 0.78 & -0.08 & 1.63 & 0.76 & -0.11 & 1.62 & 0.57 & -0.28 & 1.43 \\ 
+  37 & rater\_agemillenial:rater\_ethinicityMultiracial & 0.69 & -0.73 & 2.06 & 0.68 & -0.74 & 2.09 & 0.67 & -0.71 & 2.08 \\ 
+  38 & rater\_agemillenial:rater\_ethinicityOther & -0.04 & -0.70 & 0.62 & -0.03 & -0.66 & 0.63 & -0.02 & -0.66 & 0.62 \\ 
+  39 & rater\_agemillenial:rater\_genderNonbinary & -0.09 & -4.18 & 3.98 & -0.12 & -4.21 & 3.90 & -0.05 & -3.97 & 4.01 \\ 
+  40 & rater\_agemillenial:rater\_genderSelfMdescribebelow & -0.07 & -8.00 & 7.67 & -0.04 & -8.30 & 7.62 & 0.03 & -8.32 & 8.32 \\ 
+  41 & rater\_agemillenial:rater\_genderWoman & -0.64 & -1.16 & -0.14 & -0.64 & -1.12 & -0.15 & -0.51 & -1.00 & -0.03 \\ 
+  42 & rater\_educationHighschoolorbelow & -0.68 & -1.43 & 0.06 & -0.67 & -1.43 & 0.11 & -0.64 & -1.39 & 0.11 \\ 
+  43 & rater\_educationOther & -0.42 & -1.53 & 0.65 & -0.41 & -1.52 & 0.70 & -0.42 & -1.50 & 0.65 \\ 
+  44 & rater\_ethinicityAsian & -0.96 & -1.47 & -0.48 & -0.99 & -1.49 & -0.49 & -0.94 & -1.45 & -0.45 \\ 
+  45 & Intercept[1] & 0.65 & 0.25 & 1.03 & 0.81 & 0.41 & 1.19 & 0.73 & 0.34 & 1.11 \\ 
+  46 & rater\_ethinicityBlack & -0.42 & -1.15 & 0.28 & -0.39 & -1.14 & 0.37 & -0.32 & -1.04 & 0.39 \\ 
+  47 & rater\_ethinicityIndianSubcontinent & 0.75 & 0.25 & 1.22 & 0.80 & 0.30 & 1.29 & 0.73 & 0.25 & 1.21 \\ 
+  48 & rater\_ethinicityIndigenous & 0.54 & -0.76 & 1.85 & 0.56 & -0.72 & 1.87 & 0.38 & -0.90 & 1.63 \\ 
+  49 & rater\_ethinicityLatinxe & -0.33 & -1.06 & 0.39 & -0.31 & -1.02 & 0.43 & -0.23 & -0.96 & 0.51 \\ 
+  50 & rater\_ethinicityMultiracial & -0.06 & -0.99 & 0.87 & -0.03 & -0.97 & 0.90 & 0.13 & -0.83 & 1.02 \\ 
+  51 & rater\_ethinicityOther & 0.87 & 0.31 & 1.43 & 0.88 & 0.31 & 1.44 & 0.79 & 0.24 & 1.35 \\ 
+  52 & rater\_genderNonbinary & -0.08 & -4.14 & 4.03 & -0.07 & -4.07 & 4.04 & -0.12 & -4.20 & 3.92 \\ 
+  53 & rater\_genderSelfMdescribebelow & -0.31 & -4.27 & 3.54 & -0.34 & -4.41 & 3.51 & -0.36 & -4.36 & 3.65 \\ 
+  54 & rater\_genderWoman & 0.68 & 0.26 & 1.09 & 0.66 & 0.21 & 1.10 & 0.58 & 0.16 & 0.99 \\ 
+  55 & Intercept[2] & 0.88 & 0.48 & 1.26 & 1.04 & 0.65 & 1.43 & 0.97 & 0.58 & 1.35 \\ 
+  56 & phasePhase2 & -0.35 & -0.48 & -0.21 & -0.33 & -0.47 & -0.19 & -0.32 & -0.46 & -0.18 \\ 
+  57 & phasePhase3 & 0.31 & 0.16 & 0.46 & -0.17 & -0.32 & -0.01 & -0.19 & -0.37 & -0.00 \\ 
+  58 & rater\_agegenz & 0.10 & -0.93 & 1.14 & 0.13 & -0.90 & 1.18 & 0.10 & -0.88 & 1.11 \\ 
+  59 & sd(Intercept)\_item\_id & 0.69 & 0.66 & 0.73 & 0.65 & 0.62 & 0.69 & 0.66 & 0.62 & 0.69 \\ 
+  60 & cor(degree\_of\_harmBenign,degree\_of\_harmDebatable)\_rater\_id &  &  &  &  &  &  & 0.39 & -0.15 & 0.79 \\ 
+  61 & cor(degree\_of\_harmBenign,degree\_of\_harmExtreme)\_rater\_id &  &  &  &  &  &  & 0.18 & -0.33 & 0.64 \\ 
+  62 & cor(degree\_of\_harmBenign,degree\_of\_harmModerate)\_rater\_id &  &  &  &  &  &  & 0.37 & -0.18 & 0.76 \\ 
+  63 & cor(degree\_of\_harmDebatable,degree\_of\_harmExtreme)\_rater\_id &  &  &  &  &  &  & 0.83 & 0.67 & 0.94 \\ 
+  64 & cor(degree\_of\_harmDebatable,degree\_of\_harmModerate)\_rater\_id &  &  &  &  &  &  & 0.91 & 0.78 & 0.98 \\ 
+  65 & cor(degree\_of\_harmExtreme,degree\_of\_harmModerate)\_rater\_id &  &  &  &  &  &  & 0.90 & 0.81 & 0.97 \\ 
+  66 & cor(Intercept,degree\_of\_harmBenign)\_rater\_id &  &  &  &  &  &  & -0.22 & -0.69 & 0.33 \\ 
+  67 & cor(Intercept,degree\_of\_harmDebatable)\_rater\_id &  &  &  &  &  &  & -0.31 & -0.55 & -0.05 \\ 
+  68 & cor(Intercept,degree\_of\_harmExtreme)\_rater\_id &  &  &  &  &  &  & -0.03 & -0.24 & 0.19 \\ 
+  69 & cor(Intercept,degree\_of\_harmModerate)\_rater\_id &  &  &  &  &  &  & -0.12 & -0.36 & 0.12 \\ 
+  70 & sd(degree\_of\_harmBenign)\_rater\_id &  &  &  &  &  &  & 0.08 & 0.01 & 0.15 \\ 
+  71 & sd(degree\_of\_harmDebatable)\_rater\_id &  &  &  &  &  &  & 0.22 & 0.17 & 0.28 \\ 
+  72 & sd(degree\_of\_harmExtreme)\_rater\_id &  &  &  &  &  &  & 0.28 & 0.23 & 0.33 \\ 
+  73 & sd(degree\_of\_harmModerate)\_rater\_id &  &  &  &  &  &  & 0.24 & 0.19 & 0.29 \\ 
+  74 & sd(Intercept)\_rater\_id & 0.94 & 0.86 & 1.04 & 0.95 & 0.87 & 1.05 & 0.95 & 0.87 & 1.05 \\ 
+   \hline
+\end{tabular}
+\end{table}
