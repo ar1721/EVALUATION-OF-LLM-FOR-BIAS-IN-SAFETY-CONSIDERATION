@@ -111,7 +111,8 @@ dices<-dices %>% mutate(
 dices$Q_overall <- factor(dices$Q_overall, levels = c("No", "Unsure", "Yes"), ordered = TRUE)
 ###################Models###########################
 # Gender
-formula8<- Q_overall ~ rater_gender * (rater_ethinicity +phase+ rater_age+rater_education+phase) + (1 | rater_id) + (1 | item_id)
+formula8<- Q_overall ~ rater_gender * (rater_ethinicity +phase+ rater_age+
+               rater_education+phase) + (1 | rater_id) + (1 | item_id)
 
 formula9<-Q_overall ~ rater_gender * (rater_ethinicity +phase+ rater_age + degree_of_harm+rater_education+phase) + (1 | rater_id) + (1 | item_id)
 

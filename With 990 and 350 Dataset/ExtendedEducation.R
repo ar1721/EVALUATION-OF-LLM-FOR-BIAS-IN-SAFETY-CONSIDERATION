@@ -282,7 +282,7 @@ names(randomrater)<-c("Row.names.x","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI
 random<-rbind(fixed,randomitem)
 randomfixed=rbind(random,randomrater)
 
-print(xtable(randomfixed,type="latex"),file="EstimateEducation.txt")
+print(include.rownames=FALSE,xtable(randomfixed,type="latex"),file="EstimateEducation.txt")
 #########################################POSTERIOR SAMPLES#####################################
 # Define the parameter of interest (e.g., rater_age)
 parameter_dfAD<-data_frame(Parameter=NA,Median=NA,CI=NA,Direction=NA,Significance=NA,Large=NA)

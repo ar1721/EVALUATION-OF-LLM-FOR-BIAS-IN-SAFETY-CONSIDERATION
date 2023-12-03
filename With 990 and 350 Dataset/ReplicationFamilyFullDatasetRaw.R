@@ -126,7 +126,7 @@ formula3 <- Q_overall ~ rater_ethinicity + rater_gender + rater_age+rater_educat
 
 formula4 <- Q_overall ~ rater_ethinicity * (rater_gender + rater_age+phase+ rater_education) + (1 | rater_id) + (1 | item_id)
 
-formula5 <- Q_overall ~ rater_ethinicity * (rater_gender + rater_age+phase+ rater_education + degree_of_harm) + (1 | rater_id) + (1 | item_id)
+formula5 <- Q_overall ~ rater_ethinicity * (rater_gender + rater_age+phase+rater_education + degree_of_harm) + (1 | rater_id) + (1 | item_id)
 
 formula6 <- Q_overall ~ rater_ethinicity * (rater_gender + rater_age+phase+ rater_education + degree_of_harm) + (degree_of_harm | rater_id) + (1 | item_id)
 

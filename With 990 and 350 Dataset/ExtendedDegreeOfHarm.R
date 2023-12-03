@@ -228,7 +228,7 @@ randomrater<-temp5
 random<-rbind(fixed,randomitem)
 randomfixed=rbind(random,randomrater)
 
-print(xtable(randomfixed,type="latex"),file="EstimateDegreeofHarm.txt")
+print(include.rownames=FALSE,xtable(randomfixed,type="latex"),file="EstimateDegreeofHarm.txt")
 #########################################POSTERIOR SAMPLES#####################################
 
 

@@ -481,7 +481,7 @@ random<-rbind(fixed,randomitem)
 randomfixed=rbind(random,randomrater)
 
 
-print(xtable(randomfixed,type="latex"),file="EstimateRace.txt",include.rownames=FALSE)
+print(include.rownames=FALSE,xtable(randomfixed,type="latex"),file="EstimateRace.txt",include.rownames=FALSE)
 
 
 
@@ -592,7 +592,7 @@ names(randomrater)<-c("Row.names.x","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI
 random<-rbind(fixed,randomitem)
 randomfixed=rbind(random,randomrater)
 
-print(xtable(randomfixed,type="latex"),file="EstimateGender.txt")
+print(include.rownames=FALSE,xtable(randomfixed,type="latex"),file="EstimateGender.txt")
 
 
 
@@ -705,7 +705,7 @@ names(randomrater)<-c("Row.names.x","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI
 random<-rbind(fixed,randomitem)
 randomfixed=rbind(random,randomrater)
 
-print(xtable(randomfixed,type="latex"),file="EstimateEducation.txt")
+print(include.rownames=FALSE,xtable(randomfixed,type="latex"),file="EstimateEducation.txt")
 
 
 summary_Modelraw.Intersectional.AD <- summary(ModelQUnfairBias.Intersectional.AD.Age)
@@ -815,7 +815,7 @@ names(randomrater)<-c("Row.names.x","AD","AD LCI","AD UCI","QS","QS LCI","QS UCI
 random<-rbind(fixed,randomitem)
 randomfixed=rbind(random,randomrater)
 
-print(xtable(randomfixed,type="latex"),file="EstimateAge.txt")
+print(include.rownames=FALSE,xtable(randomfixed,type="latex"),file="EstimateAge.txt")
 
 
 
@@ -886,7 +886,7 @@ randomrater<-temp5
 random<-rbind(fixed,randomitem)
 randomfixed=rbind(random,randomrater)
 
-print(xtable(randomfixed,type="latex"),file="EstimateDegreeofHarm.txt")
+print(include.rownames=FALSE,xtable(randomfixed,type="latex"),file="EstimateDegreeofHarm.txt")
 ################################################################
 # Posterior Sample
 ################################################################
