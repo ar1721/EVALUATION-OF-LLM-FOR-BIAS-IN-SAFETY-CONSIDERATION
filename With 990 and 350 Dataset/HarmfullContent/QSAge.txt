@@ -1,69 +1,69 @@
 % latex table generated in R 4.3.1 by xtable 1.8-4 package
-% Tue Nov 28 21:00:55 2023
+% Tue Dec  5 00:45:36 2023
 \begin{table}[ht]
 \centering
 \begin{tabular}{rllllll}
   \hline
  & Parameter & Median & CI & Direction & Significance & Large \\ 
   \hline
-1 & b\_Intercept[1] & 1.10705 & 0.74486 & 1.47631 & 1 & 1 \\ 
-  2 & b\_Intercept[2] & 1.3038 & 0.94075 & 1.67149 & 1 & 1 \\ 
-  3 & b\_rater\_agegenz & 0.06836 & -0.85242 & 0.97277 & 0.55642 & 0.51508 \\ 
-  4 & b\_rater\_agemillenial & -1.29679 & -1.64503 & -0.97214 & 0 & 0 \\ 
-  5 & b\_rater\_ethinicityAsian & -0.72184 & -1.18626 & -0.25363 & 0.00108 & 0.00058 \\ 
-  6 & b\_rater\_ethinicityBlack & -0.53273 & -1.16421 & 0.14431 & 0.05708 & 0.04283 \\ 
-  7 & b\_rater\_ethinicityIndianSubcontinent & 0.16043 & -0.27888 & 0.61469 & 0.75642 & 0.68183 \\ 
-  8 & b\_rater\_ethinicityIndigenous & 0.31831 & -0.88186 & 1.55366 & 0.70008 & 0.67275 \\ 
-  9 & b\_rater\_ethinicityLatinxe & -0.5115 & -1.1867 & 0.1437 & 0.06467 & 0.04683 \\ 
-  10 & b\_rater\_ethinicityMultiracial & -0.14656 & -0.96631 & 0.69156 & 0.373 & 0.33258 \\ 
-  11 & b\_rater\_ethinicityOther & 0.32288 & -0.21207 & 0.86687 & 0.88383 & 0.8405 \\ 
-  12 & b\_phasePhase2 & -0.21504 & -0.37839 & -0.04664 & 0.00575 & 0.00025 \\ 
-  13 & b\_phasePhase3 & -0.08721 & -0.27272 & 0.09787 & 0.18308 & 0.07475 \\ 
-  14 & b\_rater\_genderNonbinary & -0.05963 & -4.14806 & 4.04965 & 0.48625 & 0.4745 \\ 
-  15 & b\_rater\_genderSelfMdescribebelow & -0.04164 & -3.86987 & 4.06068 & 0.49192 & 0.48008 \\ 
-  16 & b\_rater\_genderWoman & 0.1655 & -0.21607 & 0.5673 & 0.793 & 0.71708 \\ 
-  17 & b\_degree\_of\_harmBenign & -0.10724 & -0.20699 & -0.01057 & 0.01558 & 0.00042 \\ 
-  18 & b\_degree\_of\_harmDebatable & 0.52766 & 0.41987 & 0.63406 & 1 & 1 \\ 
-  19 & b\_degree\_of\_harmExtreme & 0.62837 & 0.53904 & 0.71629 & 1 & 1 \\ 
-  20 & b\_degree\_of\_harmModerate & 0.47533 & 0.37962 & 0.56887 & 1 & 1 \\ 
-  21 & b\_rater\_educationHighschoolorbelow & -0.0554 & -0.74419 & 0.62029 & 0.43933 & 0.38333 \\ 
-  22 & b\_rater\_educationOther & -0.20957 & -1.20838 & 0.80851 & 0.33433 & 0.29967 \\ 
-  23 & b\_rater\_agegenz:rater\_ethinicityAsian & 1.07932 & 0.09418 & 2.03502 & 0.98308 & 0.97983 \\ 
-  24 & b\_rater\_agemillenial:rater\_ethinicityAsian & 0.95215 & 0.44472 & 1.46406 & 0.99992 & 0.99983 \\ 
-  25 & b\_rater\_agegenz:rater\_ethinicityBlack & 0.75134 & -0.10277 & 1.55986 & 0.95892 & 0.94667 \\ 
-  26 & b\_rater\_agemillenial:rater\_ethinicityBlack & 1.26544 & 0.44726 & 2.1014 & 0.9985 & 0.99808 \\ 
-  27 & b\_rater\_agegenz:rater\_ethinicityIndianSubcontinent & -0.80843 & -1.81492 & 0.24229 & 0.0595 & 0.04983 \\ 
-  28 & b\_rater\_agemillenial:rater\_ethinicityIndianSubcontinent & 0.88473 & 0.2859 & 1.4755 & 0.99833 & 0.99775 \\ 
-  29 & b\_rater\_agegenz:rater\_ethinicityIndigenous & 0.43894 & -1.58393 & 2.43956 & 0.67283 & 0.6535 \\ 
-  30 & b\_rater\_agemillenial:rater\_ethinicityIndigenous & 0.57519 & -0.77329 & 1.90867 & 0.79958 & 0.77783 \\ 
-  31 & b\_rater\_agegenz:rater\_ethinicityLatinxe & 0.84551 & -0.01907 & 1.7559 & 0.97192 & 0.96342 \\ 
-  32 & b\_rater\_agemillenial:rater\_ethinicityLatinxe & 0.89027 & 0.11401 & 1.67338 & 0.9885 & 0.98375 \\ 
-  33 & b\_rater\_agegenz:rater\_ethinicityMultiracial & 0.79422 & -0.39565 & 1.97021 & 0.90533 & 0.89075 \\ 
-  34 & b\_rater\_agemillenial:rater\_ethinicityMultiracial & 0.50905 & -0.74964 & 1.76763 & 0.78292 & 0.76033 \\ 
-  35 & b\_rater\_agegenz:rater\_ethinicityOther & 1.2119 & 0.20737 & 2.27047 & 0.991 & 0.98767 \\ 
-  36 & b\_rater\_agemillenial:rater\_ethinicityOther & 0.23654 & -0.38844 & 0.85675 & 0.76792 & 0.71725 \\ 
-  37 & b\_rater\_agegenz:phasePhase2 & -0.98336 & -1.92507 & -0.04868 & 0.01975 & 0.01467 \\ 
-  38 & b\_rater\_agemillenial:phasePhase2 & 0.63126 & 0.37393 & 0.88691 & 1 & 1 \\ 
-  39 & b\_rater\_agegenz:phasePhase3 & -0.45964 & -1.30278 & 0.34923 & 0.13592 & 0.10967 \\ 
-  40 & b\_rater\_agemillenial:phasePhase3 & 0.4255 & 0.18394 & 0.67561 & 0.99992 & 0.99883 \\ 
-  41 & b\_rater\_agegenz:rater\_genderNonbinary & -0.0237 & -7.70278 & 7.64909 & 0.49692 & 0.488 \\ 
-  42 & b\_rater\_agemillenial:rater\_genderNonbinary & -0.06649 & -4.1717 & 4.14794 & 0.487 & 0.47592 \\ 
-  43 & b\_rater\_agegenz:rater\_genderSelfMdescribebelow & -0.03188 & -4.07727 & 3.84098 & 0.49358 & 0.48042 \\ 
-  44 & b\_rater\_agemillenial:rater\_genderSelfMdescribebelow & -0.02972 & -8.1407 & 9.705 & 0.49625 & 0.4885 \\ 
-  45 & b\_rater\_agegenz:rater\_genderWoman & -0.14889 & -0.6869 & 0.38393 & 0.29133 & 0.229 \\ 
-  46 & b\_rater\_agemillenial:rater\_genderWoman & -0.09203 & -0.54095 & 0.36376 & 0.34783 & 0.27367 \\ 
-  47 & b\_rater\_agegenz:degree\_of\_harmBenign & 0.0972 & -0.0102 & 0.20589 & 0.96233 & 0.80858 \\ 
-  48 & b\_rater\_agemillenial:degree\_of\_harmBenign & 0.08878 & -0.00426 & 0.18707 & 0.9695 & 0.78883 \\ 
-  49 & b\_rater\_agegenz:degree\_of\_harmDebatable & -0.04857 & -0.16781 & 0.07096 & 0.21467 & 0.0555 \\ 
-  50 & b\_rater\_agemillenial:degree\_of\_harmDebatable & -0.00821 & -0.1091 & 0.09642 & 0.43667 & 0.13667 \\ 
-  51 & b\_rater\_agegenz:degree\_of\_harmExtreme & 0.02225 & -0.07619 & 0.12056 & 0.67242 & 0.29108 \\ 
-  52 & b\_rater\_agemillenial:degree\_of\_harmExtreme & 0.07965 & -0.00543 & 0.16693 & 0.96808 & 0.752 \\ 
-  53 & b\_rater\_agegenz:degree\_of\_harmModerate & -0.02418 & -0.12775 & 0.07902 & 0.32475 & 0.08042 \\ 
-  54 & b\_rater\_agemillenial:degree\_of\_harmModerate & 0.05996 & -0.02905 & 0.15281 & 0.90342 & 0.57942 \\ 
-  55 & b\_rater\_agegenz:rater\_educationHighschoolorbelow & -0.10436 & -0.9014 & 0.68489 & 0.39533 & 0.35067 \\ 
-  56 & b\_rater\_agemillenial:rater\_educationHighschoolorbelow & 0.26893 & -0.54489 & 1.07031 & 0.74308 & 0.70175 \\ 
-  57 & b\_rater\_agegenz:rater\_educationOther & -0.10722 & -1.48388 & 1.2505 & 0.43558 & 0.40967 \\ 
-  58 & b\_rater\_agemillenial:rater\_educationOther & -0.81856 & -2.06295 & 0.39455 & 0.094 & 0.08175 \\ 
+1 & b\_Intercept[1] & 1.10705 & [ 0.74486 1.47631 ] & 1 & 1 & 1 \\ 
+  2 & b\_Intercept[2] & 1.3038 & [ 0.94075 1.67149 ] & 1 & 1 & 1 \\ 
+  3 & b\_rater\_agegenz & 0.06836 & [ -0.85242 0.97277 ] & 0.55642 & 0.51508 & 0.31525 \\ 
+  4 & b\_rater\_agemillenial & -1.29679 & [ -1.64503 -0.97214 ] & 0 & 0 & 0 \\ 
+  5 & b\_rater\_ethinicityAsian & -0.72184 & [ -1.18626 -0.25363 ] & 0.00108 & 0.00058 & 0 \\ 
+  6 & b\_rater\_ethinicityBlack & -0.53273 & [ -1.16421 0.14431 ] & 0.05708 & 0.04283 & 0.00792 \\ 
+  7 & b\_rater\_ethinicityIndianSubcontinent & 0.16043 & [ -0.27888 0.61469 ] & 0.75642 & 0.68183 & 0.27517 \\ 
+  8 & b\_rater\_ethinicityIndigenous & 0.31831 & [ -0.88186 1.55366 ] & 0.70008 & 0.67275 & 0.51417 \\ 
+  9 & b\_rater\_ethinicityLatinxe & -0.5115 & [ -1.1867 0.1437 ] & 0.06467 & 0.04683 & 0.00725 \\ 
+  10 & b\_rater\_ethinicityMultiracial & -0.14656 & [ -0.96631 0.69156 ] & 0.373 & 0.33258 & 0.15358 \\ 
+  11 & b\_rater\_ethinicityOther & 0.32288 & [ -0.21207 0.86687 ] & 0.88383 & 0.8405 & 0.53308 \\ 
+  12 & b\_phasePhase2 & -0.21504 & [ -0.37839 -0.04664 ] & 0.00575 & 0.00025 & 0 \\ 
+  13 & b\_phasePhase3 & -0.08721 & [ -0.27272 0.09787 ] & 0.18308 & 0.07475 & 0 \\ 
+  14 & b\_rater\_genderNonbinary & -0.05963 & [ -4.14806 4.04965 ] & 0.48625 & 0.4745 & 0.41925 \\ 
+  15 & b\_rater\_genderSelfMdescribebelow & -0.04164 & [ -3.86987 4.06068 ] & 0.49192 & 0.48008 & 0.42392 \\ 
+  16 & b\_rater\_genderWoman & 0.1655 & [ -0.21607 0.5673 ] & 0.793 & 0.71708 & 0.24083 \\ 
+  17 & b\_degree\_of\_harmBenign & -0.10724 & [ -0.20699 -0.01057 ] & 0.01558 & 0.00042 & 0 \\ 
+  18 & b\_degree\_of\_harmDebatable & 0.52766 & [ 0.41987 0.63406 ] & 1 & 1 & 0.99983 \\ 
+  19 & b\_degree\_of\_harmExtreme & 0.62837 & [ 0.53904 0.71629 ] & 1 & 1 & 1 \\ 
+  20 & b\_degree\_of\_harmModerate & 0.47533 & [ 0.37962 0.56887 ] & 1 & 1 & 1 \\ 
+  21 & b\_rater\_educationHighschoolorbelow & -0.0554 & [ -0.74419 0.62029 ] & 0.43933 & 0.38333 & 0.15275 \\ 
+  22 & b\_rater\_educationOther & -0.20957 & [ -1.20838 0.80851 ] & 0.33433 & 0.29967 & 0.15758 \\ 
+  23 & b\_rater\_agegenz:rater\_ethinicityAsian & 1.07932 & [ 0.09418 2.03502 ] & 0.98308 & 0.97983 & 0.94183 \\ 
+  24 & b\_rater\_agemillenial:rater\_ethinicityAsian & 0.95215 & [ 0.44472 1.46406 ] & 0.99992 & 0.99983 & 0.99417 \\ 
+  25 & b\_rater\_agegenz:rater\_ethinicityBlack & 0.75134 & [ -0.10277 1.55986 ] & 0.95892 & 0.94667 & 0.858 \\ 
+  26 & b\_rater\_agemillenial:rater\_ethinicityBlack & 1.26544 & [ 0.44726 2.1014 ] & 0.9985 & 0.99808 & 0.98958 \\ 
+  27 & b\_rater\_agegenz:rater\_ethinicityIndianSubcontinent & -0.80843 & [ -1.81492 0.24229 ] & 0.0595 & 0.04983 & 0.01958 \\ 
+  28 & b\_rater\_agemillenial:rater\_ethinicityIndianSubcontinent & 0.88473 & [ 0.2859 1.4755 ] & 0.99833 & 0.99775 & 0.97217 \\ 
+  29 & b\_rater\_agegenz:rater\_ethinicityIndigenous & 0.43894 & [ -1.58393 2.43956 ] & 0.67283 & 0.6535 & 0.55658 \\ 
+  30 & b\_rater\_agemillenial:rater\_ethinicityIndigenous & 0.57519 & [ -0.77329 1.90867 ] & 0.79958 & 0.77783 & 0.65633 \\ 
+  31 & b\_rater\_agegenz:rater\_ethinicityLatinxe & 0.84551 & [ -0.01907 1.7559 ] & 0.97192 & 0.96342 & 0.88792 \\ 
+  32 & b\_rater\_agemillenial:rater\_ethinicityLatinxe & 0.89027 & [ 0.11401 1.67338 ] & 0.9885 & 0.98375 & 0.93375 \\ 
+  33 & b\_rater\_agegenz:rater\_ethinicityMultiracial & 0.79422 & [ -0.39565 1.97021 ] & 0.90533 & 0.89075 & 0.79592 \\ 
+  34 & b\_rater\_agemillenial:rater\_ethinicityMultiracial & 0.50905 & [ -0.74964 1.76763 ] & 0.78292 & 0.76033 & 0.62392 \\ 
+  35 & b\_rater\_agegenz:rater\_ethinicityOther & 1.2119 & [ 0.20737 2.27047 ] & 0.991 & 0.98767 & 0.96125 \\ 
+  36 & b\_rater\_agemillenial:rater\_ethinicityOther & 0.23654 & [ -0.38844 0.85675 ] & 0.76792 & 0.71725 & 0.42292 \\ 
+  37 & b\_rater\_agegenz:phasePhase2 & -0.98336 & [ -1.92507 -0.04868 ] & 0.01975 & 0.01467 & 0.00325 \\ 
+  38 & b\_rater\_agemillenial:phasePhase2 & 0.63126 & [ 0.37393 0.88691 ] & 1 & 1 & 0.99433 \\ 
+  39 & b\_rater\_agegenz:phasePhase3 & -0.45964 & [ -1.30278 0.34923 ] & 0.13592 & 0.10967 & 0.03375 \\ 
+  40 & b\_rater\_agemillenial:phasePhase3 & 0.4255 & [ 0.18394 0.67561 ] & 0.99992 & 0.99883 & 0.83367 \\ 
+  41 & b\_rater\_agegenz:rater\_genderNonbinary & -0.0237 & [ -7.70278 7.64909 ] & 0.49692 & 0.488 & 0.45342 \\ 
+  42 & b\_rater\_agemillenial:rater\_genderNonbinary & -0.06649 & [ -4.1717 4.14794 ] & 0.487 & 0.47592 & 0.42308 \\ 
+  43 & b\_rater\_agegenz:rater\_genderSelfMdescribebelow & -0.03188 & [ -4.07727 3.84098 ] & 0.49358 & 0.48042 & 0.42525 \\ 
+  44 & b\_rater\_agemillenial:rater\_genderSelfMdescribebelow & -0.02972 & [ -8.1407 9.705 ] & 0.49625 & 0.4885 & 0.45742 \\ 
+  45 & b\_rater\_agegenz:rater\_genderWoman & -0.14889 & [ -0.6869 0.38393 ] & 0.29133 & 0.229 & 0.052 \\ 
+  46 & b\_rater\_agemillenial:rater\_genderWoman & -0.09203 & [ -0.54095 0.36376 ] & 0.34783 & 0.27367 & 0.04683 \\ 
+  47 & b\_rater\_agegenz:degree\_of\_harmBenign & 0.0972 & [ -0.0102 0.20589 ] & 0.96233 & 0.80858 & 0.00017 \\ 
+  48 & b\_rater\_agemillenial:degree\_of\_harmBenign & 0.08878 & [ -0.00426 0.18707 ] & 0.9695 & 0.78883 & 0 \\ 
+  49 & b\_rater\_agegenz:degree\_of\_harmDebatable & -0.04857 & [ -0.16781 0.07096 ] & 0.21467 & 0.0555 & 0 \\ 
+  50 & b\_rater\_agemillenial:degree\_of\_harmDebatable & -0.00821 & [ -0.1091 0.09642 ] & 0.43667 & 0.13667 & 0 \\ 
+  51 & b\_rater\_agegenz:degree\_of\_harmExtreme & 0.02225 & [ -0.07619 0.12056 ] & 0.67242 & 0.29108 & 0 \\ 
+  52 & b\_rater\_agemillenial:degree\_of\_harmExtreme & 0.07965 & [ -0.00543 0.16693 ] & 0.96808 & 0.752 & 0 \\ 
+  53 & b\_rater\_agegenz:degree\_of\_harmModerate & -0.02418 & [ -0.12775 0.07902 ] & 0.32475 & 0.08042 & 0 \\ 
+  54 & b\_rater\_agemillenial:degree\_of\_harmModerate & 0.05996 & [ -0.02905 0.15281 ] & 0.90342 & 0.57942 & 0 \\ 
+  55 & b\_rater\_agegenz:rater\_educationHighschoolorbelow & -0.10436 & [ -0.9014 0.68489 ] & 0.39533 & 0.35067 & 0.15525 \\ 
+  56 & b\_rater\_agemillenial:rater\_educationHighschoolorbelow & 0.26893 & [ -0.54489 1.07031 ] & 0.74308 & 0.70175 & 0.468 \\ 
+  57 & b\_rater\_agegenz:rater\_educationOther & -0.10722 & [ -1.48388 1.2505 ] & 0.43558 & 0.40967 & 0.27492 \\ 
+  58 & b\_rater\_agemillenial:rater\_educationOther & -0.81856 & [ -2.06295 0.39455 ] & 0.094 & 0.08175 & 0.03558 \\ 
    \hline
 \end{tabular}
 \end{table}

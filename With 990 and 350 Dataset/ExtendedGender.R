@@ -297,6 +297,8 @@ for (i in colPosterior){
   
   # Calculate the 95% Bayesian credible interval
   credible_interval <- round(quantile(parameter_samples[[i]], c(0.025, 0.975)),5)
+  appended_values <- paste("[",as.character(credible_interval[1]), as.character(credible_interval[2]),"]")
+  credible_interval<-appended_values
   
   # Calculate the probability of direction (96% chance of being positive)
   probability_direction <- round(mean(parameter_samples[[i]] > 0),5)
@@ -329,6 +331,8 @@ for (i in colPosterior){
   
   # Calculate the 95% Bayesian credible interval
   credible_interval <- round(quantile(parameter_samples[[i]], c(0.025, 0.975)),5)
+  appended_values <- paste("[",as.character(credible_interval[1]), as.character(credible_interval[2]),"]")
+  credible_interval<-appended_values
   
   # Calculate the probability of direction (96% chance of being positive)
   probability_direction <- round(mean(parameter_samples[[i]] > 0),5)
@@ -361,6 +365,8 @@ for (i in colPosterior){
   
   # Calculate the 95% Bayesian credible interval
   credible_interval <- round(quantile(parameter_samples[[i]], c(0.025, 0.975)),5)
+  appended_values <- paste("[",as.character(credible_interval[1]), as.character(credible_interval[2]),"]")
+  credible_interval<-appended_values
   
   # Calculate the probability of direction (96% chance of being positive)
   probability_direction <- round(mean(parameter_samples[[i]] > 0),5)
